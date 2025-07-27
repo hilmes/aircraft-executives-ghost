@@ -1,0 +1,41 @@
+# Logs
+logs/
+*.log
+
+# State files
+.projects-watcher-state.json
+
+# System files
+.DS_Store
+
+# Temporary files
+*.backup
+*.tmp
+
+# Private/sensitive files
+.env
+.ssh/
+.aws/
+.config/
+
+# Application data
+Library/
+Applications/
+Desktop/
+Documents/
+Downloads/
+Pictures/
+Movies/
+Music/
+
+# Development
+node_modules/
+.npm/
+.nvm/
+
+# Project directories (tracked separately)
+Projects/
+
+# Cache directories
+.cache/
+.analyzer-cache/

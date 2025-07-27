@@ -1,7 +1,7 @@
 # Unified Logging System
 
 # Default log file location
-LOG_FILE ?= logs/unified.log
+LOG_FILE ?= ~/logs/unified.log
 
 # Create logs directory
 logs:
@@ -89,5 +89,45 @@ help:
 	@echo "  make logs-since TIME=\"2024-01-01T00:00:00\" - Show logs since time"
 	@echo "  make install         - Install dependencies"
 	@echo "  make start-log-server - Start standalone log server"
+	@echo "  make deploy-all      - Deploy unified logging to all projects"
+	@echo "  make start-watcher   - Start projects watcher service"
+	@echo "  make stop-watcher    - Stop projects watcher service"
+	@echo "  make watcher-status  - Check watcher status"
+	@echo "  make create-project NAME=name - Create new project with logging"
+	@echo "  make upgrade-all     - Upgrade all projects with enhanced tracking"
 
-.PHONY: tail-logs tail-logs-pretty tail-errors tail-sql tail-http tail-browser clear-logs log-stats search-logs logs-since install start-log-server help logs
+# Deploy unified logging to all projects
+deploy-all:
+	@echo "Deploying unified logging to all projects..."
+	@bash ~/deploy-unified-logging-to-all.sh
+
+# Start projects watcher
+start-watcher:
+	@echo "Starting projects watcher..."
+	@launchctl load ~/Library/LaunchAgents/com.hilmes.projects-watcher.plist 2>/dev/null || echo "Watcher already running"
+	@echo "Watcher started. Check status with: make watcher-status"
+
+# Stop projects watcher
+stop-watcher:
+	@echo "Stopping projects watcher..."
+	@launchctl unload ~/Library/LaunchAgents/com.hilmes.projects-watcher.plist 2>/dev/null || echo "Watcher not running"
+
+# Check watcher status
+watcher-status:
+	@echo "Projects Watcher Status:"
+	@launchctl list | grep projects-watcher || echo "Watcher not running"
+	@echo ""
+	@echo "Recent watcher logs:"
+	@tail -5 ~/logs/projects-watcher.log 2>/dev/null || echo "No logs found"
+
+# Create new project with unified logging
+create-project:
+	@if [ -z "$(NAME)" ]; then echo "Usage: make create-project NAME=project-name"; exit 1; fi
+	@bash ~/create-project.sh $(NAME)
+
+# Upgrade all projects with enhanced tracking
+upgrade-all:
+	@echo "Upgrading all projects with enhanced startup tracking..."
+	@bash ~/upgrade-all-projects.sh
+
+.PHONY: tail-logs tail-logs-pretty tail-errors tail-sql tail-http tail-browser clear-logs log-stats search-logs logs-since install start-log-server help logs deploy-all start-watcher stop-watcher watcher-status create-project upgrade-all
