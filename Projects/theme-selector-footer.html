@@ -1,0 +1,329 @@
+<!-- Theme Selector Footer - Add this to all dashboards -->
+<style>
+    .theme-selector-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--footer-bg, rgba(0, 0, 0, 0.95));
+        border-top: 1px solid var(--footer-border, rgba(255, 255, 255, 0.1));
+        padding: 12px 24px;
+        z-index: 9999;
+        transition: transform 300ms ease;
+        transform: translateY(calc(100% - 44px));
+    }
+    
+    .theme-selector-footer:hover {
+        transform: translateY(0);
+    }
+    
+    .theme-selector-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        cursor: pointer;
+    }
+    
+    .theme-selector-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--footer-text, #ffffff);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .theme-selector-arrow {
+        width: 16px;
+        height: 16px;
+        color: var(--footer-text, #ffffff);
+        transition: transform 200ms ease;
+    }
+    
+    .theme-selector-footer:hover .theme-selector-arrow {
+        transform: rotate(180deg);
+    }
+    
+    .theme-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .theme-option {
+        background: var(--option-bg, rgba(255, 255, 255, 0.05));
+        border: 1px solid var(--option-border, rgba(255, 255, 255, 0.1));
+        border-radius: 4px;
+        padding: 12px;
+        cursor: pointer;
+        transition: all 200ms ease;
+        text-decoration: none;
+        color: var(--footer-text, #ffffff);
+        display: block;
+    }
+    
+    .theme-option:hover {
+        background: var(--option-hover-bg, rgba(255, 255, 255, 0.1));
+        border-color: var(--option-hover-border, rgba(255, 255, 255, 0.3));
+        transform: translateY(-2px);
+    }
+    
+    .theme-option.active {
+        background: var(--option-active-bg, rgba(59, 130, 246, 0.2));
+        border-color: var(--option-active-border, #3b82f6);
+    }
+    
+    .theme-option-name {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+    
+    .theme-option-desc {
+        font-size: 11px;
+        opacity: 0.7;
+        line-height: 1.4;
+    }
+    
+    .theme-features {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .theme-feature {
+        font-size: 10px;
+        padding: 2px 6px;
+        background: var(--feature-bg, rgba(255, 255, 255, 0.1));
+        border-radius: 3px;
+        opacity: 0.8;
+    }
+    
+    .theme-controls {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--footer-border, rgba(255, 255, 255, 0.1));
+    }
+    
+    .theme-control-btn {
+        padding: 6px 12px;
+        background: var(--control-bg, rgba(255, 255, 255, 0.1));
+        border: 1px solid var(--control-border, rgba(255, 255, 255, 0.2));
+        border-radius: 4px;
+        color: var(--footer-text, #ffffff);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 200ms ease;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .theme-control-btn:hover {
+        background: var(--control-hover-bg, rgba(255, 255, 255, 0.2));
+    }
+    
+    /* Light theme adjustments */
+    .light-theme .theme-selector-footer {
+        --footer-bg: rgba(255, 255, 255, 0.95);
+        --footer-border: rgba(0, 0, 0, 0.1);
+        --footer-text: #000000;
+        --option-bg: rgba(0, 0, 0, 0.05);
+        --option-border: rgba(0, 0, 0, 0.1);
+        --option-hover-bg: rgba(0, 0, 0, 0.1);
+        --option-hover-border: rgba(0, 0, 0, 0.3);
+        --option-active-bg: rgba(59, 130, 246, 0.1);
+        --option-active-border: #3b82f6;
+        --feature-bg: rgba(0, 0, 0, 0.1);
+        --control-bg: rgba(0, 0, 0, 0.05);
+        --control-border: rgba(0, 0, 0, 0.2);
+        --control-hover-bg: rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .theme-options {
+            grid-template-columns: 1fr;
+        }
+        
+        .theme-selector-footer {
+            padding: 8px 16px;
+        }
+    }
+</style>
+
+<div class="theme-selector-footer" id="themeSelectorFooter">
+    <div class="theme-selector-header" onclick="toggleFooter()">
+        <div class="theme-selector-title">
+            <span>Theme Selector</span>
+            <span style="opacity: 0.6; font-weight: 400; font-size: 11px;">• <span id="currentThemeName">Original</span></span>
+        </div>
+        <svg class="theme-selector-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </div>
+    
+    <div class="theme-options">
+        <a href="/?theme=original" class="theme-option" id="theme-original">
+            <div class="theme-option-name">🌀 Original Dashboard</div>
+            <div class="theme-option-desc">Dark theme with colorful accents and emoji indicators</div>
+            <div class="theme-features">
+                <span class="theme-feature">Dark Mode</span>
+                <span class="theme-feature">Colorful</span>
+                <span class="theme-feature">PM2 Ready</span>
+            </div>
+        </a>
+        
+        <a href="/?theme=excellence" class="theme-option" id="theme-excellence">
+            <div class="theme-option-name">Swiss Excellence</div>
+            <div class="theme-option-desc">Minimalist design with Swiss grid and Japanese aesthetics</div>
+            <div class="theme-features">
+                <span class="theme-feature">Light/Dark</span>
+                <span class="theme-feature">Swiss Grid</span>
+                <span class="theme-feature">Minimal</span>
+            </div>
+        </a>
+        
+        <a href="/?theme=executive" class="theme-option" id="theme-executive">
+            <div class="theme-option-name">Executive Operations</div>
+            <div class="theme-option-desc">Data-focused dashboard with advanced visualizations</div>
+            <div class="theme-features">
+                <span class="theme-feature">Light/Dark</span>
+                <span class="theme-feature">KPIs</span>
+                <span class="theme-feature">Charts</span>
+            </div>
+        </a>
+    </div>
+    
+    <div class="theme-controls">
+        <button class="theme-control-btn" onclick="toggleDarkMode()" id="darkModeToggle" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span id="darkModeText">Dark Mode</span>
+        </button>
+        
+        <button class="theme-control-btn" onclick="window.location.href='/'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            All Themes
+        </button>
+    </div>
+</div>
+
+<script>
+    // Detect current theme from URL
+    function getCurrentThemeFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('theme') || 'original';
+    }
+    
+    // Update active theme indicator
+    function updateThemeIndicator() {
+        const currentTheme = getCurrentThemeFromURL();
+        const themes = {
+            'original': 'Original Dashboard',
+            'excellence': 'Swiss Excellence',
+            'executive': 'Executive Operations'
+        };
+        
+        // Update current theme name
+        document.getElementById('currentThemeName').textContent = themes[currentTheme] || 'Unknown';
+        
+        // Update active state
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        const activeOption = document.getElementById(`theme-${currentTheme}`);
+        if (activeOption) {
+            activeOption.classList.add('active');
+        }
+        
+        // Show/hide dark mode toggle based on theme
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (currentTheme === 'excellence' || currentTheme === 'executive') {
+            darkModeToggle.style.display = 'flex';
+            updateDarkModeToggle();
+        } else {
+            darkModeToggle.style.display = 'none';
+        }
+    }
+    
+    // Toggle footer expansion
+    function toggleFooter() {
+        const footer = document.getElementById('themeSelectorFooter');
+        const isExpanded = footer.style.transform === 'translateY(0px)';
+        footer.style.transform = isExpanded ? '' : 'translateY(0)';
+    }
+    
+    // Toggle dark mode (for themes that support it)
+    function toggleDarkMode() {
+        if (typeof toggleTheme === 'function') {
+            toggleTheme();
+            updateDarkModeToggle();
+        }
+    }
+    
+    // Update dark mode button text
+    function updateDarkModeToggle() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+                      (!document.documentElement.getAttribute('data-theme') && 
+                       window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.getElementById('darkModeText').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    }
+    
+    // Apply light theme class if needed
+    function updateFooterTheme() {
+        const footer = document.getElementById('themeSelectorFooter');
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light' ||
+                       (document.body.style.background && 
+                        document.body.style.background.includes('255'));
+        
+        if (isLight) {
+            footer.classList.add('light-theme');
+        } else {
+            footer.classList.remove('light-theme');
+        }
+    }
+    
+    // Initialize
+    updateThemeIndicator();
+    updateFooterTheme();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(() => {
+        updateFooterTheme();
+        updateDarkModeToggle();
+    });
+    observer.observe(document.documentElement, { 
+        attributes: true, 
+        attributeFilter: ['data-theme'] 
+    });
+    
+    // Keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'T' && e.shiftKey) {
+            toggleFooter();
+        }
+    });
+</script>
