@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Projects Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #e5e7eb;
+            padding: 16px;
+            padding-bottom: 60px;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f3f4f6;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        h1::before {
+            content: '🌀';
+            font-size: 1.25rem;
+        }
+        
+        .category {
+            margin-bottom: 32px;
+        }
+        
+        .category-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #60a5fa;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .project-card {
+            background: rgb(3 7 18);
+            border: 1px solid rgb(30 41 59);
+            border-radius: 0.5rem;
+            padding: 16px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgb(59 130 246 / 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover {
+            border-color: rgb(30 58 138);
+            background: rgb(3 7 18 / 0.5);
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .project-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #f3f4f6;
+        }
+        
+        .project-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgb(71 85 105);
+            position: relative;
+        }
+        
+        .project-status.online {
+            background: rgb(34 197 94);
+        }
+        
+        .project-status.online::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: rgb(34 197 94 / 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .project-description {
+            color: rgb(156 163 175);
+            margin-bottom: 12px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgb(15 23 42);
+            color: rgb(148 163 184);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            transition: all 0.15s ease;
+            border: 1px solid rgb(30 41 59);
+        }
+        
+        .project-link:hover {
+            background: rgb(37 99 235);
+            color: #fff;
+            border-color: rgb(59 130 246);
+        }
+        
+        .port-badge {
+            background: rgb(15 23 42);
+            padding: 2px 6px;
+            border-radius: 0.25rem;
+            font-size: 0.625rem;
+            color: rgb(100 116 139);
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            border: 1px solid rgb(30 41 59);
+        }
+        
+        .controls {
+            margin-top: 32px;
+            padding: 16px;
+            background: rgb(3 7 18);
+            border-radius: 0.5rem;
+            border: 1px solid rgb(30 41 59);
+        }
+        
+        .controls h2 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #f3f4f6;
+        }
+        
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        
+        .control-btn {
+            padding: 6px 12px;
+            background: rgb(15 23 42);
+            color: rgb(148 163 184);
+            border: 1px solid rgb(30 41 59);
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgb(30 41 59);
+            border-color: rgb(59 130 246);
+            color: rgb(224 242 254);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        
+        .reserved {
+            opacity: 0.4;
+        }
+        
+        .project-card.reserved .project-name {
+            color: rgb(71 85 105);
+        }
+        
+        /* Wiki Styles */
+        .wiki-section {
+            background: rgb(3 7 18);
+            border: 1px solid rgb(30 41 59);
+            border-radius: 0.5rem;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        
+        .wiki-header {
+            background: rgb(15 23 42);
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid rgb(30 41 59);
+        }
+        
+        .wiki-header:hover {
+            background: rgb(30 41 59);
+        }
+        
+        .wiki-title {
+            color: #f3f4f6;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .wiki-toggle {
+            color: rgb(59 130 246);
+            font-size: 0.875rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .wiki-content {
+            padding: 16px;
+            display: none;
+        }
+        
+        .wiki-content.expanded {
+            display: block;
+        }
+        
+        .wiki-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        
+        .wiki-card {
+            background: rgb(1 2 3);
+            border: 1px solid rgb(30 41 59);
+            border-radius: 0.375rem;
+            padding: 12px;
+            transition: all 0.15s ease;
+        }
+        
+        .wiki-card:hover {
+            border-color: rgb(59 130 246);
+            background: rgb(15 23 42);
+        }
+        
+        .wiki-card h4 {
+            color: rgb(96 165 250);
+            margin-bottom: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .wiki-card p {
+            color: rgb(156 163 175);
+            font-size: 0.75rem;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .wiki-commands {
+            background: rgb(1 2 3);
+            border: 1px solid rgb(30 41 59);
+            border-radius: 0.25rem;
+            padding: 8px;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.625rem;
+        }
+        
+        .wiki-command {
+            color: rgb(59 130 246);
+            margin: 2px 0;
+            line-height: 1.4;
+        }
+        
+        .wiki-search {
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            background: rgb(1 2 3);
+            border: 1px solid rgb(30 41 59);
+            border-radius: 0.375rem;
+            color: #f3f4f6;
+            width: 100%;
+            font-size: 0.75rem;
+            transition: border-color 0.15s ease;
+        }
+        
+        .wiki-search:focus {
+            outline: none;
+            border-color: rgb(59 130 246);
+        }
+        
+        .wiki-search::placeholder {
+            color: rgb(71 85 105);
+        }
+        
+        .launch-btn {
+            position: relative;
+        }
+        
+        .launch-btn.launching::after {
+            content: '⚡';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            font-size: 0.6rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Complete Development Projects Dashboard</h1>
+        
+        <div style="background: rgb(15 23 42); border: 1px solid rgb(30 41 59); border-radius: 0.5rem; padding: 12px; margin-bottom: 24px; font-size: 0.75rem; color: rgb(156 163 175);">
+            <strong style="color: rgb(96 165 250);">💡 Pro Tip:</strong> Click any "💻 Dev" button to launch the server and open it in 3 seconds!
+            <br><em>Dashboard server running on port 2600. Right-click for server-only launch.</em>
+        </div>
+        
+        <!-- Project Wiki -->
+        <div class="wiki-section">
+            <div class="wiki-header" onclick="toggleWiki()">
+                <div class="wiki-title">
+                    📚 Project Wiki & Quick Reference
+                </div>
+                <div class="wiki-toggle">▼</div>
+            </div>
+            <div class="wiki-content" id="wikiContent">
+                <input type="text" class="wiki-search" placeholder="Search wiki entries..." id="wikiSearch" onkeyup="searchWiki()">
+                
+                <div class="wiki-grid" id="wikiGrid">
+                    <!-- Unified Logging -->
+                    <div class="wiki-card" data-tags="logging unified commands monitoring">
+                        <h4>🔍 Unified Logging System</h4>
+                        <p>Centralized logging across all projects with real-time monitoring and analysis.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">make tail-logs</div>
+                            <div class="wiki-command">make tail-errors</div>
+                            <div class="wiki-command">make search-logs SEARCH="pattern"</div>
+                            <div class="wiki-command">make deploy-all</div>
+                        </div>
+                    </div>
+                    
+                    <!-- PM2 Management -->
+                    <div class="wiki-card" data-tags="pm2 process management restart start stop">
+                        <h4>⚡ PM2 Process Management</h4>
+                        <p>Control all project processes and services through PM2.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">pm2 list</div>
+                            <div class="wiki-command">pm2 restart all</div>
+                            <div class="wiki-command">pm2 logs --lines 50</div>
+                            <div class="wiki-command">pm2 monit</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trading Projects -->
+                    <div class="wiki-card" data-tags="trading johnstreet algodash crypto bot">
+                        <h4>📈 Trading & Analytics</h4>
+                        <p>Cryptocurrency trading platforms and algorithmic bot systems.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">JohnStreet: localhost:3005</div>
+                            <div class="wiki-command">AlgoDash: localhost:3080</div>
+                            <div class="wiki-command">PM2: algodash, johnstreet</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Claude Tools -->
+                    <div class="wiki-card" data-tags="claude ai journal viewer brain allium">
+                        <h4>🤖 Claude AI Tools</h4>
+                        <p>Claude conversation analysis, journaling, and AI development tools.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">Journal Viewer: localhost:3026</div>
+                            <div class="wiki-command">DevBrain: localhost:3030</div>
+                            <div class="wiki-command">Allium 3D: localhost:3012</div>
+                            <div class="wiki-command">Daedalus Monitor: localhost:3045</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Development Commands -->
+                    <div class="wiki-card" data-tags="development git npm build test deploy">
+                        <h4>🛠️ Development Commands</h4>
+                        <p>Common development workflows and build processes.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">make create-project NAME=app</div>
+                            <div class="wiki-command">npm run dev</div>
+                            <div class="wiki-command">npm run build</div>
+                            <div class="wiki-command">git status && git diff</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Port Ranges -->
+                    <div class="wiki-card" data-tags="ports localhost network services">
+                        <h4>🌐 Port Allocation</h4>
+                        <p>Standardized port ranges for different project categories.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">3000-3004: Reserved AE</div>
+                            <div class="wiki-command">3005-3009: JohnStreet</div>
+                            <div class="wiki-command">3010-3014: Allium</div>
+                            <div class="wiki-command">3015-3019: Spectrol</div>
+                            <div class="wiki-command">3020+: Portfolio/Creative</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Visualization Projects -->
+                    <div class="wiki-card" data-tags="visualization 3d portfolio creative mta">
+                        <h4>🎨 Visualization & Creative</h4>
+                        <p>3D portfolios, data visualization, and creative presentation tools.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">Portfolio 3D: localhost:3020</div>
+                            <div class="wiki-command">MTA Viz: localhost:3035</div>
+                            <div class="wiki-command">Poketo: localhost:3065</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Smart Home -->
+                    <div class="wiki-card" data-tags="smarthome iot spectrol lights wiz">
+                        <h4>🏠 Smart Home & IoT</h4>
+                        <p>Home automation and IoT device control systems.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">Spectrol: localhost:3015</div>
+                            <div class="wiki-command">WiZ Bulb Control</div>
+                            <div class="wiki-command">PM2: spectrol</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Business Apps -->
+                    <div class="wiki-card" data-tags="business aviation aircraft executives kinectair">
+                        <h4>💼 Business Applications</h4>
+                        <p>Aviation industry platforms and business management tools.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">AE Next: localhost:3070</div>
+                            <div class="wiki-command">KinectAir: localhost:3060</div>
+                            <div class="wiki-command">PM2: ae-main</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Troubleshooting -->
+                    <div class="wiki-card" data-tags="troubleshooting debug errors logs restart">
+                        <h4>🔧 Troubleshooting</h4>
+                        <p>Common debugging commands and error resolution steps.</p>
+                        <div class="wiki-commands">
+                            <div class="wiki-command">make tail-errors</div>
+                            <div class="wiki-command">pm2 restart [app-name]</div>
+                            <div class="wiki-command">ps aux | grep node</div>
+                            <div class="wiki-command">lsof -i :3000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Core Trading & Analytics -->
+        <div class="category">
+            <h2 class="category-title">📊 Trading & Analytics</h2>
+            <div class="projects-grid">
+                <!-- JohnStreet -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">JohnStreet Trading</div>
+                        <div class="project-status online"></div>
+                    </div>
+                    <div class="project-description">Cryptocurrency algorithmic trading platform with real-time data</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3005" class="project-link launch-btn" target="_blank" 
+                           onclick="launchServerAndOpen('johnstreet', this, 'http://localhost:3005'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('johnstreet', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://johnstreet-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3005-3009</span>
+                    </div>
+                </div>
+                
+                <!-- AlgoDash Bot -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">AlgoDash Bot</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Trading bot dashboard and monitoring interface</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3080" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('algodash', this, 'http://localhost:3080'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('algodash', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://algodash.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3080-3084</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI & Claude Tools -->
+        <div class="category">
+            <h2 class="category-title">🤖 AI & Claude Tools</h2>
+            <div class="projects-grid">
+                <!-- Allium -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Allium</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">3D semantic visualization and conversation analysis</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3012" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('allium', this, 'http://localhost:3012'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('allium', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://client-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3010-3014</span>
+                    </div>
+                </div>
+                
+                <!-- Claude Journal Viewer -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Claude Journal Viewer</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Browse and analyze Claude conversation history</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3026" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('journal-viewer', this, 'http://localhost:3026'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('journal-viewer', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://journal-browser-next-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3025-3029</span>
+                    </div>
+                </div>
+                
+                <!-- Claude Journal Digest -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Claude Journal Digest</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Automated Claude conversation summaries and insights</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3075" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('journal-digest', this, 'http://localhost:3075'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('journal-digest', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://claude-journal-digest.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3075-3079</span>
+                    </div>
+                </div>
+                
+                <!-- Journal Browser Flask -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Journal Browser Flask</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Alternative journal browser with Flask backend</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3055" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('journal-flask', this, 'http://localhost:3055'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('journal-flask', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://journal-browser-flask.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3055-3059</span>
+                    </div>
+                </div>
+                
+                <!-- DevBrain -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">DevBrain</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Development knowledge management and AI assistant</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3030" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('devbrain', this, 'http://localhost:3030'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('devbrain', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://devbrain-hilmes-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3030-3034</span>
+                    </div>
+                </div>
+                
+                <!-- Daedalus Monitor -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Daedalus Monitor</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Real-time monitoring dashboard for Daedalus autopilot tasks</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3045" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('daedalus', this, 'http://localhost:3045'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('daedalus', this); return false;">
+                            💻 Dev
+                        </a>
+                        <span class="port-badge">3045-3049</span>
+                    </div>
+                </div>
+                
+                <!-- Hybrid Agent System -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Hybrid Agent System</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Advanced autonomous agent combining LangGraph HITL with Daedalus guardrails</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3011" class="project-link" target="_blank">
+                            🤖 Dashboard
+                        </a>
+                        <a href="http://localhost:3011/agent" class="project-link" target="_blank">
+                            🎮 Control
+                        </a>
+                        <span class="port-badge">3010-3014</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Visualization & Creative -->
+        <div class="category">
+            <h2 class="category-title">🎨 Visualization & Creative</h2>
+            <div class="projects-grid">
+                <!-- Portfolio 3D -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Portfolio 3D</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Interactive 3D portfolio showcase with Three.js</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3020" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('portfolio-3d', this, 'http://localhost:3020'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('portfolio-3d', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://portfolio-3d-hilmes-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3020-3024</span>
+                    </div>
+                </div>
+                
+                <!-- MTA Visualization -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">MTA Visualization</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">NYC subway data visualization and analytics</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3035/mta_stations.html" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('mta-viz', this, 'http://localhost:3035/mta_stations.html'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('mta-viz', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="http://localhost:3036" class="project-link" target="_blank">
+                            ⚛️ React
+                        </a>
+                        <span class="port-badge">3035-3039</span>
+                    </div>
+                </div>
+                
+                <!-- Poketo Present -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Poketo Present</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Creative presentation and portfolio site</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3065" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('poketo', this, 'http://localhost:3065'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('poketo', this); return false;">
+                            💻 Dev
+                        </a>
+                        <span class="port-badge">3065-3069</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Smart Home & IoT -->
+        <div class="category">
+            <h2 class="category-title">🏠 Smart Home & IoT</h2>
+            <div class="projects-grid">
+                <!-- Spectrol -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Spectrol</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Smart home lighting control for WiZ bulbs</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3015" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('spectrol', this, 'http://localhost:3015'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('spectrol', this); return false;">
+                            💻 Dev
+                        </a>
+                        <span class="port-badge">3015-3019</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Business Applications -->
+        <div class="category">
+            <h2 class="category-title">💼 Business Applications</h2>
+            <div class="projects-grid">
+                <!-- Reserved AE -->
+                <div class="project-card reserved">
+                    <div class="project-header">
+                        <div class="project-name">/ae Project</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Reserved for Aircraft Executives platform</div>
+                    <div class="project-links">
+                        <span class="port-badge">3000-3004</span>
+                    </div>
+                </div>
+                
+                <!-- Aircraft Executives Next -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Aircraft Executives Next</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Next.js version of Aircraft Executives platform</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3070" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('ae-next', this, 'http://localhost:3070'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('ae-next', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://ae-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3070-3074</span>
+                    </div>
+                </div>
+                
+                <!-- KinectAir Web -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">KinectAir Web</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Aviation business management platform</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3060" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('kinectair', this, 'http://localhost:3060'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('kinectair', this); return false;">
+                            💻 Dev
+                        </a>
+                        <span class="port-badge">3060-3064</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tools & Utilities -->
+        <div class="category">
+            <h2 class="category-title">🛠️ Tools & Utilities</h2>
+            <div class="projects-grid">
+                <!-- SketchUp NL Translator -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">SketchUp NL Translator</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Natural language to SketchUp commands translator</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3050" class="project-link" target="_blank">
+                            🏗️ Open App
+                        </a>
+                        <span class="port-badge">3050-3054</span>
+                    </div>
+                </div>
+                
+                <!-- Conversation Logger -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Conversation Logger</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Claude conversation logging service</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3105" class="project-link" target="_blank">
+                            📝 Open App
+                        </a>
+                        <span class="port-badge">3105-3109</span>
+                    </div>
+                </div>
+                
+                <!-- Browser Tools MCP -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Browser Tools MCP</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Model Context Protocol browser automation tools</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3100" class="project-link" target="_blank">
+                            🌐 Open App
+                        </a>
+                        <span class="port-badge">3100-3104</span>
+                    </div>
+                </div>
+                
+                <!-- Project Launcher -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Project Launcher</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Dashboard and project management tools</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3140" class="project-link" target="_blank">
+                            🚀 Dashboard
+                        </a>
+                        <span class="port-badge">3140-3144</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Infrastructure & Backend -->
+        <div class="category">
+            <h2 class="category-title">🔧 Infrastructure & Backend</h2>
+            <div class="projects-grid">
+                <!-- BRAIN Dashboard Server -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">BRAIN Dashboard Server</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Central monitoring and control dashboard</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3090" class="project-link" target="_blank">
+                            🧠 Dashboard
+                        </a>
+                        <span class="port-badge">3090-3094</span>
+                    </div>
+                </div>
+                
+                <!-- Ghost Local -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Ghost Local</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Local Ghost CMS instance</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3110" class="project-link" target="_blank">
+                            👻 Open CMS
+                        </a>
+                        <span class="port-badge">3110-3114</span>
+                    </div>
+                </div>
+                
+                <!-- Janus -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Janus</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Next.js authentication and gateway service</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3115" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('janus', this, 'http://localhost:3115'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('janus', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://janus-rho.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3115-3119</span>
+                    </div>
+                </div>
+                
+                <!-- Osmos -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Osmos</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Creative portfolio and content platform</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3130" class="project-link launch-btn" target="_blank"
+                           onclick="launchServerAndOpen('osmos', this, 'http://localhost:3130'); return false;"
+                           oncontextmenu="event.preventDefault(); launchServer('osmos', this); return false;">
+                            💻 Dev
+                        </a>
+                        <a href="https://osmos-hilmes-projects.vercel.app" class="project-link" target="_blank">
+                            🌐 Prod
+                        </a>
+                        <span class="port-badge">3130-3134</span>
+                    </div>
+                </div>
+                
+                <!-- TopStarCal -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">TopStarCal</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Calendar and scheduling application</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3135" class="project-link" target="_blank">
+                            📅 Open App
+                        </a>
+                        <span class="port-badge">3135-3139</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Python & Lambda Projects -->
+        <div class="category">
+            <h2 class="category-title">🐍 Python & Lambda Services</h2>
+            <div class="projects-grid">
+                <!-- Agents from Scratch -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Agents from Scratch</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">LangGraph autonomous agent development</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3095" class="project-link" target="_blank">
+                            🤖 Open App
+                        </a>
+                        <span class="port-badge">3095-3099</span>
+                    </div>
+                </div>
+                
+                <!-- My Kraken Bot -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">My Kraken Bot</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Kraken exchange trading bot interface</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3125" class="project-link" target="_blank">
+                            🐙 Open App
+                        </a>
+                        <span class="port-badge">3125-3129</span>
+                    </div>
+                </div>
+                
+                <!-- MTA2 Backend -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">MTA2 Backend</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Enhanced MTA data processing backend</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3085" class="project-link" target="_blank">
+                            🚊 API
+                        </a>
+                        <span class="port-badge">3085-3089</span>
+                    </div>
+                </div>
+                
+                <!-- Mailchimp Lambda -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Mailchimp Lambda</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">AWS Lambda function for Mailchimp integration</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3120" class="project-link" target="_blank">
+                            📧 Function
+                        </a>
+                        <span class="port-badge">3120-3124</span>
+                    </div>
+                </div>
+                
+                <!-- Mailchimp to Slack Engagement -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">Mailchimp to Slack</div>
+                        <div class="project-status"></div>
+                    </div>
+                    <div class="project-description">Mailchimp engagement notifications to Slack</div>
+                    <div class="project-links">
+                        <a href="http://localhost:3145" class="project-link" target="_blank">
+                            💬 Service
+                        </a>
+                        <span class="port-badge">3145-3149</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <h2>PM2 Controls</h2>
+            <div class="controls-grid">
+                <button class="control-btn" onclick="alert('Run: pm2 start ecosystem-complete.config.js')">
+                    Start All Projects
+                </button>
+                <button class="control-btn" onclick="alert('Run: pm2 start ecosystem-complete.config.js --only johnstreet-nextjs,brain-client,spectrol,portfolio-3d,claude-journal-client,mta-server')">
+                    Start Web Only
+                </button>
+                <button class="control-btn" onclick="alert('Run: pm2 stop all')">
+                    Stop All
+                </button>
+                <button class="control-btn" onclick="alert('Run: pm2 restart all')">
+                    Restart All
+                </button>
+                <button class="control-btn" onclick="alert('Run: pm2 status')">
+                    Check Status
+                </button>
+                <button class="control-btn" onclick="alert('Run: pm2 logs --lines 50')">
+                    View Logs
+                </button>
+                <button class="control-btn" onclick="alert('Run: pm2 monit')">
+                    Monitor
+                </button>
+                <button class="control-btn" onclick="window.location.reload()">
+                    Refresh Status
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check which services are actually running
+        async function checkServices() {
+            const services = [
+                { port: 3005, selector: 'JohnStreet Trading' },
+                { port: 3011, selector: 'Hybrid Agent System' },
+                { port: 3012, selector: 'Allium' },
+                { port: 3015, selector: 'Spectrol' },
+                { port: 3020, selector: 'Portfolio 3D' },
+                { port: 3026, selector: 'Claude Journal Viewer' },
+                { port: 3030, selector: 'DevBrain' },
+                { port: 3035, selector: 'MTA Visualization' },
+                { port: 3045, selector: 'Daedalus Monitor' },
+                { port: 3050, selector: 'SketchUp NL Translator' },
+                { port: 3055, selector: 'Journal Browser Flask' },
+                { port: 3060, selector: 'KinectAir Web' },
+                { port: 3065, selector: 'Poketo Present' },
+                { port: 3070, selector: 'Aircraft Executives Next' },
+                { port: 3075, selector: 'Claude Journal Digest' },
+                { port: 3080, selector: 'AlgoDash Bot' },
+                { port: 3085, selector: 'MTA2 Backend' },
+                { port: 3090, selector: 'BRAIN Dashboard Server' },
+                { port: 3095, selector: 'Agents from Scratch' },
+                { port: 3100, selector: 'Browser Tools MCP' },
+                { port: 3105, selector: 'Conversation Logger' },
+                { port: 3110, selector: 'Ghost Local' },
+                { port: 3115, selector: 'Janus' },
+                { port: 3120, selector: 'Mailchimp Lambda' },
+                { port: 3125, selector: 'My Kraken Bot' },
+                { port: 3130, selector: 'Osmos' },
+                { port: 3135, selector: 'TopStarCal' },
+                { port: 3140, selector: 'Project Launcher' },
+                { port: 3145, selector: 'Mailchimp to Slack' }
+            ];
+            
+            services.forEach(service => {
+                fetch(`http://localhost:${service.port}`, { mode: 'no-cors' })
+                    .then(() => {
+                        const card = Array.from(document.querySelectorAll('.project-name')).find(el => el.textContent === service.selector);
+                        if (card) {
+                            card.closest('.project-card').querySelector('.project-status').classList.add('online');
+                        }
+                    })
+                    .catch(() => {
+                        const card = Array.from(document.querySelectorAll('.project-name')).find(el => el.textContent === service.selector);
+                        if (card) {
+                            card.closest('.project-card').querySelector('.project-status').classList.remove('online');
+                        }
+                    });
+            });
+        }
+        
+        // Check services on load and every 10 seconds
+        checkServices();
+        setInterval(checkServices, 10000);
+        
+        // Wiki functionality
+        function toggleWiki() {
+            const content = document.getElementById('wikiContent');
+            const toggle = document.querySelector('.wiki-toggle');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                toggle.textContent = '▼';
+                toggle.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                toggle.textContent = '▲';
+                toggle.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        function searchWiki() {
+            const searchTerm = document.getElementById('wikiSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.wiki-card');
+            
+            cards.forEach(card => {
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const commands = card.querySelector('.wiki-commands').textContent.toLowerCase();
+                
+                const searchableText = `${tags} ${title} ${description} ${commands}`;
+                
+                if (searchTerm === '' || searchableText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Auto-expand wiki if there's a search parameter
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const wikiSearch = urlParams.get('wiki');
+            
+            if (wikiSearch) {
+                toggleWiki();
+                document.getElementById('wikiSearch').value = wikiSearch;
+                searchWiki();
+            }
+        });
+        
+        // Server launch functionality
+        const projectCommands = {
+            'johnstreet': { dir: '/Users/hilmes/Projects/johnstreet', cmd: 'npm run dev' },
+            'algodash': { dir: '/Users/hilmes/Projects/algodash', cmd: 'npm run dev' },
+            'allium': { dir: '/Users/hilmes/Projects/client', cmd: 'npm run dev' },
+            'journal-viewer': { dir: '/Users/hilmes/Projects/claude-journal-client', cmd: 'npm run dev' },
+            'devbrain': { dir: '/Users/hilmes/Projects/devbrain', cmd: 'npm run dev' },
+            'portfolio-3d': { dir: '/Users/hilmes/Projects/portfolio-3d', cmd: 'npm run dev' },
+            'mta-viz': { dir: '/Users/hilmes/Projects/mta-server', cmd: 'npm start' },
+            'spectrol': { dir: '/Users/hilmes/Projects/spectrol', cmd: 'npm run dev' },
+            'ae-next': { dir: '/Users/hilmes/Projects/ae', cmd: 'npm run dev' },
+            'kinectair': { dir: '/Users/hilmes/Projects/kinectair-web', cmd: 'npm run dev' },
+            'poketo': { dir: '/Users/hilmes/Projects/poketo-present', cmd: 'npm run dev' },
+            'daedalus': { dir: '/Users/hilmes/Projects/daedalus-monitor', cmd: 'npm run dev' },
+            'journal-digest': { dir: '/Users/hilmes/Projects/claude-journal-digest', cmd: 'npm run dev' },
+            'journal-flask': { dir: '/Users/hilmes/Projects/journal-browser-flask', cmd: 'python app.py' },
+            'osmos': { dir: '/Users/hilmes/Projects/osmos', cmd: 'npm run dev' },
+            'janus': { dir: '/Users/hilmes/Projects/janus', cmd: 'npm run dev' }
+        };
+        
+        async function launchServerAndOpen(projectKey, button, originalUrl) {
+            const project = projectCommands[projectKey];
+            if (!project) {
+                alert(`No launch configuration found for ${projectKey}`);
+                return;
+            }
+            
+            // Prevent the default link behavior
+            event.preventDefault();
+            
+            button.classList.add('launching');
+            
+            try {
+                // Use a local API endpoint to launch the server
+                const response = await fetch('/api/launch-server', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(project)
+                });
+                
+                if (response.ok) {
+                    // Wait 3 seconds for server to start, then open the URL
+                    setTimeout(() => {
+                        button.classList.remove('launching');
+                        window.open(originalUrl, '_blank');
+                    }, 3000);
+                } else {
+                    throw new Error('Launch failed');
+                }
+            } catch (error) {
+                button.classList.remove('launching');
+                // Fallback: show PM2 command and still try to open URL
+                const pm2Name = projectKey.replace('-', '');
+                alert(`Launch may have failed. Trying to open URL anyway.\n\nTo launch manually, run:\npm2 start ecosystem-complete.config.js --only ${pm2Name}\n\nOr navigate to ${project.dir} and run:\n${project.cmd}`);
+                setTimeout(() => {
+                    window.open(originalUrl, '_blank');
+                }, 1000);
+            }
+        }
+        
+        // Legacy function for right-click (keeping for compatibility)
+        async function launchServer(projectKey, button) {
+            const project = projectCommands[projectKey];
+            if (!project) {
+                alert(`No launch configuration found for ${projectKey}`);
+                return;
+            }
+            
+            button.classList.add('launching');
+            
+            try {
+                const response = await fetch('/api/launch-server', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(project)
+                });
+                
+                if (response.ok) {
+                    setTimeout(() => {
+                        button.classList.remove('launching');
+                    }, 2000);
+                } else {
+                    throw new Error('Launch failed');
+                }
+            } catch (error) {
+                button.classList.remove('launching');
+                const pm2Name = projectKey.replace('-', '');
+                alert(`To launch manually, run:\npm2 start ecosystem-complete.config.js --only ${pm2Name}\n\nOr navigate to ${project.dir} and run:\n${project.cmd}`);
+            }
+        }
+    </script>
+    
+    <!-- Theme Selector Footer -->
+    <div id="theme-selector-placeholder"></div>
+    <script>
+        // Load theme selector footer
+        fetch('/theme-selector-footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('theme-selector-placeholder').innerHTML = html;
+            })
+            .catch(err => console.error('Failed to load theme selector:', err));
+    </script>
+</body>
+</html>

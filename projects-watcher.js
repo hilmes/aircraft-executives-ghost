@@ -9,6 +9,7 @@ const { exec } = require('child_process');
 
 const PROJECTS_DIR = '/Users/hilmes/Projects';
 const LOGGING_MODULE_DIR = '/Users/hilmes/unified-logging-module';
+const DASHBOARD_SERVER_PATH = '/Users/hilmes/Projects/dashboard-server.js';
 const WATCH_INTERVAL = 5000; // Check every 5 seconds
 const STATE_FILE = path.join(process.env.HOME, '.projects-watcher-state.json');
 
@@ -148,6 +149,31 @@ module.exports = {
   }
 }
 
+// Start dashboard server
+function startDashboardServer() {
+  // Check if dashboard server is already running
+  exec('pgrep -f "dashboard-server.js"', (error, stdout) => {
+    if (stdout.trim()) {
+      console.log(`[${new Date().toISOString()}] Dashboard server already running (PID: ${stdout.trim()})`);
+      return;
+    }
+    
+    // Start the dashboard server
+    console.log(`[${new Date().toISOString()}] Starting dashboard server...`);
+    const child = exec(`node "${DASHBOARD_SERVER_PATH}"`, {
+      cwd: path.dirname(DASHBOARD_SERVER_PATH),
+      detached: true,
+      stdio: 'ignore'
+    });
+    
+    child.unref();
+    console.log(`[${new Date().toISOString()}] Dashboard server started (PID: ${child.pid})`);
+    
+    // Send notification
+    exec(`osascript -e 'display notification "Dashboard server started on port 2600" with title "Projects Watcher"'`);
+  });
+}
+
 // Check for new projects
 function checkForNewProjects() {
   try {
@@ -182,8 +208,21 @@ console.log('---');
 // Do initial check
 checkForNewProjects();
 
+// Start dashboard server
+startDashboardServer();
+
 // Set up periodic checking
 setInterval(checkForNewProjects, WATCH_INTERVAL);
+
+// Check dashboard server every 30 seconds
+setInterval(() => {
+  exec('pgrep -f "dashboard-server.js"', (error, stdout) => {
+    if (!stdout.trim()) {
+      console.log(`[${new Date().toISOString()}] Dashboard server not running, restarting...`);
+      startDashboardServer();
+    }
+  });
+}, 30000);
 
 // Handle graceful shutdown
 process.on('SIGINT', () => {
