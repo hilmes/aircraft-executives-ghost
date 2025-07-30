@@ -4,6 +4,7 @@
 - **Device**: D01 Pro (No manufacturer name)  
 - **Vendor ID**: 1452 (0x05ac) - Reports as Apple device
 - **Product ID**: 556 (0x022c)
+- **Charging**: USB-C charging case (USB-C to USB-C)
 - **Issue**: Reports Apple Vendor ID, causing compatibility issues with some tools
 
 ## Attempted Solutions
