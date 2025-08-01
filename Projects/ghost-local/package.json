@@ -1,0 +1,19 @@
+{
+  "name": "aircraft-executives-ghost",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ghost start",
+    "dev": "ghost start --development",
+    "build": "echo 'Ghost build complete'",
+    "vercel-build": "echo 'Vercel build complete'"
+  },
+  "dependencies": {
+    "ghost": "^5.130.2",
+    "ghost-cli": "^1.25.3",
+    "mysql2": "^3.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
