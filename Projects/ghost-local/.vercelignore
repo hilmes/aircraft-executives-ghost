@@ -1,0 +1,35 @@
+# Ghost CMS .vercelignore
+# Exclude development and build artifacts
+
+# Ghost development files
+versions/
+current
+.ghost-cli
+.ghostpid
+ghost_import.json
+scraped_site/
+
+# Logs and databases (use remote DB in production)
+content/logs/
+content/data/*.db
+
+# Node modules (will be installed by Vercel)
+node_modules/
+
+# Development files
+*.log
+*.pid
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Git files
+.git/
+
+# Documentation (optional - can include if wanted)
+# *.md

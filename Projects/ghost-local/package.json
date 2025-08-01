@@ -1,20 +1,25 @@
 {
   "name": "aircraft-executives-ghost",
+  "description": "Enhanced Ghost CMS for Aircraft Executives - luxury aviation brokerage platform",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "ghost start",
-    "dev": "ghost start --development",
-    "build": "echo 'Ghost build complete'",
-    "vercel-build": "echo 'Vercel build complete'"
+    "start": "node api/index.js",
+    "dev": "node api/index.js",
+    "build": "echo 'Ghost CMS - no build step required'",
+    "vercel-build": "echo 'Ghost CMS deployed successfully'"
   },
   "dependencies": {
     "ghost": "^5.130.2",
-    "ghost-cli": "^1.25.3",
     "mysql2": "^3.6.0",
     "sqlite3": "^5.1.6"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "keywords": ["ghost", "cms", "aviation", "aircraft", "luxury"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hilmes/aircraft-executives-ghost.git"
   }
 }
