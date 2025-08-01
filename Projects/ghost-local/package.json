@@ -11,7 +11,8 @@
   "dependencies": {
     "ghost": "^5.130.2",
     "ghost-cli": "^1.25.3",
-    "mysql2": "^3.6.0"
+    "mysql2": "^3.6.0",
+    "sqlite3": "^5.1.6"
   },
   "engines": {
     "node": ">=18.0.0"

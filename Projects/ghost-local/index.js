@@ -8,7 +8,12 @@ const config = {
         host: process.env.server__host || '0.0.0.0',
         port: process.env.PORT || process.env.server__port || 2368
     },
-    database: {
+    database: process.env.USE_SQLITE === 'true' ? {
+        client: 'sqlite3',
+        connection: {
+            filename: path.join(__dirname, 'content/data/ghost.db')
+        }
+    } : {
         client: 'mysql2',
         connection: {
             host: process.env.database__connection__host,
