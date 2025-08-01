@@ -17,11 +17,7 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "database__client": "mysql",
-    "database__connection__host": "@ghost_db_host",
-    "database__connection__user": "@ghost_db_user", 
-    "database__connection__password": "@ghost_db_password",
-    "database__connection__database": "@ghost_db_name",
+    "USE_SQLITE": "true",
     "url": "https://aircraftexecutives.vercel.app",
     "server__host": "0.0.0.0",
     "server__port": "2368"
