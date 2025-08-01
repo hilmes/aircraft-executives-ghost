@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "name": "aircraft-executives-ghost",
-  "builds": [
-    {
-      "src": "index.js", 
-      "use": "@vercel/node"
+  "functions": {
+    "index.js": {
+      "maxDuration": 30
     }
-  ],
+  },
   "routes": [
     {
       "src": "/ghost/(.*)",
@@ -27,10 +25,5 @@
     "url": "https://aircraftexecutives.vercel.app",
     "server__host": "0.0.0.0",
     "server__port": "2368"
-  },
-  "functions": {
-    "index.js": {
-      "maxDuration": 30
-    }
   }
 }
