@@ -1,25 +1,18 @@
 {
   "version": 2,
   "functions": {
-    "api/index.js": {
-      "maxDuration": 30
+    "api/ghost-static.js": {
+      "maxDuration": 10
     }
   },
   "routes": [
     {
       "src": "/ghost/(.*)",
-      "dest": "/api/index.js"
+      "dest": "/api/ghost-static.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/api/index.js"
+      "dest": "/api/ghost-static.js"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production",
-    "USE_SQLITE": "true",
-    "url": "https://aircraftexecutives.vercel.app",
-    "server__host": "0.0.0.0",
-    "server__port": "2368"
-  }
+  ]
 }
