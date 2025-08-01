@@ -1,0 +1,433 @@
+{{!< default}}
+
+{{#post}}
+
+{{!-- Aircraft Listing Schema Markup --}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "{{title}}",
+    "image": [
+        "{{img_url feature_image size="xl"}}"
+    ],
+    "description": "{{meta_description}}",
+    "brand": {
+        "@type": "Brand",
+        "name": "{{primary_tag.name}}"
+    },
+    "offers": {
+        "@type": "Offer",
+        "url": "{{url absolute="true"}}",
+        "priceCurrency": "USD",
+        "price": "{{#has tag="price-on-request"}}0{{else}}{{custom_excerpt}}{{/has}}",
+        "priceValidUntil": "{{date format="YYYY-MM-DD" add="30 days"}}",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+            "@type": "Organization",
+            "name": "{{@site.title}}"
+        }
+    },
+    "additionalProperty": [
+        {
+            "@type": "PropertyValue",
+            "name": "Year",
+            "value": "{{#foreach tags}}{{#has slug="year-"}}{{name}}{{/has}}{{/foreach}}"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "Total Time",
+            "value": "{{#foreach tags}}{{#has slug="hours-"}}{{name}}{{/has}}{{/foreach}}"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "Serial Number",
+            "value": "{{#foreach tags}}{{#has slug="sn-"}}{{name}}{{/has}}{{/foreach}}"
+        }
+    ]
+}
+</script>
+
+<article class="aircraft-detail {{post_class}}">
+    {{!-- Hero Section --}}
+    <section class="aircraft-hero">
+        {{#if feature_image}}
+            <div class="aircraft-hero-image">
+                <img src="{{img_url feature_image size="xl"}}" 
+                     srcset="{{img_url feature_image size="s"}} 300w,
+                             {{img_url feature_image size="m"}} 600w,
+                             {{img_url feature_image size="l"}} 1200w,
+                             {{img_url feature_image size="xl"}} 2000w"
+                     sizes="100vw"
+                     alt="{{title}} - Exterior View">
+            </div>
+        {{/if}}
+        
+        <div class="aircraft-hero-content">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/inventory/">Inventory</a></li>
+                        <li aria-current="page">{{title}}</li>
+                    </ol>
+                </nav>
+                
+                <div class="aircraft-header">
+                    <h1 class="aircraft-title">{{title}}</h1>
+                    <div class="aircraft-meta">
+                        {{#has tag="new-listing"}}
+                            <span class="badge badge-new">New Listing</span>
+                        {{/has}}
+                        {{#has tag="reduced"}}
+                            <span class="badge badge-reduced">Price Reduced</span>
+                        {{/has}}
+                        <span class="aircraft-id">ID: {{id}}</span>
+                    </div>
+                </div>
+                
+                <div class="aircraft-price-section">
+                    <div class="price-container">
+                        {{#has tag="price-on-request"}}
+                            <span class="price-label">Price on Request</span>
+                        {{else}}
+                            <span class="price-value">{{custom_excerpt}}</span>
+                        {{/has}}
+                    </div>
+                    <div class="price-actions">
+                        <button class="btn btn-primary btn-large" data-modal="inquiry">Request Information</button>
+                        <button class="btn btn-outline" data-action="save">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            Save
+                        </button>
+                        <button class="btn btn-outline" data-action="share">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="18" cy="5" r="3"/>
+                                <circle cx="6" cy="12" r="3"/>
+                                <circle cx="18" cy="19" r="3"/>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                            </svg>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {{!-- Key Specifications --}}
+    <section class="aircraft-specs">
+        <div class="container">
+            <h2 class="section-title">Key Specifications</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="spec-label">Aircraft Type</span>
+                    <span class="spec-value">{{primary_tag.name}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Year</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="year-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Total Time</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="hours-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Serial Number</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="sn-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Registration</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="reg-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Location</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="location-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Passengers</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="pax-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Range</span>
+                    <span class="spec-value">{{#foreach tags}}{{#has slug="range-"}}{{name}}{{/has}}{{/foreach}}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {{!-- Photo Gallery --}}
+    <section class="aircraft-gallery">
+        <div class="container">
+            <h2 class="section-title">Photo Gallery</h2>
+            <div class="gallery-grid">
+                {{!-- Main gallery would be populated via custom gallery field or multiple images --}}
+                <div class="gallery-item gallery-main">
+                    <img src="{{img_url feature_image size="xl"}}" alt="{{title}} - Main View" data-lightbox="aircraft">
+                </div>
+                {{!-- Additional images would go here --}}
+            </div>
+            <div class="gallery-actions">
+                <button class="btn btn-outline">View All Photos</button>
+                <button class="btn btn-outline">Download Spec Sheet</button>
+            </div>
+        </div>
+    </section>
+    
+    {{!-- Detailed Description --}}
+    <section class="aircraft-description">
+        <div class="container">
+            <div class="description-grid">
+                <div class="description-main">
+                    <h2 class="section-title">Aircraft Details</h2>
+                    <div class="content-body">
+                        {{content}}
+                    </div>
+                </div>
+                
+                <aside class="description-sidebar">
+                    {{!-- Quick Contact Card --}}
+                    <div class="contact-card">
+                        <h3>Interested in this aircraft?</h3>
+                        <p>Our team is ready to assist you</p>
+                        <a href="tel:+14044105638" class="btn btn-primary btn-block">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+                            </svg>
+                            Call (404) 410-5638
+                        </a>
+                        <button class="btn btn-outline btn-block" data-modal="inquiry">Send Inquiry</button>
+                        
+                        <div class="contact-info">
+                            <p><strong>Sales Team</strong></p>
+                            <p><a href="mailto:sales@aircraftexecutives.com">sales@aircraftexecutives.com</a></p>
+                        </div>
+                    </div>
+                    
+                    {{!-- Market Insights --}}
+                    <div class="market-insights">
+                        <h3>Market Insights</h3>
+                        <div class="insight-item">
+                            <span class="insight-label">Market Activity</span>
+                            <span class="insight-value high">High Demand</span>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-label">Days on Market</span>
+                            <span class="insight-value">{{#foreach tags}}{{#has slug="dom-"}}{{name}}{{/has}}{{/foreach}}</span>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-label">Similar Aircraft</span>
+                            <span class="insight-value">3 Available</span>
+                        </div>
+                        <a href="/market-analysis/{{primary_tag.slug}}/" class="market-link">View Market Analysis →</a>
+                    </div>
+                    
+                    {{!-- Share Tools --}}
+                    <div class="share-tools">
+                        <h3>Share This Aircraft</h3>
+                        <div class="share-buttons">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute="true"}}" 
+                               class="share-btn linkedin" 
+                               target="_blank" 
+                               rel="noopener">
+                                LinkedIn
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{url absolute="true"}}&text={{encode title}}" 
+                               class="share-btn twitter" 
+                               target="_blank" 
+                               rel="noopener">
+                                Twitter
+                            </a>
+                            <a href="mailto:?subject={{encode title}}&body=Check out this aircraft: {{url absolute="true"}}" 
+                               class="share-btn email">
+                                Email
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+    
+    {{!-- Similar Aircraft --}}
+    <section class="similar-aircraft">
+        <div class="container">
+            <h2 class="section-title">Similar Aircraft</h2>
+            <div class="aircraft-grid">
+                {{#get "posts" filter="primary_tag:{{primary_tag.slug}}+id:-{{id}}" limit="3" include="tags" as |similar|}}
+                    {{#foreach similar}}
+                        <article class="aircraft-card">
+                            {{#if feature_image}}
+                                <div class="aircraft-image">
+                                    <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+                                </div>
+                            {{/if}}
+                            <div class="aircraft-card-body">
+                                <h3 class="aircraft-title">
+                                    <a href="{{url}}">{{title}}</a>
+                                </h3>
+                                <div class="aircraft-price">{{custom_excerpt}}</div>
+                                <div class="aircraft-specs-mini">
+                                    <span>{{#foreach tags limit="3"}}{{name}}{{#unless @last}}, {{/unless}}{{/foreach}}</span>
+                                </div>
+                                <a href="{{url}}" class="btn btn-outline">View Details</a>
+                            </div>
+                        </article>
+                    {{/foreach}}
+                {{/get}}
+            </div>
+        </div>
+    </section>
+</article>
+
+{{!-- Inquiry Modal (specific to aircraft) --}}
+<div class="modal" id="aircraft-inquiry-modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h3 class="modal-title">Request Information - {{title}}</h3>
+        <form class="inquiry-form" data-aircraft="{{title}}" data-aircraft-id="{{id}}">
+            <input type="hidden" name="aircraft" value="{{title}}">
+            <input type="hidden" name="aircraft_id" value="{{id}}">
+            
+            <div class="form-group">
+                <label for="inquiry-type">I am interested in:</label>
+                <select id="inquiry-type" name="inquiry_type" required>
+                    <option value="">Select an option</option>
+                    <option value="purchase">Purchasing this aircraft</option>
+                    <option value="similar">Similar aircraft in this class</option>
+                    <option value="trade">Trade-in evaluation</option>
+                    <option value="financing">Financing options</option>
+                    <option value="inspection">Pre-purchase inspection</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="timeline">Timeline:</label>
+                <select id="timeline" name="timeline" required>
+                    <option value="">Select timeline</option>
+                    <option value="immediate">Immediate (0-30 days)</option>
+                    <option value="short">Short-term (1-3 months)</option>
+                    <option value="medium">Medium-term (3-6 months)</option>
+                    <option value="long">Long-term (6+ months)</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last_name" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Company (Optional)</label>
+                <input type="text" id="company" name="company">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Additional Information</label>
+                <textarea id="message" name="message" rows="4" placeholder="Please include any specific questions about this aircraft"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="newsletter" value="yes">
+                    Send me market updates and new inventory alerts
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Submit Inquiry</button>
+            
+            <p class="form-note">Your information is kept strictly confidential. We will respond within 24 hours.</p>
+        </form>
+    </div>
+</div>
+
+{{!-- Enhanced Scripts for Aircraft Page --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Track aircraft view
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'view_item', {
+            currency: 'USD',
+            value: '{{custom_excerpt}}',
+            items: [{
+                item_id: '{{id}}',
+                item_name: '{{title}}',
+                item_category: '{{primary_tag.name}}',
+                price: '{{custom_excerpt}}'
+            }]
+        });
+    }
+    
+    // Handle inquiry modal specific to this aircraft
+    const inquiryButtons = document.querySelectorAll('[data-modal="inquiry"]');
+    const modal = document.getElementById('aircraft-inquiry-modal');
+    
+    inquiryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // Save aircraft functionality
+    document.querySelector('[data-action="save"]').addEventListener('click', function() {
+        const saved = localStorage.getItem('savedAircraft') ? JSON.parse(localStorage.getItem('savedAircraft')) : [];
+        const aircraft = {
+            id: '{{id}}',
+            title: '{{title}}',
+            url: '{{url}}',
+            image: '{{img_url feature_image size="s"}}',
+            price: '{{custom_excerpt}}'
+        };
+        
+        if (!saved.find(a => a.id === aircraft.id)) {
+            saved.push(aircraft);
+            localStorage.setItem('savedAircraft', JSON.stringify(saved));
+            this.classList.add('is-saved');
+            this.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Saved';
+        }
+    });
+    
+    // Share functionality
+    document.querySelector('[data-action="share"]').addEventListener('click', async function() {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '{{title}}',
+                    text: 'Check out this aircraft for sale',
+                    url: '{{url absolute="true"}}'
+                });
+            } catch (err) {
+                console.log('Share cancelled');
+            }
+        } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard.writeText('{{url absolute="true"}}');
+            alert('Link copied to clipboard!');
+        }
+    });
+});
+</script>
+
+{{/post}}

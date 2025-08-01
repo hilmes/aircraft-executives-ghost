@@ -1,0 +1,381 @@
+{{!< default}}
+
+{{!-- Hero Section with Video Background --}}
+<section class="home-hero">
+    {{!-- Video Background --}}
+    <div class="hero-video-container">
+        <video id="hero-video" 
+               class="hero-video-bg" 
+               autoplay 
+               muted 
+               loop 
+               playsinline
+               poster="{{asset "images/hero-poster.jpg"}}">
+            <source src="{{asset "videos/luxury-aircraft-hero.mp4"}}" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+    </div>
+    
+    {{!-- Hero Content --}}
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-inner">
+                {{!-- Trust Indicators --}}
+                <div class="hero-trust-indicators">
+                    <div class="trust-badge">
+                        <img src="{{asset "images/IADA_ACCREDITED_H_4c.png"}}" alt="IADA Accredited" width="100" height="25">
+                    </div>
+                    <div class="trust-metrics">
+                        <span class="metric">$2.8B+ Transacted</span>
+                        <span class="separator">•</span>
+                        <span class="metric">500+ Aircraft Sold</span>
+                        <span class="separator">•</span>
+                        <span class="metric">98% Client Satisfaction</span>
+                    </div>
+                </div>
+                
+                <h1 class="hero-title">Elite Aircraft Brokerage for Discerning Owners</h1>
+                <p class="hero-subtitle">Exclusive access to off-market opportunities and white-glove transaction management</p>
+                
+                <div class="hero-actions">
+                    <a href="/inventory/" class="btn btn-primary btn-large">View Available Aircraft</a>
+                    <a href="/sell-your-aircraft/" class="btn btn-outline btn-large">Sell Your Aircraft</a>
+                </div>
+                
+                {{!-- Quick Search --}}
+                <div class="hero-quick-search">
+                    <p class="quick-search-label">Popular searches:</p>
+                    <div class="quick-search-tags">
+                        <a href="/inventory/?model=gulfstream-g650" class="search-tag">Gulfstream G650</a>
+                        <a href="/inventory/?model=bombardier-global-7500" class="search-tag">Global 7500</a>
+                        <a href="/inventory/?model=dassault-falcon-8x" class="search-tag">Falcon 8X</a>
+                        <a href="/inventory/?budget=under-10m" class="search-tag">Under $10M</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{!-- Scroll Indicator --}}
+    <div class="scroll-indicator">
+        <span class="scroll-text">Discover More</span>
+        <svg class="scroll-arrow" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/>
+        </svg>
+    </div>
+</section>
+
+{{!-- Featured Aircraft Section --}}
+<section class="featured-aircraft">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Featured Aircraft</h2>
+            <p class="section-subtitle">Handpicked opportunities representing exceptional value</p>
+        </div>
+        
+        <div class="aircraft-grid">
+            {{#get "posts" include="tags" filter="featured:true+tag:aircraft" limit="6" as |aircraft|}}
+                {{#foreach aircraft}}
+                    <article class="aircraft-card" data-aos="fade-up" data-aos-delay="{{@index}}00">
+                        <div class="aircraft-card-header">
+                            {{#if feature_image}}
+                                <div class="aircraft-image">
+                                    <img src="{{img_url feature_image size="m"}}" 
+                                         srcset="{{img_url feature_image size="s"}} 300w,
+                                                 {{img_url feature_image size="m"}} 600w,
+                                                 {{img_url feature_image size="l"}} 1200w"
+                                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                         alt="{{title}}"
+                                         loading="lazy">
+                                    <div class="aircraft-badge new">New Listing</div>
+                                    <button class="favorite-btn" aria-label="Save to favorites">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </div>
+                        
+                        <div class="aircraft-card-body">
+                            <h3 class="aircraft-title">
+                                <a href="{{url}}">{{title}}</a>
+                            </h3>
+                            
+                            {{!-- Extract custom fields from content --}}
+                            <div class="aircraft-price">{{custom_excerpt}}</div>
+                            
+                            <div class="aircraft-specs">
+                                <div class="spec">
+                                    <span class="spec-label">Year</span>
+                                    <span class="spec-value">2020</span>
+                                </div>
+                                <div class="spec">
+                                    <span class="spec-label">Total Time</span>
+                                    <span class="spec-value">847 hrs</span>
+                                </div>
+                                <div class="spec">
+                                    <span class="spec-label">Passengers</span>
+                                    <span class="spec-value">14</span>
+                                </div>
+                                <div class="spec">
+                                    <span class="spec-label">Range</span>
+                                    <span class="spec-value">7,500 nm</span>
+                                </div>
+                            </div>
+                            
+                            <div class="aircraft-actions">
+                                <a href="{{url}}" class="btn btn-primary">View Details</a>
+                                <button class="btn btn-outline" data-modal="inquiry" data-aircraft="{{title}}">Request Info</button>
+                            </div>
+                        </div>
+                    </article>
+                {{/foreach}}
+            {{else}}
+                {{!-- Fallback content if no featured aircraft --}}
+                <div class="no-aircraft-message">
+                    <p>New inventory coming soon. <a href="/contact/">Contact us</a> for off-market opportunities.</p>
+                </div>
+            {{/get}}
+        </div>
+        
+        <div class="section-cta">
+            <a href="/inventory/" class="btn btn-outline btn-large">View All Aircraft</a>
+        </div>
+    </div>
+</section>
+
+{{!-- Services Section --}}
+<section class="services-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive support throughout your aircraft transaction</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Aircraft Acquisition</h3>
+                <p class="service-description">Expert guidance from market analysis to closing, ensuring you find the perfect aircraft at the right price.</p>
+                <a href="/services/acquisition/" class="service-link">Learn More →</a>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Aircraft Sales</h3>
+                <p class="service-description">Maximum exposure through our global network, with professional marketing and qualified buyer screening.</p>
+                <a href="/services/sales/" class="service-link">Learn More →</a>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Market Analysis</h3>
+                <p class="service-description">Data-driven valuations and market insights to support informed decision-making.</p>
+                <a href="/services/market-analysis/" class="service-link">Learn More →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{!-- Testimonials Section --}}
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Client Success Stories</h2>
+            <p class="section-subtitle">Trusted by aircraft owners worldwide</p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card" data-aos="fade-up">
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <blockquote class="testimonial-text">
+                        "Aircraft Executives handled our G650 acquisition flawlessly. Their market knowledge and attention to detail saved us significant time and money."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <strong>Michael Chen</strong>
+                        <span>CEO, Tech Ventures</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <blockquote class="testimonial-text">
+                        "Sold our Citation X in record time at a price above our expectations. The team's professionalism and discretion were outstanding."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <strong>Sarah Williams</strong>
+                        <span>Private Family Office</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <blockquote class="testimonial-text">
+                        "As a first-time buyer, I appreciated their patience and expertise. They made a complex process simple and stress-free."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <strong>Robert Johnson</strong>
+                        <span>Entrepreneur</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{!-- CTA Section --}}
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Elevate Your Aircraft Experience?</h2>
+            <p class="cta-subtitle">Whether buying or selling, our team is here to ensure a seamless transaction</p>
+            <div class="cta-actions">
+                <a href="/contact/" class="btn btn-primary btn-large">Start a Conversation</a>
+                <a href="tel:+14044105638" class="btn btn-outline btn-large">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    Call (404) 410-5638
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{!-- Inquiry Modal --}}
+<div class="modal" id="inquiry-modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h3 class="modal-title">Request Information</h3>
+        <form class="inquiry-form" data-aircraft="">
+            <div class="form-group">
+                <label for="inquiry-type">I am interested in:</label>
+                <select id="inquiry-type" name="inquiry_type" required>
+                    <option value="">Select an option</option>
+                    <option value="purchase">Purchasing this aircraft</option>
+                    <option value="similar">Similar aircraft in this class</option>
+                    <option value="trade">Trade-in evaluation</option>
+                    <option value="financing">Financing options</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="timeline">Timeline:</label>
+                <select id="timeline" name="timeline" required>
+                    <option value="">Select timeline</option>
+                    <option value="immediate">Immediate (0-30 days)</option>
+                    <option value="short">Short-term (1-3 months)</option>
+                    <option value="medium">Medium-term (3-6 months)</option>
+                    <option value="long">Long-term (6+ months)</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last_name" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Additional Information</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Submit Inquiry</button>
+        </form>
+    </div>
+</div>
+
+{{!-- Enhanced Scripts --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Modal functionality
+    const modal = document.getElementById('inquiry-modal');
+    const modalButtons = document.querySelectorAll('[data-modal="inquiry"]');
+    const modalClose = document.querySelector('.modal-close');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    
+    modalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const aircraft = this.getAttribute('data-aircraft');
+            modal.querySelector('[data-aircraft]').setAttribute('data-aircraft', aircraft);
+            modal.querySelector('.modal-title').textContent = `Request Information - ${aircraft}`;
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    [modalClose, modalBackdrop].forEach(element => {
+        element.addEventListener('click', function() {
+            modal.setAttribute('aria-hidden', 'true');
+            modal.classList.remove('is-open');
+            document.body.style.overflow = '';
+        });
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Initialize AOS (Animate on Scroll)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    }
+});
+</script>

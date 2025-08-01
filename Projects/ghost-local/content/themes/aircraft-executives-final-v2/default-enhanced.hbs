@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>{{meta_title}}</title>
+    
+    {{!-- Favicon and App Icons --}}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset "images/favicon.png"}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset "images/favicon.png"}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset "images/favicon.png"}}">
+    
+    {{!-- Preconnect to External Resources --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    {{!-- Custom Fonts with Display Swap --}}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    {{!-- Critical CSS for Above-the-Fold --}}
+    <style>
+        /* Critical inline styles for performance */
+        .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+        .trust-banner{background:#f8f9fa;padding:8px 0;text-align:center;font-size:14px;color:#333}
+        .trust-banner-content{display:flex;align-items:center;justify-content:center;gap:20px}
+        .trust-indicator{display:flex;align-items:center;gap:8px}
+        .trust-indicator img{height:20px}
+    </style>
+    
+    {{!-- Main Stylesheet --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
+    
+    {{!-- Schema.org Structured Data for Organization --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{@site.title}}",
+        "url": "{{@site.url}}",
+        "logo": "{{@site.url}}{{asset "images/color_logo_transparent.png"}}",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-404-410-5638",
+            "contactType": "sales",
+            "areaServed": "US",
+            "availableLanguage": "English"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "3595 McCall Place",
+            "addressLocality": "Atlanta",
+            "addressRegion": "GA",
+            "postalCode": "30340",
+            "addressCountry": "US"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/company/aircraft-executives",
+            "https://www.instagram.com/aircraftexecutives"
+        ]
+    }
+    </script>
+    
+    {{!-- Ghost outputs SEO meta+structured data --}}
+    {{ghost_head}}
+    
+    {{!-- Google Tag Manager --}}
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+</head>
+<body class="{{body_class}}">
+    {{!-- Google Tag Manager (noscript) --}}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+    {{!-- Trust Banner --}}
+    <div class="trust-banner">
+        <div class="container">
+            <div class="trust-banner-content">
+                <div class="trust-indicator">
+                    <img src="{{asset "images/IADA_ACCREDITED_H_4c.png"}}" alt="IADA Accredited" width="80" height="20">
+                    <span>IADA Accredited Dealer</span>
+                </div>
+                <div class="trust-indicator">
+                    <span class="metric-highlight">$2.8B+</span>
+                    <span>in Aircraft Transactions</span>
+                </div>
+                <div class="trust-indicator">
+                    <span class="metric-highlight">98%</span>
+                    <span>Client Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{!-- Header --}}
+    <header class="site-header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <div class="site-title">
+                    <a href="{{@site.url}}" aria-label="{{@site.title}} - Home">
+                        {{#if @site.logo}}
+                            <img src="{{@site.logo}}" alt="{{@site.title}}" class="site-logo" width="200" height="50">
+                        {{else}}
+                            <img src="{{asset "images/color_logo_transparent.png"}}" alt="{{@site.title}}" class="site-logo" width="200" height="50">
+                        {{/if}}
+                    </a>
+                </div>
+                <nav class="site-nav" role="navigation" aria-label="Main navigation">
+                    {{navigation}}
+                    <div class="nav-cta">
+                        <a href="/contact/" class="btn btn-primary">Get Aircraft Valuation</a>
+                    </div>
+                </nav>
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    {{!-- Main Content --}}
+    <main class="site-main" role="main">
+        {{{body}}}
+    </main>
+
+    {{!-- Footer --}}
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <img src="{{asset "images/IADA_ACCREDITED_H_4c.png"}}" alt="IADA Accredited" class="footer-certification" width="120" height="30">
+                    <p class="footer-description">Elite aircraft brokerage specializing in luxury jets and turboprops. Confidential, professional transactions with global reach.</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/company/aircraft-executives" aria-label="LinkedIn" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/aircraftexecutives" aria-label="Instagram" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.44-.645 1.44-1.44-.644-1.44-1.44-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section footer-contact">
+                    <h3>Contact Information</h3>
+                    <address>
+                        <p><a href="tel:+14044105638" class="footer-link">📞 (404) 410-5638</a></p>
+                        <p><a href="mailto:sales@aircraftexecutives.com" class="footer-link">✉️ sales@aircraftexecutives.com</a></p>
+                        <p>📍 3595 McCall Place<br>Atlanta, GA 30340</p>
+                    </address>
+                </div>
+                
+                <div class="footer-section footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-nav">
+                        <li><a href="/inventory/">Aircraft Inventory</a></li>
+                        <li><a href="/sell-your-aircraft/">Sell Your Aircraft</a></li>
+                        <li><a href="/market-reports/">Market Reports</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/press/">Press Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section footer-newsletter">
+                    <h3>Market Intelligence</h3>
+                    <p>Get exclusive market insights and off-market opportunities.</p>
+                    <form class="newsletter-form" data-members-form="subscribe">
+                        <input type="email" 
+                               name="email" 
+                               placeholder="Your email address" 
+                               required 
+                               aria-label="Email address for newsletter">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; {{date format="YYYY"}} {{@site.title}}. All rights reserved. | 
+                   <a href="/privacy/">Privacy Policy</a> | 
+                   <a href="/terms/">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    {{!-- Performance Optimized Scripts --}}
+    <script>
+        // Lazy load images
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        } else {
+            // Fallback for browsers that don't support lazy loading
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+            document.body.appendChild(script);
+        }
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            const nav = document.querySelector('.site-nav');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            nav.classList.toggle('is-open');
+        });
+    </script>
+    
+    {{!-- Custom Scripts --}}
+    <script src="{{asset "js/video-hero.js"}}" defer></script>
+    
+    {{!-- Ghost outputs important scripts --}}
+    {{ghost_foot}}
+</body>
+</html>
