@@ -1,24 +1,29 @@
-# Ghost CMS .vercelignore
-# Exclude development and build artifacts
+# Aircraft Executives Static Site .vercelignore
+# Exclude all Ghost CMS files to prevent build conflicts
 
-# Ghost development files
+# Ghost CMS files (causes npm install issues)
 versions/
 current
 .ghost-cli
 .ghostpid
 ghost_import.json
 scraped_site/
+config.development.json
 
-# Logs and databases (use remote DB in production)
-content/logs/
-content/data/*.db
+# Content (not needed for static deployment)
+content/
+
+# Logs and databases
+*.log
+*.pid
+*.db
 
 # Node modules (will be installed by Vercel)
 node_modules/
 
 # Development files
-*.log
-*.pid
+.env*
+*.local
 
 # OS files
 .DS_Store
@@ -31,5 +36,4 @@ Thumbs.db
 # Git files
 .git/
 
-# Documentation (optional - can include if wanted)
-# *.md
+# Keep only essential files: api/, package.json, vercel.json, README.md

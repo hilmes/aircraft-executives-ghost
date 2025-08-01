@@ -1,6 +1,5 @@
-// Alternative: Static Ghost content serving
-const { readFileSync, existsSync } = require('fs');
-const { join } = require('path');
+// Aircraft Executives - Enhanced Static Site
+// Serves optimized content while Ghost CMS backend is configured
 
 // Serve static Ghost content and admin interface
 module.exports = async (req, res) => {
