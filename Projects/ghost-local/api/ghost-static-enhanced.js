@@ -19,46 +19,102 @@ function wrapInLayout(content, title, includeChat = true) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* Hara Method Design System */
+        /* Hara Method Design System - Mobile First */
         :root {
-            /* Ma (Emptiness) - Systematic spacing based on 8px grid */
-            --space-unit: 8px;
-            --space-xs: calc(var(--space-unit) * 1);   /* 8px */
-            --space-sm: calc(var(--space-unit) * 2);   /* 16px */
-            --space-md: calc(var(--space-unit) * 3);   /* 24px */
-            --space-lg: calc(var(--space-unit) * 4);   /* 32px */
-            --space-xl: calc(var(--space-unit) * 6);   /* 48px */
-            --space-2xl: calc(var(--space-unit) * 8);  /* 64px */
-            --space-3xl: calc(var(--space-unit) * 12); /* 96px */
-            --space-4xl: calc(var(--space-unit) * 16); /* 128px */
+            /* Touch-friendly minimums */
+            --touch-min: 2.75rem; /* 44px minimum touch target */
+            --thumb-zone: 4.5rem; /* 72px comfortable thumb reach */
             
-            /* Material Honesty - Minimal color palette */
+            /* Ma (Emptiness) - Mobile-first spacing grid */
+            --space-unit: 4px; /* Smaller base for mobile */
+            --space-xs: calc(var(--space-unit) * 2);   /* 8px */
+            --space-sm: calc(var(--space-unit) * 3);   /* 12px */
+            --space-md: calc(var(--space-unit) * 4);   /* 16px */
+            --space-lg: calc(var(--space-unit) * 6);   /* 24px */
+            --space-xl: calc(var(--space-unit) * 8);   /* 32px */
+            --space-2xl: calc(var(--space-unit) * 12); /* 48px */
+            --space-3xl: calc(var(--space-unit) * 16); /* 64px */
+            --space-4xl: calc(var(--space-unit) * 24); /* 96px */
+            
+            /* Material Honesty - Surface & Interaction */
             --color-ink: #000000;
             --color-paper: #FFFFFF;
-            --color-stone: #F5F5F5;
-            --color-ash: #E5E5E5;
-            --color-graphite: #666666;
-            --color-smoke: #999999;
+            --color-stone: #F8F9FA;
+            --color-ash: #E9ECEF;
+            --color-graphite: #495057;
+            --color-smoke: #6C757D;
+            --color-accent: #007AFF; /* iOS blue for familiar interactions */
             
-            /* Typography - Pure and functional */
-            --type-scale: 1.25;
-            --type-xs: 0.8rem;
-            --type-sm: 0.875rem;
-            --type-base: 1rem;
-            --type-lg: 1.25rem;
-            --type-xl: 1.563rem;
-            --type-2xl: 1.953rem;
-            --type-3xl: 2.441rem;
-            --type-4xl: 3.052rem;
+            /* Glass Material (for mobile overlays) */
+            --glass-blur: blur(20px);
+            --glass-opacity: 0.85;
+            --glass-border: rgba(255, 255, 255, 0.2);
             
-            /* Transitions - Subtle and smooth */
-            --transition-base: 300ms ease;
-            --transition-slow: 500ms ease;
+            /* Metal Material (for buttons) */
+            --metal-gradient: linear-gradient(145deg, #f0f0f0, #d4d4d4);
+            --metal-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --metal-shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.1);
             
-            /* Layout - Maximum content width */
-            --container-max: 1280px;
-            --content-max: 960px;
-            --text-max: 720px;
+            /* Typography - Mobile-optimized scale */
+            --type-xs: 0.75rem;   /* 12px */
+            --type-sm: 0.875rem;  /* 14px */
+            --type-base: 1rem;    /* 16px */
+            --type-lg: 1.125rem;  /* 18px */
+            --type-xl: 1.25rem;   /* 20px */
+            --type-2xl: 1.5rem;   /* 24px */
+            --type-3xl: 1.875rem; /* 30px */
+            --type-4xl: 2.25rem;  /* 36px */
+            
+            /* Line heights optimized for mobile reading */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            
+            /* Touch-friendly transitions */
+            --transition-touch: 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            
+            /* Layout - Mobile-first containers */
+            --container-max: 100%;
+            --content-max: 100%;
+            --text-max: 100%;
+            --container-padding: var(--space-md);
+            
+            /* Safe areas for modern mobile devices */
+            --safe-top: env(safe-area-inset-top, 0);
+            --safe-bottom: env(safe-area-inset-bottom, 0);
+            --safe-left: env(safe-area-inset-left, 0);
+            --safe-right: env(safe-area-inset-right, 0);
+        }
+        
+        /* Progressive enhancement for larger screens */
+        @media (min-width: 768px) {
+            :root {
+                --space-unit: 8px; /* Increase base unit for larger screens */
+                --container-max: 768px;
+                --content-max: 680px;
+                --text-max: 600px;
+                --container-padding: var(--space-lg);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            :root {
+                --container-max: 1024px;
+                --content-max: 864px;
+                --text-max: 720px;
+                --container-padding: var(--space-xl);
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            :root {
+                --container-max: 1280px;
+                --content-max: 960px;
+                --text-max: 720px;
+            }
         }
 
         /* Reset with material honesty */
@@ -72,15 +128,26 @@ function wrapInLayout(content, title, includeChat = true) {
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            /* Prevent zoom on input focus on iOS */
+            -webkit-text-size-adjust: 100%;
+            /* Optimize font rendering for mobile */
+            text-rendering: optimizeLegibility;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 300;
-            line-height: 1.7;
+            line-height: var(--leading-relaxed);
             color: var(--color-ink);
             background: var(--color-paper);
             letter-spacing: 0.01em;
+            /* Prevent horizontal scroll on mobile */
+            overflow-x: hidden;
+            /* Add safe area support */
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
+            /* Optimize scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Typography with Japanese restraint */
@@ -112,37 +179,47 @@ function wrapInLayout(content, title, includeChat = true) {
             opacity: 0.7;
         }
 
-        /* Container with Ma (emptiness) */
+        /* Container with Ma (emptiness) - Mobile first */
         .container {
             max-width: var(--container-max);
             margin: 0 auto;
-            padding: 0 var(--space-lg);
+            padding: 0 var(--container-padding);
+            /* Add safe area support for modern mobile devices */
+            padding-left: max(var(--container-padding), var(--safe-left));
+            padding-right: max(var(--container-padding), var(--safe-right));
         }
 
         .content-container {
             max-width: var(--content-max);
             margin: 0 auto;
+            padding: 0 var(--container-padding);
         }
 
         .text-container {
             max-width: var(--text-max);
             margin: 0 auto;
+            padding: 0 var(--container-padding);
         }
 
-        /* Header - Minimal presence */
+        /* Header - Mobile-first minimal presence */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             z-index: 1000;
             transition: all var(--transition-base);
+            /* Add safe area support for iPhone X+ */
+            padding-top: var(--safe-top);
         }
 
         .header-inner {
-            padding: var(--space-md) 0;
+            padding: var(--space-sm) 0;
             border-bottom: 1px solid var(--color-ash);
+            min-height: var(--thumb-zone); /* Ensure touch-friendly height */
         }
 
         .nav {
@@ -203,10 +280,11 @@ function wrapInLayout(content, title, includeChat = true) {
             font-weight: 400;
         }
 
-        /* Main content area with generous spacing */
+        /* Main content area with mobile-friendly spacing */
         .main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
+            margin-top: calc(var(--thumb-zone) + var(--safe-top) + var(--space-sm));
+            min-height: calc(100vh - var(--thumb-zone) - var(--safe-top) - var(--safe-bottom));
+            padding-bottom: var(--safe-bottom);
         }
 
         /* Page sections with Ma */
@@ -449,31 +527,117 @@ function wrapInLayout(content, title, includeChat = true) {
             fill: var(--color-paper);
         }
 
-        /* Responsive with restraint */
-        @media (max-width: 768px) {
-            :root {
-                --type-4xl: 2.441rem;
-                --type-3xl: 1.953rem;
-                --type-2xl: 1.563rem;
-            }
-
+        /* Mobile-specific interface enhancements */
+        
+        /* Navigation - Hide desktop navigation on mobile (already handled by progressive enhancement) */
+        .nav-links {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
             .nav-links {
-                display: none;
+                display: flex;
             }
-
-            .trust-items {
-                gap: var(--space-lg);
-            }
-
+        }
+        
+        /* Touch-friendly interactive elements */
+        button, .button, a[role="button"] {
+            min-height: var(--touch-min);
+            min-width: var(--touch-min);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--space-xs);
+            background: var(--metal-gradient);
+            border: 1px solid var(--color-ash);
+            box-shadow: var(--metal-shadow);
+            transition: var(--transition-touch);
+            cursor: pointer;
+            font-size: var(--type-sm);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button:active, .button:active, a[role="button"]:active {
+            box-shadow: var(--metal-shadow-pressed);
+            transform: translateY(1px);
+        }
+        
+        /* Enhanced button variants */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--space-xs);
+            text-decoration: none;
+            font-size: var(--type-sm);
+            font-weight: 400;
+            transition: var(--transition-touch);
+            border: 1px solid var(--color-ash);
+            background: var(--color-paper);
+            color: var(--color-ink);
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--color-stone);
+            transform: translateY(-1px);
+            box-shadow: var(--metal-shadow);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: var(--metal-shadow-pressed);
+        }
+        
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+        
+        .btn-primary:hover {
+            background: color-mix(in srgb, var(--color-accent) 90%, black);
+            border-color: color-mix(in srgb, var(--color-accent) 90%, black);
+        }
+        
+        .btn-secondary {
+            background: var(--color-paper);
+            color: var(--color-ink);
+            border-color: var(--color-ash);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-stone);
+        }
+        
+        /* Mobile grids - single column by default */
+        .grid-2, .grid-3, .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+        
+        @media (min-width: 768px) {
+            .grid-2 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        }
+        
+        /* Footer responsive */
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+        
+        @media (min-width: 768px) {
             .footer-content {
-                grid-template-columns: 1fr;
-                gap: var(--space-xl);
-            }
-
-            .grid-2,
-            .grid-3,
-            .grid-4 {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -1541,6 +1705,226 @@ function getInventoryContent() {
             letter-spacing: 0.1em;
         }
         
+        /* Mobile-first Aircraft Cards */
+        .aircraft-inventory-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+        }
+        
+        @media (min-width: 768px) {
+            .aircraft-inventory-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-xl);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .aircraft-inventory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .aircraft-card {
+            background: var(--color-paper);
+            border: 1px solid var(--color-ash);
+            border-radius: var(--space-xs);
+            padding: var(--space-md);
+            transition: var(--transition-base);
+            position: relative;
+        }
+        
+        .aircraft-card:hover {
+            box-shadow: var(--metal-shadow);
+            transform: translateY(-2px);
+        }
+        
+        .aircraft-card-image {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: var(--color-stone);
+            border-radius: var(--space-xs);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .aircraft-placeholder {
+            color: var(--color-graphite);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .aircraft-icon {
+            width: 48px;
+            height: 48px;
+            fill: currentColor;
+            opacity: 0.6;
+        }
+        
+        .aircraft-card-badge {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--space-xs);
+            font-size: var(--type-xs);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .aircraft-card-badge.ultra-long-range {
+            background: var(--color-accent);
+        }
+        
+        .aircraft-card-badge.super-mid-size {
+            background: var(--color-graphite);
+        }
+        
+        .aircraft-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+        }
+        
+        .aircraft-title {
+            font-size: var(--type-lg);
+            font-weight: 400;
+            margin: 0;
+            line-height: var(--leading-tight);
+        }
+        
+        .aircraft-expand-btn {
+            background: none;
+            border: none;
+            padding: var(--space-xs);
+            cursor: pointer;
+            border-radius: var(--space-xs);
+            transition: var(--transition-touch);
+            min-width: var(--touch-min);
+            min-height: var(--touch-min);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .aircraft-expand-btn:hover {
+            background: var(--color-stone);
+        }
+        
+        .aircraft-expand-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .expand-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-graphite);
+            transition: var(--transition-touch);
+        }
+        
+        .aircraft-expand-btn.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .aircraft-key-specs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        
+        .spec-item {
+            text-align: center;
+            padding: var(--space-sm);
+            background: var(--color-stone);
+            border-radius: var(--space-xs);
+        }
+        
+        .spec-label {
+            display: block;
+            font-size: var(--type-xs);
+            color: var(--color-graphite);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .spec-value {
+            display: block;
+            font-size: var(--type-sm);
+            font-weight: 500;
+            color: var(--color-ink);
+        }
+        
+        .aircraft-card-details {
+            margin: var(--space-md) 0;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-ash);
+        }
+        
+        .aircraft-specs {
+            display: grid;
+            gap: var(--space-sm);
+        }
+        
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-xs) 0;
+            font-size: var(--type-sm);
+        }
+        
+        .spec-row:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .aircraft-card-actions {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-ash);
+        }
+        
+        .aircraft-price {
+            font-size: var(--type-lg);
+            font-weight: 400;
+            margin-bottom: var(--space-md);
+            text-align: center;
+            color: var(--color-ink);
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+        }
+        
+        .btn-touch {
+            min-height: var(--touch-min);
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--type-sm);
+            border-radius: var(--space-xs);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-touch);
+        }
+        
+        .btn-touch:active {
+            transform: translateY(1px);
+        }
+        
         @media (max-width: 768px) {
             .calculator-grid,
             .intelligence-grid {
@@ -1549,6 +1933,15 @@ function getInventoryContent() {
             
             .route-inputs {
                 grid-template-columns: 1fr;
+            }
+            
+            .aircraft-key-specs {
+                grid-template-columns: 1fr;
+                gap: var(--space-xs);
+            }
+            
+            .spec-item {
+                padding: var(--space-xs);
             }
         }
     </style>
@@ -1934,6 +2327,33 @@ function getInventoryContent() {
             document.getElementById('fuel-cost').textContent = '$' + fuelCost.toLocaleString();
         }
         
+        // Mobile Aircraft Card Progressive Disclosure
+        function toggleAircraftDetails(button) {
+            const card = button.closest('.aircraft-card');
+            const details = card.querySelector('.aircraft-card-details');
+            const isExpanded = button.classList.contains('expanded');
+            
+            if (isExpanded) {
+                // Collapse
+                details.style.display = 'none';
+                button.classList.remove('expanded');
+                button.setAttribute('aria-label', 'Show more details');
+            } else {
+                // Expand
+                details.style.display = 'block';
+                button.classList.add('expanded');
+                button.setAttribute('aria-label', 'Show less details');
+                
+                // Smooth scroll to keep card in view after expansion
+                setTimeout(() => {
+                    card.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }, 100);
+            }
+        }
+
         // Initialize calculations on page load
         document.addEventListener('DOMContentLoaded', function() {
             calculateROI();
@@ -2070,46 +2490,102 @@ function getAircraftDetailContent(aircraftName, specs) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* Hara Method Design System */
+        /* Hara Method Design System - Mobile First */
         :root {
-            /* Ma (Emptiness) - Systematic spacing based on 8px grid */
-            --space-unit: 8px;
-            --space-xs: calc(var(--space-unit) * 1);   /* 8px */
-            --space-sm: calc(var(--space-unit) * 2);   /* 16px */
-            --space-md: calc(var(--space-unit) * 3);   /* 24px */
-            --space-lg: calc(var(--space-unit) * 4);   /* 32px */
-            --space-xl: calc(var(--space-unit) * 6);   /* 48px */
-            --space-2xl: calc(var(--space-unit) * 8);  /* 64px */
-            --space-3xl: calc(var(--space-unit) * 12); /* 96px */
-            --space-4xl: calc(var(--space-unit) * 16); /* 128px */
+            /* Touch-friendly minimums */
+            --touch-min: 2.75rem; /* 44px minimum touch target */
+            --thumb-zone: 4.5rem; /* 72px comfortable thumb reach */
             
-            /* Material Honesty - Minimal color palette */
+            /* Ma (Emptiness) - Mobile-first spacing grid */
+            --space-unit: 4px; /* Smaller base for mobile */
+            --space-xs: calc(var(--space-unit) * 2);   /* 8px */
+            --space-sm: calc(var(--space-unit) * 3);   /* 12px */
+            --space-md: calc(var(--space-unit) * 4);   /* 16px */
+            --space-lg: calc(var(--space-unit) * 6);   /* 24px */
+            --space-xl: calc(var(--space-unit) * 8);   /* 32px */
+            --space-2xl: calc(var(--space-unit) * 12); /* 48px */
+            --space-3xl: calc(var(--space-unit) * 16); /* 64px */
+            --space-4xl: calc(var(--space-unit) * 24); /* 96px */
+            
+            /* Material Honesty - Surface & Interaction */
             --color-ink: #000000;
             --color-paper: #FFFFFF;
-            --color-stone: #F5F5F5;
-            --color-ash: #E5E5E5;
-            --color-graphite: #666666;
-            --color-smoke: #999999;
+            --color-stone: #F8F9FA;
+            --color-ash: #E9ECEF;
+            --color-graphite: #495057;
+            --color-smoke: #6C757D;
+            --color-accent: #007AFF; /* iOS blue for familiar interactions */
             
-            /* Typography - Pure and functional */
-            --type-scale: 1.25;
-            --type-xs: 0.8rem;
-            --type-sm: 0.875rem;
-            --type-base: 1rem;
-            --type-lg: 1.25rem;
-            --type-xl: 1.563rem;
-            --type-2xl: 1.953rem;
-            --type-3xl: 2.441rem;
-            --type-4xl: 3.052rem;
+            /* Glass Material (for mobile overlays) */
+            --glass-blur: blur(20px);
+            --glass-opacity: 0.85;
+            --glass-border: rgba(255, 255, 255, 0.2);
             
-            /* Transitions - Subtle and smooth */
-            --transition-base: 300ms ease;
-            --transition-slow: 500ms ease;
+            /* Metal Material (for buttons) */
+            --metal-gradient: linear-gradient(145deg, #f0f0f0, #d4d4d4);
+            --metal-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --metal-shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.1);
             
-            /* Layout - Maximum content width */
-            --container-max: 1280px;
-            --content-max: 960px;
-            --text-max: 720px;
+            /* Typography - Mobile-optimized scale */
+            --type-xs: 0.75rem;   /* 12px */
+            --type-sm: 0.875rem;  /* 14px */
+            --type-base: 1rem;    /* 16px */
+            --type-lg: 1.125rem;  /* 18px */
+            --type-xl: 1.25rem;   /* 20px */
+            --type-2xl: 1.5rem;   /* 24px */
+            --type-3xl: 1.875rem; /* 30px */
+            --type-4xl: 2.25rem;  /* 36px */
+            
+            /* Line heights optimized for mobile reading */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            
+            /* Touch-friendly transitions */
+            --transition-touch: 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            
+            /* Layout - Mobile-first containers */
+            --container-max: 100%;
+            --content-max: 100%;
+            --text-max: 100%;
+            --container-padding: var(--space-md);
+            
+            /* Safe areas for modern mobile devices */
+            --safe-top: env(safe-area-inset-top, 0);
+            --safe-bottom: env(safe-area-inset-bottom, 0);
+            --safe-left: env(safe-area-inset-left, 0);
+            --safe-right: env(safe-area-inset-right, 0);
+        }
+        
+        /* Progressive enhancement for larger screens */
+        @media (min-width: 768px) {
+            :root {
+                --space-unit: 8px; /* Increase base unit for larger screens */
+                --container-max: 768px;
+                --content-max: 680px;
+                --text-max: 600px;
+                --container-padding: var(--space-lg);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            :root {
+                --container-max: 1024px;
+                --content-max: 864px;
+                --text-max: 720px;
+                --container-padding: var(--space-xl);
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            :root {
+                --container-max: 1280px;
+                --content-max: 960px;
+                --text-max: 720px;
+            }
         }
 
         /* Reset with material honesty */
@@ -2123,15 +2599,26 @@ function getAircraftDetailContent(aircraftName, specs) {
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            /* Prevent zoom on input focus on iOS */
+            -webkit-text-size-adjust: 100%;
+            /* Optimize font rendering for mobile */
+            text-rendering: optimizeLegibility;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 300;
-            line-height: 1.7;
+            line-height: var(--leading-relaxed);
             color: var(--color-ink);
             background: var(--color-paper);
             letter-spacing: 0.01em;
+            /* Prevent horizontal scroll on mobile */
+            overflow-x: hidden;
+            /* Add safe area support */
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
+            /* Optimize scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Global Navigation (consistent with homepage) */
