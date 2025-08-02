@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Aircraft Inventory - Strategic Aviation Intelligence</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Swiss Design Foundation Colors */
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --gray-100: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #6C757D;
+            --gray-600: #495057;
+            --gray-700: #343A40;
+            --gray-800: #212529;
+            
+            /* Semantic Colors - Used sparingly */
+            --accent-blue: #0066CC;
+            --accent-gold: #D4AF37;
+            --danger-red: #DC3545;
+            --success-green: #28A745;
+            --warning-amber: #FFC107;
+            
+            /* Typography Scale */
+            --type-xs: 0.75rem;
+            --type-sm: 0.875rem;
+            --type-base: 1rem;
+            --type-lg: 1.125rem;
+            --type-xl: 1.25rem;
+            --type-2xl: 1.5rem;
+            --type-3xl: 1.875rem;
+            --type-4xl: 2.25rem;
+            
+            /* Spacing Scale */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            
+            /* Grid System */
+            --grid-unit: 8px;
+            --max-width: 1440px;
+            
+            /* Animation Timings */
+            --transition-fast: 0.15s;
+            --transition-base: 0.25s;
+            --transition-slow: 0.35s;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: var(--type-base);
+            line-height: 1.5;
+            color: var(--gray-800);
+            background: var(--primary-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Typography Hierarchy */
+        .type-display {
+            font-size: var(--type-4xl);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        .type-heading-1 {
+            font-size: var(--type-3xl);
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        
+        .type-heading-2 {
+            font-size: var(--type-2xl);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        
+        .type-heading-3 {
+            font-size: var(--type-xl);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .type-body {
+            font-size: var(--type-base);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .type-caption {
+            font-size: var(--type-sm);
+            font-weight: 400;
+            color: var(--gray-500);
+            line-height: 1.4;
+        }
+        
+        .type-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* Layout System */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+        
+        .grid {
+            display: grid;
+            gap: var(--space-6);
+        }
+        
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            transition: transform var(--transition-base) ease;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            padding: 0 var(--space-6);
+        }
+        
+        .logo {
+            font-size: var(--type-xl);
+            font-weight: 600;
+            color: var(--primary-black);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: var(--space-8);
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-base) ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-black);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -24px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-blue);
+        }
+        
+        /* Main Content Area */
+        .main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--gray-100) 0%, var(--primary-white) 100%);
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 var(--space-6);
+        }
+        
+        .hero-title {
+            margin-bottom: var(--space-6);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+        
+        .hero-subtitle {
+            margin-bottom: var(--space-8);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* WebGL Viewport */
+        .webgl-viewport {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #aircraft-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        /* Mission Selector */
+        .mission-selector {
+            padding: var(--space-16) 0;
+            background: var(--primary-white);
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+        }
+        
+        .mission-card {
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: var(--space-8);
+            background: var(--primary-white);
+            transition: all var(--transition-base) ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-card.active {
+            border-color: var(--accent-blue);
+            background: var(--gray-100);
+        }
+        
+        .mission-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-4);
+            background: var(--accent-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-size: var(--type-lg);
+        }
+        
+        .mission-title {
+            margin-bottom: var(--space-2);
+        }
+        
+        .mission-description {
+            color: var(--gray-600);
+            margin-bottom: var(--space-4);
+        }
+        
+        .mission-metrics {
+            display: flex;
+            gap: var(--space-4);
+            font-size: var(--type-sm);
+            color: var(--gray-500);
+        }
+        
+        /* Aircraft Showcase */
+        .aircraft-showcase {
+            padding: var(--space-20) 0;
+            background: var(--gray-100);
+        }
+        
+        .aircraft-viewport {
+            height: 600px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: var(--space-12);
+            position: relative;
+            background: var(--primary-white);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .aircraft-controls {
+            position: absolute;
+            bottom: var(--space-6);
+            left: var(--space-6);
+            right: var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: var(--space-4);
+            border-radius: 12px;
+            z-index: 10;
+        }
+        
+        .aircraft-selector {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .aircraft-thumb {
+            width: 80px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-base) ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .aircraft-thumb.active {
+            border-color: var(--accent-blue);
+            transform: scale(1.05);
+        }
+        
+        .view-controls {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .control-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--primary-white);
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition-base) ease;
+            font-size: var(--type-sm);
+            font-weight: 500;
+        }
+        
+        .control-btn:hover,
+        .control-btn.active {
+            background: var(--accent-blue);
+            color: var(--primary-white);
+            border-color: var(--accent-blue);
+        }
+        
+        /* Aircraft Specifications */
+        .aircraft-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-12);
+            margin-bottom: var(--space-16);
+        }
+        
+        .spec-section {
+            background: var(--primary-white);
+            border-radius: 12px;
+            padding: var(--space-8);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+        
+        .spec-title {
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .spec-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+        
+        .spec-value {
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+        
+        /* Business Intelligence Panel */
+        .business-intelligence {
+            padding: var(--space-20) 0;
+            background: var(--primary-white);
+        }
+        
+        .intelligence-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-12);
+            margin-top: var(--space-12);
+        }
+        
+        .intelligence-panel {
+            background: var(--gray-100);
+            border-radius: 16px;
+            padding: var(--space-8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .panel-title {
+            font-size: var(--type-lg);
+            font-weight: 600;
+        }
+        
+        .panel-status {
+            padding: var(--space-1) var(--space-3);
+            background: var(--success-green);
+            color: var(--primary-white);
+            border-radius: 20px;
+            font-size: var(--type-xs);
+            font-weight: 500;
+        }
+        
+        /* ROI Calculator */
+        .roi-calculator {
+            background: var(--primary-white);
+            border-radius: 12px;
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+        
+        .calculator-input {
+            margin-bottom: var(--space-4);
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: var(--space-2);
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: var(--space-3);
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            font-size: var(--type-base);
+            transition: border-color var(--transition-base) ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        
+        .roi-result {
+            background: var(--accent-blue);
+            color: var(--primary-white);
+            padding: var(--space-4);
+            border-radius: 8px;
+            text-align: center;
+            margin-top: var(--space-4);
+        }
+        
+        .roi-value {
+            font-size: var(--type-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-1);
+        }
+        
+        /* Market Intelligence Chart */
+        .market-chart {
+            height: 300px;
+            background: var(--primary-white);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Route Planning */
+        .route-planning {
+            padding: var(--space-20) 0;
+            background: var(--gray-100);
+        }
+        
+        .route-interface {
+            background: var(--primary-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: var(--space-12);
+        }
+        
+        .route-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            background: var(--gray-100);
+        }
+        
+        .route-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--space-6);
+        }
+        
+        .route-map {
+            height: 400px;
+            position: relative;
+            background: var(--gray-200);
+        }
+        
+        .route-details {
+            padding: var(--space-6);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-6);
+            background: var(--gray-100);
+        }
+        
+        .route-metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: var(--type-2xl);
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: var(--space-1);
+        }
+        
+        .metric-label {
+            font-size: var(--type-sm);
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
+        /* Consultation CTA */
+        .consultation-cta {
+            padding: var(--space-20) 0;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            color: var(--primary-white);
+            margin-bottom: var(--space-4);
+        }
+        
+        .cta-subtitle {
+            color: var(--gray-400);
+            margin-bottom: var(--space-8);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: var(--space-4) var(--space-8);
+            background: var(--accent-blue);
+            color: var(--primary-white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all var(--transition-base) ease;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-4);
+            }
+            
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .aircraft-specs {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            
+            .intelligence-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            
+            .route-inputs {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .route-details {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-4);
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero {
+                height: 50vh;
+            }
+            
+            .type-display {
+                font-size: var(--type-3xl);
+            }
+        }
+        
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+            position: relative;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            margin: -12px 0 0 -12px;
+            border: 2px solid var(--gray-300);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Focus management */
+        .focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#" class="logo">Executive Aviation</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#inventory" class="nav-link active">Inventory</a></li>
+                    <li><a href="#intelligence" class="nav-link">Intelligence</a></li>
+                    <li><a href="#planning" class="nav-link">Planning</a></li>
+                    <li><a href="#consultation" class="nav-link">Consultation</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section with WebGL Aircraft -->
+        <section class="hero" id="hero">
+            <div class="webgl-viewport">
+                <canvas id="aircraft-canvas"></canvas>
+            </div>
+            <div class="hero-content">
+                <h1 class="type-display hero-title">Strategic Aviation Intelligence</h1>
+                <p class="type-body hero-subtitle">Mission-driven aircraft selection powered by real-time business intelligence and immersive 3D visualization.</p>
+            </div>
+        </section>
+
+        <!-- Mission-Driven Selection -->
+        <section class="mission-selector" id="inventory">
+            <div class="container">
+                <h2 class="type-heading-1">Select Your Mission Profile</h2>
+                <p class="type-body" style="margin-top: var(--space-4); color: var(--gray-600);">
+                    Each aircraft is presented based on strategic business objectives, not traditional categories.
+                </p>
+                
+                <div class="mission-grid">
+                    <div class="mission-card active" data-mission="executive-travel">
+                        <div class="mission-icon">✈</div>
+                        <h3 class="type-heading-3 mission-title">Executive Travel</h3>
+                        <p class="mission-description">Time-critical business travel with maximum efficiency and minimal scheduling constraints.</p>
+                        <div class="mission-metrics">
+                            <span>Range: 3,000+ nm</span>
+                            <span>Speed: Mach 0.8+</span>
+                            <span>Utilization: 300+ hrs/year</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mission-card" data-mission="global-reach">
+                        <div class="mission-icon">🌍</div>
+                        <h3 class="type-heading-3 mission-title">Global Reach</h3>
+                        <p class="mission-description">Intercontinental operations with transcontinental range and international compliance.</p>
+                        <div class="mission-metrics">
+                            <span>Range: 5,000+ nm</span>
+                            <span>Cabin: Ultra-long range</span>
+                            <span>Airports: 5,000+ capable</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mission-card" data-mission="regional-mobility">
+                        <div class="mission-icon">🏢</div>
+                        <h3 class="type-heading-3 mission-title">Regional Mobility</h3>
+                        <p class="mission-description">Multi-city operations with operational flexibility and cost optimization.</p>
+                        <div class="mission-metrics">
+                            <span>Range: 1,500+ nm</span>
+                            <span>Runway: 4,000 ft capable</span>
+                            <span>Operating cost: Optimized</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mission-card" data-mission="rapid-response">
+                        <div class="mission-icon">⚡</div>
+                        <h3 class="type-heading-3 mission-title">Rapid Response</h3>
+                        <p class="mission-description">On-demand availability with minimal departure time and maximum scheduling agility.</p>
+                        <div class="mission-metrics">
+                            <span>Departure: <15 min ready</span>
+                            <span>Availability: 99.5%+</span>
+                            <span>Flexibility: Maximum</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Aircraft Showcase -->
+        <section class="aircraft-showcase">
+            <div class="container">
+                <h2 class="type-heading-1">Immersive Aircraft Experience</h2>
+                
+                <div class="aircraft-viewport">
+                    <canvas id="aircraft-3d-canvas"></canvas>
+                    <div class="aircraft-controls">
+                        <div class="aircraft-selector">
+                            <div class="aircraft-thumb active" data-aircraft="gulfstream-g700" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 50%22><rect fill=%22%23f0f0f0%22 width=%2280%22 height=%2250%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23666%22 font-size=%2212%22>G700</text></svg>')"></div>
+                            <div class="aircraft-thumb" data-aircraft="bombardier-global-7500" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 50%22><rect fill=%22%23f0f0f0%22 width=%2280%22 height=%2250%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23666%22 font-size=%2210%22>7500</text></svg>')"></div>
+                            <div class="aircraft-thumb" data-aircraft="dassault-falcon-7x" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 50%22><rect fill=%22%23f0f0f0%22 width=%2280%22 height=%2250%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23666%22 font-size=%2212%22>7X</text></svg>')"></div>
+                        </div>
+                        <div class="view-controls">
+                            <button class="control-btn active" data-view="exterior">Exterior</button>
+                            <button class="control-btn" data-view="cabin">Cabin</button>
+                            <button class="control-btn" data-view="cockpit">Cockpit</button>
+                            <button class="control-btn" data-view="specs">Specs</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="aircraft-specs">
+                    <div class="spec-section">
+                        <h3 class="type-heading-3 spec-title">Performance Specifications</h3>
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Maximum Range</span>
+                                <span class="spec-value type-mono">7,500 nm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Maximum Speed</span>
+                                <span class="spec-value type-mono">Mach 0.925</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Service Ceiling</span>
+                                <span class="spec-value type-mono">51,000 ft</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Takeoff Distance</span>
+                                <span class="spec-value type-mono">6,250 ft</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Landing Distance</span>
+                                <span class="spec-value type-mono">2,500 ft</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="spec-section">
+                        <h3 class="type-heading-3 spec-title">Cabin Configuration</h3>
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Maximum Passengers</span>
+                                <span class="spec-value type-mono">19</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Cabin Length</span>
+                                <span class="spec-value type-mono">56.9 ft</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Cabin Width</span>
+                                <span class="spec-value type-mono">8.2 ft</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Cabin Height</span>
+                                <span class="spec-value type-mono">6.3 ft</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Baggage Volume</span>
+                                <span class="spec-value type-mono">195 ft³</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Intelligence Dashboard -->
+        <section class="business-intelligence" id="intelligence">
+            <div class="container">
+                <h2 class="type-heading-1">Strategic Business Intelligence</h2>
+                <p class="type-body" style="margin-top: var(--space-4); color: var(--gray-600);">
+                    Real-time market data, ROI calculations, and competitive analysis to inform strategic decisions.
+                </p>
+                
+                <div class="intelligence-grid">
+                    <div class="intelligence-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">ROI Calculator</h3>
+                            <span class="panel-status">Real-time</span>
+                        </div>
+                        
+                        <div class="roi-calculator">
+                            <div class="calculator-input">
+                                <label class="input-label" for="annual-hours">Annual Flight Hours</label>
+                                <input type="number" id="annual-hours" class="input-field" value="250" min="50" max="1000">
+                            </div>
+                            <div class="calculator-input">
+                                <label class="input-label" for="hourly-rate">Commercial Charter Rate</label>
+                                <input type="number" id="hourly-rate" class="input-field" value="8500" min="1000" max="20000">
+                            </div>
+                            <div class="calculator-input">
+                                <label class="input-label" for="time-value">Executive Time Value ($/hr)</label>
+                                <input type="number" id="time-value" class="input-field" value="2500" min="500" max="10000">
+                            </div>
+                            
+                            <div class="roi-result">
+                                <div class="roi-value">$3.2M</div>
+                                <div class="type-caption">Annual Cost Avoidance</div>
+                            </div>
+                        </div>
+                        
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">5-Year TCO</span>
+                                <span class="spec-value type-mono">$47.5M</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Depreciation Rate</span>
+                                <span class="spec-value type-mono">8.5%/year</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Resale Value</span>
+                                <span class="spec-value type-mono">68%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="intelligence-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Market Intelligence</h3>
+                            <span class="panel-status">Live Data</span>
+                        </div>
+                        
+                        <div class="market-chart">
+                            <canvas id="market-chart-canvas" class="chart-canvas"></canvas>
+                        </div>
+                        
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Market Availability</span>
+                                <span class="spec-value" style="color: var(--danger-red);">Limited</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Price Trend (12M)</span>
+                                <span class="spec-value" style="color: var(--success-green);">+12.3%</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Delivery Timeline</span>
+                                <span class="spec-value type-mono">24-36 months</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Route Planning -->
+        <section class="route-planning" id="planning">
+            <div class="container">
+                <h2 class="type-heading-1">Strategic Route Planning</h2>
+                <p class="type-body" style="margin-top: var(--space-4); color: var(--gray-600);">
+                    Visualize mission capabilities with real-time business impact calculations.
+                </p>
+                
+                <div class="route-interface">
+                    <div class="route-header">
+                        <div class="route-inputs">
+                            <div>
+                                <label class="input-label" for="departure">Departure</label>
+                                <input type="text" id="departure" class="input-field" value="KTEB (Teterboro)" placeholder="Enter airport">
+                            </div>
+                            <div>
+                                <label class="input-label" for="destination">Destination</label>
+                                <input type="text" id="destination" class="input-field" value="EGLL (London Heathrow)" placeholder="Enter airport">
+                            </div>
+                            <div>
+                                <label class="input-label" for="passengers">Passengers</label>
+                                <input type="number" id="passengers" class="input-field" value="8" min="1" max="19">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="route-map">
+                        <canvas id="route-map-canvas" style="width: 100%; height: 100%;"></canvas>
+                    </div>
+                    
+                    <div class="route-details">
+                        <div class="route-metric">
+                            <div class="metric-value">3,458</div>
+                            <div class="metric-label">Nautical Miles</div>
+                        </div>
+                        <div class="route-metric">
+                            <div class="metric-value">7h 45m</div>
+                            <div class="metric-label">Flight Time</div>
+                        </div>
+                        <div class="route-metric">
+                            <div class="metric-value">$89,500</div>
+                            <div class="metric-label">Operating Cost</div>
+                        </div>
+                        <div class="route-metric">
+                            <div class="metric-value">18.5</div>
+                            <div class="metric-label">Fuel Stops</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Consultation CTA -->
+        <section class="consultation-cta" id="consultation">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="type-heading-1 cta-title">Strategic Aviation Consultation</h2>
+                    <p class="type-body cta-subtitle">
+                        Schedule a confidential consultation with our aviation intelligence team to develop your customized acquisition strategy.
+                    </p>
+                    <a href="#" class="cta-button">Schedule Consultation</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Executive Aircraft Inventory Interface
+        // Strategic Aviation Intelligence System
+        
+        class AircraftInventoryInterface {
+            constructor() {
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.aircraftModel = null;
+                this.controls = {
+                    mouse: { x: 0, y: 0 },
+                    isMouseDown: false,
+                    rotation: { x: 0, y: 0 },
+                    zoom: 1
+                };
+                this.animations = {
+                    rotation: null,
+                    transition: null
+                };
+                this.currentAircraft = 'gulfstream-g700';
+                this.currentView = 'exterior';
+                this.currentMission = 'executive-travel';
+                
+                this.aircraftData = {
+                    'gulfstream-g700': {
+                        name: 'Gulfstream G700',
+                        range: 7500,
+                        speed: 0.925,
+                        ceiling: 51000,
+                        takeoff: 6250,
+                        landing: 2500,
+                        passengers: 19,
+                        length: 56.9,
+                        width: 8.2,
+                        height: 6.3,
+                        baggage: 195,
+                        price: 75000000,
+                        availability: 'Limited',
+                        delivery: '24-36 months'
+                    },
+                    'bombardier-global-7500': {
+                        name: 'Bombardier Global 7500',
+                        range: 7700,
+                        speed: 0.925,
+                        ceiling: 51000,
+                        takeoff: 5800,
+                        landing: 2400,
+                        passengers: 17,
+                        length: 54.8,
+                        width: 8.0,
+                        height: 6.2,
+                        baggage: 180,
+                        price: 73000000,
+                        availability: 'Available',
+                        delivery: '18-24 months'
+                    },
+                    'dassault-falcon-7x': {
+                        name: 'Dassault Falcon 7X',
+                        range: 5950,
+                        speed: 0.90,
+                        ceiling: 51000,
+                        takeoff: 5700,
+                        landing: 2070,
+                        passengers: 16,
+                        length: 39.0,
+                        width: 7.7,
+                        height: 6.2,
+                        baggage: 140,
+                        price: 54000000,
+                        availability: 'Available',
+                        delivery: '12-18 months'
+                    }
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.initWebGL();
+                this.initEventListeners();
+                this.initAnimations();
+                this.initBusinessIntelligence();
+                this.startRenderLoop();
+            }
+            
+            initWebGL() {
+                // Hero Section WebGL Setup
+                const heroCanvas = document.getElementById('aircraft-canvas');
+                if (heroCanvas) {
+                    this.initHeroWebGL(heroCanvas);
+                }
+                
+                // Showcase Section WebGL Setup
+                const showcaseCanvas = document.getElementById('aircraft-3d-canvas');
+                if (showcaseCanvas) {
+                    this.initShowcaseWebGL(showcaseCanvas);
+                }
+                
+                // Route Planning Map Setup
+                const routeCanvas = document.getElementById('route-map-canvas');
+                if (routeCanvas) {
+                    this.initRouteMap(routeCanvas);
+                }
+                
+                // Market Intelligence Chart Setup
+                const chartCanvas = document.getElementById('market-chart-canvas');
+                if (chartCanvas) {
+                    this.initMarketChart(chartCanvas);
+                }
+            }
+            
+            initHeroWebGL(canvas) {
+                // Hero section Three.js setup for ambient aircraft display
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color(0xf8f9fa);
+                
+                const camera = new THREE.PerspectiveCamera(
+                    75,
+                    canvas.clientWidth / canvas.clientHeight,
+                    0.1,
+                    1000
+                );
+                
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    antialias: true,
+                    alpha: true
+                });
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                
+                // Lighting setup
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                directionalLight.position.set(10, 10, 5);
+                directionalLight.castShadow = true;
+                directionalLight.shadow.mapSize.width = 2048;
+                directionalLight.shadow.mapSize.height = 2048;
+                scene.add(directionalLight);
+                
+                // Aircraft geometry (simplified for performance)
+                const aircraftGeometry = this.createAircraftGeometry();
+                const aircraftMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x2c3e50,
+                    shininess: 100,
+                    specular: 0x111111
+                });
+                
+                const aircraft = new THREE.Mesh(aircraftGeometry, aircraftMaterial);
+                aircraft.castShadow = true;
+                aircraft.receiveShadow = true;
+                scene.add(aircraft);
+                
+                camera.position.set(0, 2, 10);
+                camera.lookAt(0, 0, 0);
+                
+                // Store references
+                this.heroScene = { scene, camera, renderer, aircraft };
+                
+                // Animation loop for hero section
+                const animate = () => {
+                    aircraft.rotation.y += 0.005;
+                    aircraft.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+                    renderer.render(scene, camera);
+                    requestAnimationFrame(animate);
+                };
+                animate();
+            }
+            
+            initShowcaseWebGL(canvas) {
+                // Showcase section Three.js setup for interactive aircraft exploration
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color(0xffffff);
+                
+                const camera = new THREE.PerspectiveCamera(
+                    45,
+                    canvas.clientWidth / canvas.clientHeight,
+                    0.1,
+                    1000
+                );
+                
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    antialias: true
+                });
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                
+                // Enhanced lighting for showcase
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+                scene.add(ambientLight);
+                
+                const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
+                keyLight.position.set(20, 20, 10);
+                keyLight.castShadow = true;
+                scene.add(keyLight);
+                
+                const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
+                fillLight.position.set(-20, 10, -10);
+                scene.add(fillLight);
+                
+                const rimLight = new THREE.DirectionalLight(0x4a90e2, 0.5);
+                rimLight.position.set(0, 10, -20);
+                scene.add(rimLight);
+                
+                // Ground plane for shadows
+                const groundGeometry = new THREE.PlaneGeometry(50, 50);
+                const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.1 });
+                const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+                ground.rotation.x = -Math.PI / 2;
+                ground.position.y = -2;
+                ground.receiveShadow = true;
+                scene.add(ground);
+                
+                // Aircraft model
+                const aircraftGeometry = this.createDetailedAircraftGeometry();
+                const aircraftMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x34495e,
+                    shininess: 100,
+                    specular: 0x333333
+                });
+                
+                const aircraft = new THREE.Mesh(aircraftGeometry, aircraftMaterial);
+                aircraft.castShadow = true;
+                aircraft.scale.set(1.5, 1.5, 1.5);
+                scene.add(aircraft);
+                
+                camera.position.set(15, 5, 15);
+                camera.lookAt(0, 0, 0);
+                
+                // Store references
+                this.showcaseScene = { scene, camera, renderer, aircraft };
+            }
+            
+            initRouteMap(canvas) {
+                // Route planning visualization
+                const ctx = canvas.getContext('2d');
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                
+                // Draw world map outline (simplified)
+                this.drawWorldMap(ctx, canvas.width, canvas.height);
+                
+                // Draw route line
+                this.drawRoute(ctx, canvas.width, canvas.height);
+            }
+            
+            initMarketChart(canvas) {
+                // Market intelligence chart
+                const ctx = canvas.getContext('2d');
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                
+                this.drawMarketChart(ctx, canvas.width, canvas.height);
+            }
+            
+            createAircraftGeometry() {
+                // Simplified aircraft geometry for hero section
+                const group = new THREE.Group();
+                
+                // Fuselage
+                const fuselageGeometry = new THREE.CylinderGeometry(0.3, 0.2, 6, 8);
+                const fuselage = new THREE.Mesh(fuselageGeometry);
+                fuselage.rotation.z = Math.PI / 2;
+                group.add(fuselage);
+                
+                // Wings
+                const wingGeometry = new THREE.BoxGeometry(4, 0.1, 1);
+                const wings = new THREE.Mesh(wingGeometry);
+                wings.position.z = -0.5;
+                group.add(wings);
+                
+                // Tail
+                const tailGeometry = new THREE.BoxGeometry(0.2, 1.5, 0.8);
+                const tail = new THREE.Mesh(tailGeometry);
+                tail.position.x = -2.5;
+                tail.position.y = 0.5;
+                group.add(tail);
+                
+                return group;
+            }
+            
+            createDetailedAircraftGeometry() {
+                // More detailed aircraft geometry for showcase
+                const group = new THREE.Group();
+                
+                // Fuselage with more detail
+                const fuselageGeometry = new THREE.CylinderGeometry(0.4, 0.2, 8, 12);
+                const fuselage = new THREE.Mesh(fuselageGeometry);
+                fuselage.rotation.z = Math.PI / 2;
+                group.add(fuselage);
+                
+                // Wings with sweep
+                const wingGeometry = new THREE.BufferGeometry();
+                const wingVertices = new Float32Array([
+                    // Wing vertices for swept wing design
+                    -1, 0, -2,  1, 0, -1.5,  1, 0, 1.5,
+                    -1, 0, -2,  1, 0, 1.5,   -1, 0, 2,
+                    -1, -0.1, -2,  1, -0.1, -1.5,  1, -0.1, 1.5,
+                    -1, -0.1, -2,  1, -0.1, 1.5,   -1, -0.1, 2
+                ]);
+                wingGeometry.setAttribute('position', new THREE.BufferAttribute(wingVertices, 3));
+                wingGeometry.computeVertexNormals();
+                
+                const wings = new THREE.Mesh(wingGeometry);
+                wings.position.z = -0.5;
+                group.add(wings);
+                
+                // Engines
+                const engineGeometry = new THREE.CylinderGeometry(0.15, 0.15, 1.5, 8);
+                const leftEngine = new THREE.Mesh(engineGeometry);
+                leftEngine.position.set(-3, 0, -1.5);
+                leftEngine.rotation.z = Math.PI / 2;
+                group.add(leftEngine);
+                
+                const rightEngine = new THREE.Mesh(engineGeometry);
+                rightEngine.position.set(-3, 0, 1.5);
+                rightEngine.rotation.z = Math.PI / 2;
+                group.add(rightEngine);
+                
+                // Tail assembly
+                const tailGeometry = new THREE.BoxGeometry(0.3, 2, 1);
+                const tail = new THREE.Mesh(tailGeometry);
+                tail.position.x = -3.5;
+                tail.position.y = 0.8;
+                group.add(tail);
+                
+                const horizontalTailGeometry = new THREE.BoxGeometry(0.1, 0.1, 2);
+                const horizontalTail = new THREE.Mesh(horizontalTailGeometry);
+                horizontalTail.position.x = -3.5;
+                horizontalTail.position.y = 1.5;
+                group.add(horizontalTail);
+                
+                return group;
+            }
+            
+            drawWorldMap(ctx, width, height) {
+                ctx.fillStyle = '#e9ecef';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Simplified continents
+                ctx.fillStyle = '#6c757d';
+                ctx.beginPath();
+                
+                // North America
+                ctx.moveTo(width * 0.1, height * 0.3);
+                ctx.lineTo(width * 0.3, height * 0.2);
+                ctx.lineTo(width * 0.35, height * 0.5);
+                ctx.lineTo(width * 0.15, height * 0.6);
+                ctx.closePath();
+                
+                // Europe
+                ctx.moveTo(width * 0.45, height * 0.25);
+                ctx.lineTo(width * 0.55, height * 0.2);
+                ctx.lineTo(width * 0.6, height * 0.4);
+                ctx.lineTo(width * 0.5, height * 0.45);
+                ctx.closePath();
+                
+                ctx.fill();
+                
+                // Flight path
+                ctx.strokeStyle = '#0066cc';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(width * 0.25, height * 0.4);
+                ctx.quadraticCurveTo(width * 0.4, height * 0.2, width * 0.55, height * 0.35);
+                ctx.stroke();
+                
+                // Airports
+                ctx.fillStyle = '#0066cc';
+                ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.arc(width * 0.25, height * 0.4, 6, 0, Math.PI * 2);
+                ctx.arc(width * 0.55, height * 0.35, 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            drawRoute(ctx, width, height) {
+                // Additional route details are handled in drawWorldMap
+            }
+            
+            drawMarketChart(ctx, width, height) {
+                // Market price trends chart
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Grid lines
+                ctx.strokeStyle = '#e9ecef';
+                ctx.lineWidth = 1;
+                
+                for (let i = 1; i < 10; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, (height / 10) * i);
+                    ctx.lineTo(width, (height / 10) * i);
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo((width / 10) * i, 0);
+                    ctx.lineTo((width / 10) * i, height);
+                    ctx.stroke();
+                }
+                
+                // Sample price data
+                const priceData = [
+                    65, 67, 69, 71, 68, 70, 73, 75, 77, 74, 76, 78
+                ];
+                
+                // Price trend line
+                ctx.strokeStyle = '#0066cc';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                
+                priceData.forEach((price, index) => {
+                    const x = (width / (priceData.length - 1)) * index;
+                    const y = height - ((price - 60) / 20) * height;
+                    
+                    if (index === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                
+                ctx.stroke();
+                
+                // Data points
+                ctx.fillStyle = '#0066cc';
+                priceData.forEach((price, index) => {
+                    const x = (width / (priceData.length - 1)) * index;
+                    const y = height - ((price - 60) / 20) * height;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                // Labels
+                ctx.fillStyle = '#6c757d';
+                ctx.font = '12px Inter';
+                ctx.textAlign = 'left';
+                ctx.fillText('Market Value (Millions)', 10, 20);
+                ctx.fillText('$78M', width - 50, height - 10);
+            }
+            
+            initEventListeners() {
+                // Mission card selection
+                document.querySelectorAll('.mission-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        document.querySelectorAll('.mission-card').forEach(c => c.classList.remove('active'));
+                        card.classList.add('active');
+                        this.currentMission = card.dataset.mission;
+                        this.updateAircraftForMission();
+                    });
+                });
+                
+                // Aircraft selection
+                document.querySelectorAll('.aircraft-thumb').forEach(thumb => {
+                    thumb.addEventListener('click', (e) => {
+                        document.querySelectorAll('.aircraft-thumb').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                        this.currentAircraft = thumb.dataset.aircraft;
+                        this.updateAircraftDisplay();
+                    });
+                });
+                
+                // View controls
+                document.querySelectorAll('.control-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentView = btn.dataset.view;
+                        this.updateCameraView();
+                    });
+                });
+                
+                // ROI Calculator inputs
+                ['annual-hours', 'hourly-rate', 'time-value'].forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) {
+                        input.addEventListener('input', this.calculateROI.bind(this));
+                    }
+                });
+                
+                // Route planning inputs
+                ['departure', 'destination', 'passengers'].forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) {
+                        input.addEventListener('input', this.updateRouteCalculation.bind(this));
+                    }
+                });
+                
+                // Smooth scrolling for navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = document.querySelector(link.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+                
+                // Header hide/show on scroll
+                let lastScrollY = 0;
+                window.addEventListener('scroll', () => {
+                    const header = document.getElementById('header');
+                    const currentScrollY = window.scrollY;
+                    
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    
+                    lastScrollY = currentScrollY;
+                });
+                
+                // Resize handling
+                window.addEventListener('resize', this.handleResize.bind(this));
+                
+                // Touch/gesture support for mobile
+                this.initTouchControls();
+            }
+            
+            initTouchControls() {
+                const canvas = document.getElementById('aircraft-3d-canvas');
+                if (!canvas) return;
+                
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let initialDistance = 0;
+                
+                canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    
+                    if (e.touches.length === 1) {
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                    } else if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        initialDistance = Math.sqrt(dx * dx + dy * dy);
+                    }
+                }, { passive: false });
+                
+                canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    
+                    if (e.touches.length === 1) {
+                        const deltaX = e.touches[0].clientX - touchStartX;
+                        const deltaY = e.touches[0].clientY - touchStartY;
+                        
+                        this.rotateAircraft(deltaX * 0.01, deltaY * 0.01);
+                        
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                    } else if (e.touches.length === 2) {
+                        const dx = e.touches[0].clientX - e.touches[1].clientX;
+                        const dy = e.touches[0].clientY - e.touches[1].clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        const scale = distance / initialDistance;
+                        this.zoomAircraft(scale);
+                        
+                        initialDistance = distance;
+                    }
+                }, { passive: false });
+            }
+            
+            initAnimations() {
+                // GSAP animations for smooth transitions
+                gsap.registerPlugin();
+                
+                // Animate mission cards on scroll
+                gsap.utils.toArray('.mission-card').forEach((card, index) => {
+                    gsap.fromTo(card, 
+                        { opacity: 0, y: 50 },
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 0.6,
+                            delay: index * 0.1,
+                            scrollTrigger: {
+                                trigger: card,
+                                start: 'top 80%'
+                            }
+                        }
+                    );
+                });
+                
+                // Animate specifications on scroll
+                gsap.utils.toArray('.spec-item').forEach((item, index) => {
+                    gsap.fromTo(item,
+                        { opacity: 0, x: -20 },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            duration: 0.4,
+                            delay: index * 0.05,
+                            scrollTrigger: {
+                                trigger: item,
+                                start: 'top 85%'
+                            }
+                        }
+                    );
+                });
+            }
+            
+            initBusinessIntelligence() {
+                // Initialize real-time data updates
+                this.calculateROI();
+                this.updateMarketData();
+                this.updateRouteCalculation();
+                
+                // Set up periodic updates (in production, this would be WebSocket-based)
+                setInterval(() => {
+                    this.updateMarketData();
+                }, 30000); // Update every 30 seconds
+            }
+            
+            updateAircraftForMission() {
+                // Update aircraft recommendations based on mission profile
+                const missionProfiles = {
+                    'executive-travel': ['gulfstream-g700', 'bombardier-global-7500'],
+                    'global-reach': ['bombardier-global-7500', 'gulfstream-g700'],
+                    'regional-mobility': ['dassault-falcon-7x', 'bombardier-global-7500'],
+                    'rapid-response': ['dassault-falcon-7x', 'gulfstream-g700']
+                };
+                
+                const recommended = missionProfiles[this.currentMission] || ['gulfstream-g700'];
+                
+                // Highlight recommended aircraft
+                document.querySelectorAll('.aircraft-thumb').forEach(thumb => {
+                    if (recommended.includes(thumb.dataset.aircraft)) {
+                        thumb.style.border = '2px solid #28a745';
+                    } else {
+                        thumb.style.border = '2px solid transparent';
+                    }
+                });
+            }
+            
+            updateAircraftDisplay() {
+                const data = this.aircraftData[this.currentAircraft];
+                if (!data) return;
+                
+                // Update specifications
+                const specs = document.querySelectorAll('.spec-item');
+                specs.forEach(spec => {
+                    const label = spec.querySelector('.spec-label').textContent;
+                    const valueEl = spec.querySelector('.spec-value');
+                    
+                    switch (label) {
+                        case 'Maximum Range':
+                            valueEl.textContent = `${data.range.toLocaleString()} nm`;
+                            break;
+                        case 'Maximum Speed':
+                            valueEl.textContent = `Mach ${data.speed}`;
+                            break;
+                        case 'Service Ceiling':
+                            valueEl.textContent = `${data.ceiling.toLocaleString()} ft`;
+                            break;
+                        case 'Takeoff Distance':
+                            valueEl.textContent = `${data.takeoff.toLocaleString()} ft`;
+                            break;
+                        case 'Landing Distance':
+                            valueEl.textContent = `${data.landing.toLocaleString()} ft`;
+                            break;
+                        case 'Maximum Passengers':
+                            valueEl.textContent = data.passengers.toString();
+                            break;
+                        case 'Cabin Length':
+                            valueEl.textContent = `${data.length} ft`;
+                            break;
+                        case 'Cabin Width':
+                            valueEl.textContent = `${data.width} ft`;
+                            break;
+                        case 'Cabin Height':
+                            valueEl.textContent = `${data.height} ft`;
+                            break;
+                        case 'Baggage Volume':
+                            valueEl.textContent = `${data.baggage} ft³`;
+                            break;
+                    }
+                });
+                
+                // Animate aircraft transition
+                if (this.showcaseScene && this.showcaseScene.aircraft) {
+                    gsap.to(this.showcaseScene.aircraft.rotation, {
+                        y: this.showcaseScene.aircraft.rotation.y + Math.PI * 2,
+                        duration: 1,
+                        ease: "power2.inOut"
+                    });
+                }
+            }
+            
+            updateCameraView() {
+                if (!this.showcaseScene) return;
+                
+                const { camera } = this.showcaseScene;
+                let targetPosition, targetLookAt;
+                
+                switch (this.currentView) {
+                    case 'exterior':
+                        targetPosition = { x: 15, y: 5, z: 15 };
+                        targetLookAt = { x: 0, y: 0, z: 0 };
+                        break;
+                    case 'cabin':
+                        targetPosition = { x: 0, y: 0, z: 5 };
+                        targetLookAt = { x: 0, y: 0, z: -2 };
+                        break;
+                    case 'cockpit':
+                        targetPosition = { x: 3, y: 1, z: 0 };
+                        targetLookAt = { x: 5, y: 0, z: 0 };
+                        break;
+                    case 'specs':
+                        targetPosition = { x: 0, y: 10, z: 10 };
+                        targetLookAt = { x: 0, y: 0, z: 0 };
+                        break;
+                    default:
+                        targetPosition = { x: 15, y: 5, z: 15 };
+                        targetLookAt = { x: 0, y: 0, z: 0 };
+                }
+                
+                gsap.to(camera.position, {
+                    ...targetPosition,
+                    duration: 1.5,
+                    ease: "power2.inOut"
+                });
+            }
+            
+            calculateROI() {
+                const annualHours = parseFloat(document.getElementById('annual-hours')?.value || 250);
+                const charterRate = parseFloat(document.getElementById('hourly-rate')?.value || 8500);
+                const timeValue = parseFloat(document.getElementById('time-value')?.value || 2500);
+                
+                // Calculate annual cost avoidance
+                const charterCost = annualHours * charterRate;
+                const timeValueSavings = annualHours * timeValue * 0.3; // 30% time savings assumption
+                const totalSavings = charterCost + timeValueSavings;
+                
+                // Update display
+                const roiValueEl = document.querySelector('.roi-value');
+                if (roiValueEl) {
+                    roiValueEl.textContent = `$${(totalSavings / 1000000).toFixed(1)}M`;
+                }
+                
+                // Update other financial metrics
+                const data = this.aircraftData[this.currentAircraft];
+                if (data) {
+                    const tcoEl = document.querySelector('.spec-item .spec-label:contains("5-Year TCO") + .spec-value');
+                    // TCO calculation would be more complex in reality
+                    const fiveYearTCO = data.price + (annualHours * 5000 * 5); // Simplified
+                    if (tcoEl) {
+                        tcoEl.textContent = `$${(fiveYearTCO / 1000000).toFixed(1)}M`;
+                    }
+                }
+            }
+            
+            updateMarketData() {
+                // Simulate real-time market data updates
+                const data = this.aircraftData[this.currentAircraft];
+                if (!data) return;
+                
+                // Random market fluctuations for demo
+                const priceChange = (Math.random() - 0.5) * 0.02; // ±1% change
+                const newAvailability = Math.random() > 0.7 ? 'Limited' : 'Available';
+                
+                // Update availability display
+                const availabilityEl = document.querySelector('.spec-item .spec-label:contains("Market Availability") + .spec-value');
+                if (availabilityEl) {
+                    availabilityEl.textContent = newAvailability;
+                    availabilityEl.style.color = newAvailability === 'Limited' ? 'var(--danger-red)' : 'var(--success-green)';
+                }
+                
+                // Redraw market chart with new data
+                const chartCanvas = document.getElementById('market-chart-canvas');
+                if (chartCanvas) {
+                    this.drawMarketChart(chartCanvas.getContext('2d'), chartCanvas.width, chartCanvas.height);
+                }
+            }
+            
+            updateRouteCalculation() {
+                const departure = document.getElementById('departure')?.value || 'KTEB';
+                const destination = document.getElementById('destination')?.value || 'EGLL';
+                const passengers = parseInt(document.getElementById('passengers')?.value || 8);
+                
+                // Simplified route calculation (real implementation would use aviation APIs)
+                const distance = 3458; // Fixed for demo
+                const data = this.aircraftData[this.currentAircraft];
+                
+                if (data) {
+                    const flightTime = distance / (data.speed * 520); // Approximate calculation
+                    const fuelCost = distance * 3.2; // Simplified fuel calculation
+                    const operatingCost = fuelCost + (flightTime * 1200); // Simplified operating cost
+                    
+                    // Update route metrics
+                    document.querySelectorAll('.route-metric').forEach(metric => {
+                        const label = metric.querySelector('.metric-label').textContent;
+                        const valueEl = metric.querySelector('.metric-value');
+                        
+                        switch (label) {
+                            case 'Flight Time':
+                                const hours = Math.floor(flightTime);
+                                const minutes = Math.floor((flightTime - hours) * 60);
+                                valueEl.textContent = `${hours}h ${minutes}m`;
+                                break;
+                            case 'Operating Cost':
+                                valueEl.textContent = `$${operatingCost.toLocaleString()}`;
+                                break;
+                            case 'Fuel Stops':
+                                const fuelStops = distance > data.range ? 1 : 0;
+                                valueEl.textContent = fuelStops.toString();
+                                break;
+                        }
+                    });
+                }
+                
+                // Redraw route map
+                const routeCanvas = document.getElementById('route-map-canvas');
+                if (routeCanvas) {
+                    this.drawWorldMap(routeCanvas.getContext('2d'), routeCanvas.width, routeCanvas.height);
+                }
+            }
+            
+            rotateAircraft(deltaX, deltaY) {
+                if (this.showcaseScene && this.showcaseScene.aircraft) {
+                    this.showcaseScene.aircraft.rotation.y += deltaX;
+                    this.showcaseScene.aircraft.rotation.x += deltaY;
+                }
+            }
+            
+            zoomAircraft(scale) {
+                if (this.showcaseScene && this.showcaseScene.camera) {
+                    const camera = this.showcaseScene.camera;
+                    const currentDistance = camera.position.length();
+                    const newDistance = currentDistance / scale;
+                    
+                    // Constrain zoom levels
+                    const minDistance = 5;
+                    const maxDistance = 50;
+                    const clampedDistance = Math.max(minDistance, Math.min(maxDistance, newDistance));
+                    
+                    const direction = camera.position.clone().normalize();
+                    camera.position.copy(direction.multiplyScalar(clampedDistance));
+                }
+            }
+            
+            handleResize() {
+                // Handle window resize for all WebGL contexts
+                if (this.heroScene) {
+                    const canvas = document.getElementById('aircraft-canvas');
+                    if (canvas) {
+                        this.heroScene.camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        this.heroScene.camera.updateProjectionMatrix();
+                        this.heroScene.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                    }
+                }
+                
+                if (this.showcaseScene) {
+                    const canvas = document.getElementById('aircraft-3d-canvas');
+                    if (canvas) {
+                        this.showcaseScene.camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        this.showcaseScene.camera.updateProjectionMatrix();
+                        this.showcaseScene.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                    }
+                }
+                
+                // Redraw 2D canvases
+                const routeCanvas = document.getElementById('route-map-canvas');
+                if (routeCanvas) {
+                    routeCanvas.width = routeCanvas.clientWidth;
+                    routeCanvas.height = routeCanvas.clientHeight;
+                    this.drawWorldMap(routeCanvas.getContext('2d'), routeCanvas.width, routeCanvas.height);
+                }
+                
+                const chartCanvas = document.getElementById('market-chart-canvas');
+                if (chartCanvas) {
+                    chartCanvas.width = chartCanvas.clientWidth;
+                    chartCanvas.height = chartCanvas.clientHeight;
+                    this.drawMarketChart(chartCanvas.getContext('2d'), chartCanvas.width, chartCanvas.height);
+                }
+            }
+            
+            startRenderLoop() {
+                const animate = () => {
+                    // Render showcase scene
+                    if (this.showcaseScene) {
+                        this.showcaseScene.renderer.render(this.showcaseScene.scene, this.showcaseScene.camera);
+                    }
+                    
+                    requestAnimationFrame(animate);
+                };
+                animate();
+            }
+        }
+        
+        // Initialize the interface when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new AircraftInventoryInterface();
+        });
+        
+        // Performance monitoring
+        if ('PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                list.getEntries().forEach((entry) => {
+                    if (entry.entryType === 'measure') {
+                        console.log(`${entry.name}: ${entry.duration.toFixed(2)}ms`);
+                    }
+                });
+            });
+            observer.observe({ entryTypes: ['measure'] });
+        }
+    </script>
+</body>
+</html>

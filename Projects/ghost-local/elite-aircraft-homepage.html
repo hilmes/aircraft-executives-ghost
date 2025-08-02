@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Aviation - Elite Aircraft Brokerage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --secondary-black: #1a1a1a;
+            --accent-white: #ffffff;
+            --soft-grey: #f5f5f7;
+            --medium-grey: #86868b;
+            --premium-gold: #d4af37;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-elegant: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--primary-black);
+            background: var(--accent-white);
+            overflow-x: hidden;
+        }
+
+        /* WebGL Canvas Background */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            will-change: transform;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all var(--transition-smooth);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--primary-black);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+        }
+
+        .logo:hover {
+            color: var(--premium-gold);
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-black);
+            font-weight: 400;
+            position: relative;
+            transition: all var(--transition-fast);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--premium-gold);
+            transition: width var(--transition-smooth);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .main {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.2s var(--transition-elegant) 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 200;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--medium-grey);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1.2s var(--transition-elegant) 0.6s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--primary-black);
+            color: var(--accent-white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all var(--transition-smooth);
+            transform: scale(0.95);
+            opacity: 0;
+            animation: scaleIn 1s var(--transition-elegant) 0.9s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left var(--transition-elegant);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Market Data Section */
+        .market-data {
+            padding: 8rem 2rem;
+            background: var(--soft-grey);
+            position: relative;
+        }
+
+        .market-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .data-card {
+            background: var(--accent-white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--premium-gold), #f4e4a6);
+            transform: scaleX(0);
+            transition: transform var(--transition-smooth);
+            transform-origin: left;
+        }
+
+        .data-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .data-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .data-value {
+            font-size: 3rem;
+            font-weight: 100;
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .data-label {
+            font-size: 1.1rem;
+            color: var(--medium-grey);
+            font-weight: 300;
+        }
+
+        /* Aircraft Showcase */
+        .aircraft-showcase {
+            padding: 8rem 2rem;
+            background: var(--accent-white);
+        }
+
+        .showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .aircraft-card {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all var(--transition-elegant);
+        }
+
+        .aircraft-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .aircraft-card:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(50px);
+        }
+
+        .aircraft-image {
+            flex: 1;
+            height: 400px;
+            background: var(--soft-grey);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+        }
+
+        .aircraft-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .aircraft-info {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .aircraft-title {
+            font-size: 2.5rem;
+            font-weight: 200;
+            margin-bottom: 1rem;
+            color: var(--primary-black);
+        }
+
+        .aircraft-price {
+            font-size: 1.5rem;
+            color: var(--premium-gold);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .aircraft-specs {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .aircraft-specs li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--medium-grey);
+            transition: color var(--transition-fast);
+        }
+
+        .aircraft-specs li:hover {
+            color: var(--primary-black);
+        }
+
+        /* Interactive Route Map */
+        .route-map {
+            padding: 8rem 2rem;
+            background: var(--secondary-black);
+            color: var(--accent-white);
+            position: relative;
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .map-canvas {
+            width: 100%;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Particle System Container */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .aircraft-card {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .aircraft-card:nth-child(even) {
+                transform: translateY(50px);
+            }
+        }
+
+        /* Performance Optimizations */
+        .gpu-accelerated {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Hover Effects for Touch Devices */
+        @media (hover: none) {
+            .data-card:hover,
+            .aircraft-image:hover,
+            .cta-button:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WebGL Background Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">APEX AVIATION</a>
+            <ul class="nav-links">
+                <li><a href="#aircraft">Aircraft</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#market">Market</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Redefining<br>Aviation Excellence</h1>
+                <p class="tagline">Where precision meets luxury in private aviation</p>
+                <a href="#aircraft" class="cta-button">Explore Fleet</a>
+            </div>
+            <div class="particles"></div>
+        </section>
+
+        <!-- Market Data Section -->
+        <section class="market-data" id="market">
+            <div class="market-container">
+                <h2 style="font-size: 3rem; font-weight: 200; text-align: center; margin-bottom: 2rem;">Market Intelligence</h2>
+                <div class="market-grid">
+                    <div class="data-card" data-animate="counter" data-target="847">
+                        <div class="data-value">0</div>
+                        <div class="data-label">Aircraft Transactions</div>
+                    </div>
+                    <div class="data-card" data-animate="counter" data-target="2.4">
+                        <div class="data-value">0</div>
+                        <div class="data-label">Billion in Sales</div>
+                    </div>
+                    <div class="data-card" data-animate="counter" data-target="156">
+                        <div class="data-value">0</div>
+                        <div class="data-label">Countries Served</div>
+                    </div>
+                    <div class="data-card" data-animate="counter" data-target="24">
+                        <div class="data-value">0</div>
+                        <div class="data-label">Hour Service</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aircraft Showcase -->
+        <section class="aircraft-showcase" id="aircraft">
+            <div class="showcase-container">
+                <h2 style="font-size: 3rem; font-weight: 200; text-align: center; margin-bottom: 4rem;">Featured Aircraft</h2>
+                
+                <div class="aircraft-card">
+                    <div class="aircraft-image gpu-accelerated"></div>
+                    <div class="aircraft-info">
+                        <h3 class="aircraft-title">Gulfstream G650ER</h3>
+                        <div class="aircraft-price">$68.5M</div>
+                        <ul class="aircraft-specs">
+                            <li>Range: 7,500 nautical miles</li>
+                            <li>Max Speed: Mach 0.925</li>
+                            <li>Passengers: Up to 19</li>
+                            <li>Year: 2023</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="aircraft-card">
+                    <div class="aircraft-image gpu-accelerated"></div>
+                    <div class="aircraft-info">
+                        <h3 class="aircraft-title">Bombardier Global 7500</h3>
+                        <div class="aircraft-price">$72.8M</div>
+                        <ul class="aircraft-specs">
+                            <li>Range: 7,700 nautical miles</li>
+                            <li>Max Speed: Mach 0.925</li>
+                            <li>Passengers: Up to 17</li>
+                            <li>Year: 2024</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="aircraft-card">
+                    <div class="aircraft-image gpu-accelerated"></div>
+                    <div class="aircraft-info">
+                        <h3 class="aircraft-title">Dassault Falcon 8X</h3>
+                        <div class="aircraft-price">$58.5M</div>
+                        <ul class="aircraft-specs">
+                            <li>Range: 6,450 nautical miles</li>
+                            <li>Max Speed: Mach 0.90</li>
+                            <li>Passengers: Up to 16</li>
+                            <li>Year: 2023</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Route Map -->
+        <section class="route-map">
+            <div class="map-container">
+                <h2 style="font-size: 3rem; font-weight: 200; margin-bottom: 2rem;">Global Reach</h2>
+                <p style="font-size: 1.2rem; color: #86868b; margin-bottom: 2rem;">Connecting the world's most exclusive destinations</p>
+                <div class="map-canvas" id="route-map"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Performance-optimized animation system
+        class AnimationEngine {
+            constructor() {
+                this.activeAnimations = new Set();
+                this.rafId = null;
+                this.isRunning = false;
+            }
+
+            start() {
+                if (!this.isRunning) {
+                    this.isRunning = true;
+                    this.animate();
+                }
+            }
+
+            stop() {
+                this.isRunning = false;
+                if (this.rafId) {
+                    cancelAnimationFrame(this.rafId);
+                }
+            }
+
+            animate() {
+                if (!this.isRunning) return;
+
+                // Update all active animations
+                this.activeAnimations.forEach(animation => {
+                    if (animation.update) {
+                        animation.update();
+                    }
+                });
+
+                this.rafId = requestAnimationFrame(() => this.animate());
+            }
+
+            addAnimation(animation) {
+                this.activeAnimations.add(animation);
+                this.start();
+            }
+
+            removeAnimation(animation) {
+                this.activeAnimations.delete(animation);
+                if (this.activeAnimations.size === 0) {
+                    this.stop();
+                }
+            }
+        }
+
+        const animationEngine = new AnimationEngine();
+
+        // WebGL Particle System
+        class WebGLParticles {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                this.particles = [];
+                this.particleCount = 50;
+                
+                if (!this.gl) {
+                    console.warn('WebGL not supported, falling back to canvas particles');
+                    this.fallbackToCanvas();
+                    return;
+                }
+
+                this.init();
+                this.createParticles();
+                animationEngine.addAnimation(this);
+            }
+
+            init() {
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                
+                this.gl.clearColor(0, 0, 0, 0);
+                this.gl.enable(this.gl.BLEND);
+                this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                if (this.gl) {
+                    this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+
+            createParticles() {
+                for (let i = 0; i < this.particleCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: this.canvas.height + Math.random() * 100,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: -Math.random() * 2 - 0.5,
+                        life: 1.0,
+                        decay: Math.random() * 0.005 + 0.001
+                    });
+                }
+            }
+
+            update() {
+                if (!this.gl) return;
+
+                this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+
+                this.particles.forEach((particle, index) => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    particle.life -= particle.decay;
+
+                    if (particle.life <= 0 || particle.y < -10) {
+                        // Reset particle
+                        particle.x = Math.random() * this.canvas.width;
+                        particle.y = this.canvas.height + Math.random() * 100;
+                        particle.life = 1.0;
+                    }
+                });
+
+                this.render();
+            }
+
+            render() {
+                // Simple point rendering - in production, you'd use proper shaders
+                this.particles.forEach(particle => {
+                    if (particle.life > 0) {
+                        const alpha = particle.life * 0.3;
+                        this.gl.uniform4f(this.gl.getUniformLocation(null, 'color'), 
+                            212/255, 175/255, 55/255, alpha);
+                        // Render particle as point
+                    }
+                });
+            }
+
+            fallbackToCanvas() {
+                // Fallback to 2D canvas for older browsers
+                const ctx = this.canvas.getContext('2d');
+                this.renderFallback = () => {
+                    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.particles.forEach(particle => {
+                        if (particle.life > 0) {
+                            ctx.globalAlpha = particle.life * 0.3;
+                            ctx.fillStyle = '#d4af37';
+                            ctx.beginPath();
+                            ctx.arc(particle.x, particle.y, 1, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    });
+                };
+                
+                this.update = () => {
+                    this.particles.forEach(particle => {
+                        particle.x += particle.vx;
+                        particle.y += particle.vy;
+                        particle.life -= particle.decay;
+
+                        if (particle.life <= 0 || particle.y < -10) {
+                            particle.x = Math.random() * this.canvas.width;
+                            particle.y = this.canvas.height + Math.random() * 100;
+                            particle.life = 1.0;
+                        }
+                    });
+                    this.renderFallback();
+                };
+                
+                this.createParticles();
+                animationEngine.addAnimation(this);
+            }
+        }
+
+        // Counter Animation
+        class CounterAnimation {
+            constructor(element, target, duration = 2000) {
+                this.element = element;
+                this.target = parseFloat(target);
+                this.duration = duration;
+                this.startValue = 0;
+                this.startTime = null;
+                this.isComplete = false;
+            }
+
+            update() {
+                if (this.isComplete) return;
+
+                if (!this.startTime) {
+                    this.startTime = performance.now();
+                }
+
+                const elapsed = performance.now() - this.startTime;
+                const progress = Math.min(elapsed / this.duration, 1);
+                
+                // Easing function for smooth animation
+                const easedProgress = 1 - Math.pow(1 - progress, 3);
+                const currentValue = this.startValue + (this.target - this.startValue) * easedProgress;
+
+                // Format the number appropriately
+                if (this.target >= 1000) {
+                    this.element.textContent = Math.floor(currentValue).toLocaleString();
+                } else {
+                    this.element.textContent = currentValue.toFixed(1);
+                }
+
+                if (progress >= 1) {
+                    this.isComplete = true;
+                    animationEngine.removeAnimation(this);
+                }
+            }
+        }
+
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('aircraft-card')) {
+                        entry.target.classList.add('visible');
+                    }
+                    
+                    if (entry.target.hasAttribute('data-animate')) {
+                        const target = entry.target.getAttribute('data-target');
+                        const valueElement = entry.target.querySelector('.data-value');
+                        const counter = new CounterAnimation(valueElement, target);
+                        animationEngine.addAnimation(counter);
+                        observer.unobserve(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Advanced hover effects with GPU acceleration
+        function addHoverEffects() {
+            const cards = document.querySelectorAll('.data-card, .aircraft-image');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function(e) {
+                    if (window.matchMedia('(hover: hover)').matches) {
+                        this.style.willChange = 'transform';
+                    }
+                });
+
+                card.addEventListener('mouseleave', function(e) {
+                    this.style.willChange = 'auto';
+                });
+
+                // Touch device gestures
+                let startY = 0;
+                card.addEventListener('touchstart', function(e) {
+                    startY = e.touches[0].clientY;
+                }, { passive: true });
+
+                card.addEventListener('touchmove', function(e) {
+                    const currentY = e.touches[0].clientY;
+                    const deltaY = startY - currentY;
+                    
+                    if (Math.abs(deltaY) > 10) {
+                        this.style.transform = `translateY(${deltaY * -0.1}px)`;
+                    }
+                }, { passive: true });
+
+                card.addEventListener('touchend', function(e) {
+                    this.style.transform = '';
+                }, { passive: true });
+            });
+        }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize WebGL particles
+            const canvas = document.getElementById('webgl-canvas');
+            new WebGLParticles(canvas);
+
+            // Set up intersection observers
+            document.querySelectorAll('.aircraft-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            document.querySelectorAll('[data-animate="counter"]').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add hover effects
+            addHoverEffects();
+
+            // Initialize floating particles in hero section
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    particlesContainer.appendChild(particle);
+                }, i * 200);
+            }
+
+            // Navbar scroll effect
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.nav');
+                const scrollY = window.scrollY;
+                
+                if (scrollY > 100) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.8)';
+                    navbar.style.boxShadow = 'none';
+                }
+
+                lastScrollY = scrollY;
+            }, { passive: true });
+
+            // Performance monitoring
+            if ('performance' in window) {
+                const observer = new PerformanceObserver((list) => {
+                    list.getEntries().forEach((entry) => {
+                        if (entry.entryType === 'measure') {
+                            console.log(`${entry.name}: ${entry.duration}ms`);
+                        }
+                    });
+                });
+                observer.observe({ entryTypes: ['measure'] });
+            }
+        });
+
+        // Battery-conscious animations
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(battery => {
+                if (battery.level < 0.2 || battery.charging === false) {
+                    document.documentElement.style.setProperty('--transition-smooth', '0.1s');
+                    document.documentElement.style.setProperty('--transition-elegant', '0.2s');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

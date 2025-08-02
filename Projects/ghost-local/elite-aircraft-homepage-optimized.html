@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Aircraft Brokerage | Premium Private Jet Acquisitions</title>
+    <meta name="description" content="Exclusive private jet brokerage for ultra-high net worth individuals. Discreet, precise, extraordinary aircraft acquisitions with Swiss precision and Japanese refinement.">
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Trust indicators and structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Elite Aircraft Brokerage",
+        "description": "Premium private jet acquisitions for ultra-high net worth individuals",
+        "url": "https://eliteaircraftbrokerage.com",
+        "telephone": "+1-555-ELITE-JET",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US"
+        }
+    }
+    </script>
+
+    <style>
+        /* Swiss Design Foundation - Mathematical Grid System */
+        :root {
+            /* 8-point grid system */
+            --grid-base: 8px;
+            --grid-2: calc(var(--grid-base) * 2);
+            --grid-3: calc(var(--grid-base) * 3);
+            --grid-4: calc(var(--grid-base) * 4);
+            --grid-6: calc(var(--grid-base) * 6);
+            --grid-8: calc(var(--grid-base) * 8);
+            --grid-12: calc(var(--grid-base) * 12);
+            --grid-16: calc(var(--grid-base) * 16);
+            
+            /* Typography scale - Swiss design precision */
+            --type-scale-ratio: 1.25;
+            --type-base: 16px;
+            --type-sm: 14px;
+            --type-lg: 20px;
+            --type-xl: 25px;
+            --type-2xl: 31px;
+            --type-3xl: 39px;
+            --type-4xl: 49px;
+            --type-5xl: 61px;
+            
+            /* Color system - Swiss neutrals with Japanese restraint */
+            --color-primary: #000000;
+            --color-secondary: #1a1a1a;
+            --color-accent: #d4af37;
+            --color-accent-muted: #f5f2e8;
+            --color-text-primary: #000000;
+            --color-text-secondary: #666666;
+            --color-text-muted: #999999;
+            --color-background: #ffffff;
+            --color-background-alt: #fafafa;
+            --color-border: #e5e5e5;
+            --color-border-light: #f0f0f0;
+            
+            /* Swiss precision spacing */
+            --container-max: 1440px;
+            --container-padding: clamp(24px, 5vw, 80px);
+            --section-padding: clamp(80px, 12vw, 160px);
+            
+            /* Performance-optimized transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset with accessibility focus */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: var(--type-base);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Swiss Grid Foundation */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--grid-8);
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Typography Hierarchy - Swiss precision */
+        .text-5xl { font-size: var(--type-5xl); line-height: 1.1; font-weight: 300; }
+        .text-4xl { font-size: var(--type-4xl); line-height: 1.2; font-weight: 300; }
+        .text-3xl { font-size: var(--type-3xl); line-height: 1.2; font-weight: 400; }
+        .text-2xl { font-size: var(--type-2xl); line-height: 1.3; font-weight: 400; }
+        .text-xl { font-size: var(--type-xl); line-height: 1.4; font-weight: 400; }
+        .text-lg { font-size: var(--type-lg); line-height: 1.5; font-weight: 400; }
+        .text-base { font-size: var(--type-base); line-height: 1.6; font-weight: 400; }
+        .text-sm { font-size: var(--type-sm); line-height: 1.5; font-weight: 400; }
+
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-muted { color: var(--color-text-muted); }
+
+        /* Header - Swiss precision navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border-light);
+            transition: var(--transition-base);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            height: 80px;
+            gap: var(--grid-8);
+        }
+
+        .logo {
+            font-size: var(--type-xl);
+            font-weight: 600;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: var(--grid-8);
+            margin-left: auto;
+        }
+
+        .nav-link {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: var(--type-sm);
+            letter-spacing: 0.02em;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-accent);
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* CTAs - Swiss precision with clear hierarchy */
+        .cta-primary {
+            background: var(--color-primary);
+            color: white;
+            padding: var(--grid-2) var(--grid-4);
+            border: none;
+            font-weight: 500;
+            font-size: var(--type-sm);
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary:hover {
+            background: var(--color-secondary);
+            transform: translateY(-1px);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--color-primary);
+            padding: var(--grid-2) var(--grid-4);
+            border: 1px solid var(--color-border);
+            font-weight: 500;
+            font-size: var(--type-sm);
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        /* Hero Section - Progressive disclosure */
+        .hero {
+            margin-top: 80px;
+            padding: var(--section-padding) 0;
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--grid-16);
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-headline {
+            margin-bottom: var(--grid-6);
+            line-height: 1.1;
+        }
+
+        .hero-subhead {
+            margin-bottom: var(--grid-8);
+            max-width: 500px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--grid-4);
+            margin-bottom: var(--grid-8);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, var(--color-background-alt) 0%, white 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Trust Indicators - Strategic placement */
+        .trust-indicators {
+            display: flex;
+            gap: var(--grid-8);
+            align-items: center;
+            margin-top: var(--grid-8);
+            padding-top: var(--grid-6);
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: var(--grid-2);
+            font-size: var(--type-sm);
+            color: var(--color-text-secondary);
+        }
+
+        /* Services Grid - Swiss systematic approach */
+        .services {
+            padding: var(--section-padding) 0;
+            background: var(--color-background-alt);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: var(--grid-16);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--grid-8);
+        }
+
+        .service-card {
+            background: white;
+            padding: var(--grid-8);
+            border: 1px solid var(--color-border-light);
+            transition: var(--transition-base);
+            position: relative;
+        }
+
+        .service-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent-muted);
+            margin-bottom: var(--grid-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Portfolio Preview - Visual hierarchy */
+        .portfolio {
+            padding: var(--section-padding) 0;
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: between;
+            align-items: end;
+            margin-bottom: var(--grid-12);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--grid-6);
+        }
+
+        .aircraft-card {
+            position: relative;
+            height: 300px;
+            background: var(--color-background-alt);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+
+        .aircraft-card:hover {
+            transform: scale(1.02);
+        }
+
+        .aircraft-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: var(--grid-6);
+        }
+
+        /* Contact Section - Multiple engagement pathways */
+        .contact {
+            padding: var(--section-padding) 0;
+            background: var(--color-background-alt);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--grid-16);
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: var(--grid-6);
+        }
+
+        .contact-method {
+            padding: var(--grid-6);
+            background: white;
+            border: 1px solid var(--color-border-light);
+            transition: var(--transition-fast);
+        }
+
+        .contact-method:hover {
+            border-color: var(--color-accent);
+        }
+
+        /* Form - Swiss precision */
+        .form {
+            display: grid;
+            gap: var(--grid-4);
+        }
+
+        .form-group {
+            display: grid;
+            gap: var(--grid-2);
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: var(--type-sm);
+            color: var(--color-text-primary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            padding: var(--grid-3);
+            border: 1px solid var(--color-border);
+            font-size: var(--type-base);
+            font-family: inherit;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer - Systematic organization */
+        .footer {
+            padding: var(--grid-16) 0 var(--grid-8);
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--grid-8);
+            margin-bottom: var(--grid-8);
+        }
+
+        .footer-section h3 {
+            margin-bottom: var(--grid-4);
+            font-size: var(--type-lg);
+            font-weight: 500;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: var(--grid-2);
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: var(--type-sm);
+            transition: var(--transition-fast);
+        }
+
+        .footer-link:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--grid-6);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            font-size: var(--type-sm);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--grid-2);
+        }
+
+        .mobile-menu-line {
+            width: 24px;
+            height: 2px;
+            background: var(--color-primary);
+            transition: var(--transition-fast);
+        }
+
+        /* Progressive Enhancement - Mobile Optimizations */
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: var(--grid-8);
+            }
+            
+            .hero-visual {
+                height: 400px;
+                order: -1;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--grid-8);
+            }
+            
+            .portfolio-header {
+                flex-direction: column;
+                align-items: start;
+                gap: var(--grid-4);
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+            }
+            
+            .trust-indicators {
+                flex-direction: column;
+                align-items: start;
+                gap: var(--grid-4);
+            }
+        }
+
+        /* Accessibility Enhancements */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus states for keyboard navigation */
+        .cta-primary:focus, .cta-secondary:focus, .nav-link:focus, .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header with Swiss precision navigation -->
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" aria-label="Elite Aircraft Brokerage Home">Elite Aircraft</a>
+                
+                <nav class="nav" role="navigation" aria-label="Main navigation">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                
+                <a href="#contact" class="cta-primary">Discreet Consultation</a>
+                
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <span class="mobile-menu-line"></span>
+                    <span class="mobile-menu-line"></span>
+                    <span class="mobile-menu-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <!-- Hero Section with Progressive Disclosure -->
+        <section class="hero" aria-labelledby="hero-headline">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1 id="hero-headline" class="text-5xl hero-headline">
+                            Extraordinary Aircraft.<br>
+                            <span class="text-secondary">Absolute Discretion.</span>
+                        </h1>
+                        
+                        <p class="text-xl hero-subhead text-secondary">
+                            Elite aircraft acquisitions for the world's most discerning individuals. 
+                            Swiss precision meets Japanese refinement in every transaction.
+                        </p>
+                        
+                        <div class="hero-actions">
+                            <a href="#contact" class="cta-primary">Begin Consultation</a>
+                            <a href="#portfolio" class="cta-secondary">View Portfolio</a>
+                        </div>
+                        
+                        <!-- Trust Indicators - Strategic Placement -->
+                        <div class="trust-indicators">
+                            <div class="trust-item">
+                                <span aria-hidden="true">✓</span>
+                                <span>$2.8B+ Transactions</span>
+                            </div>
+                            <div class="trust-item">
+                                <span aria-hidden="true">✓</span>
+                                <span>Ultra-Discreet Service</span>
+                            </div>
+                            <div class="trust-item">
+                                <span aria-hidden="true">✓</span>
+                                <span>Global Network</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <!-- WebGL Canvas or High-quality aircraft visualization would go here -->
+                        <div style="font-size: 48px; color: var(--color-text-muted);">
+                            ✈︎
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section with Swiss Grid System -->
+        <section id="services" class="services" aria-labelledby="services-headline">
+            <div class="container">
+                <div class="services-header">
+                    <h2 id="services-headline" class="text-3xl">Precision-Crafted Services</h2>
+                    <p class="text-lg text-secondary">
+                        Each engagement is tailored with the methodical precision of Swiss craftsmanship
+                        and the subtle elegance of Japanese design philosophy.
+                    </p>
+                </div>
+                
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">🎯</div>
+                        <h3 class="text-xl" style="margin-bottom: var(--grid-3);">Acquisition Advisory</h3>
+                        <p class="text-base text-secondary">
+                            Discreet market intelligence and strategic acquisition guidance for ultra-high-net-worth individuals seeking extraordinary aircraft.
+                        </p>
+                        <a href="#contact" class="cta-secondary" style="margin-top: var(--grid-4);">Learn More</a>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">⚖️</div>
+                        <h3 class="text-xl" style="margin-bottom: var(--grid-3);">Valuation Services</h3>
+                        <p class="text-base text-secondary">
+                            Precise market valuations leveraging proprietary data and decades of elite market experience.
+                        </p>
+                        <a href="#contact" class="cta-secondary" style="margin-top: var(--grid-4);">Learn More</a>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">🔐</div>
+                        <h3 class="text-xl" style="margin-bottom: var(--grid-3);">Private Transactions</h3>
+                        <p class="text-base text-secondary">
+                            Confidential off-market opportunities and white-glove transaction management with absolute discretion.
+                        </p>
+                        <a href="#contact" class="cta-secondary" style="margin-top: var(--grid-4);">Learn More</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Preview with Visual Hierarchy -->
+        <section id="portfolio" class="portfolio" aria-labelledby="portfolio-headline">
+            <div class="container">
+                <div class="portfolio-header">
+                    <div>
+                        <h2 id="portfolio-headline" class="text-3xl">Curated Portfolio</h2>
+                        <p class="text-lg text-secondary">Exceptional aircraft for exceptional individuals</p>
+                    </div>
+                    <a href="#contact" class="cta-secondary">View All Available</a>
+                </div>
+                
+                <div class="portfolio-grid">
+                    <article class="aircraft-card" tabindex="0" role="button" aria-label="Gulfstream G700 details">
+                        <div class="aircraft-info">
+                            <h3 class="text-xl">Gulfstream G700</h3>
+                            <p class="text-sm">2024 • 14 Passengers • Ultra Long Range</p>
+                            <p class="text-lg" style="margin-top: var(--grid-2);">Price Upon Request</p>
+                        </div>
+                    </article>
+                    
+                    <article class="aircraft-card" tabindex="0" role="button" aria-label="Bombardier Global 7500 details">
+                        <div class="aircraft-info">
+                            <h3 class="text-xl">Bombardier Global 7500</h3>
+                            <p class="text-sm">2023 • 19 Passengers • Ultra Long Range</p>
+                            <p class="text-lg" style="margin-top: var(--grid-2);">Price Upon Request</p>
+                        </div>
+                    </article>
+                    
+                    <article class="aircraft-card" tabindex="0" role="button" aria-label="Dassault Falcon 8X details">
+                        <div class="aircraft-info">
+                            <h3 class="text-xl">Dassault Falcon 8X</h3>
+                            <p class="text-sm">2024 • 12 Passengers • Long Range</p>
+                            <p class="text-lg" style="margin-top: var(--grid-2);">Price Upon Request</p>
+                        </div>
+                    </article>
+                    
+                    <article class="aircraft-card" tabindex="0" role="button" aria-label="Embraer Phenom 300E details">
+                        <div class="aircraft-info">
+                            <h3 class="text-xl">Embraer Phenom 300E</h3>
+                            <p class="text-sm">2023 • 9 Passengers • Light Jet</p>
+                            <p class="text-lg" style="margin-top: var(--grid-2);">Price Upon Request</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section with Multiple Engagement Pathways -->
+        <section id="contact" class="contact" aria-labelledby="contact-headline">
+            <div class="container">
+                <div class="contact-grid">
+                    <div>
+                        <h2 id="contact-headline" class="text-3xl" style="margin-bottom: var(--grid-6);">
+                            Begin Your Journey
+                        </h2>
+                        <p class="text-lg text-secondary" style="margin-bottom: var(--grid-8);">
+                            Every extraordinary acquisition begins with a conversation. 
+                            Choose your preferred method of engagement.
+                        </p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <h3 class="text-lg" style="margin-bottom: var(--grid-2);">Private Consultation</h3>
+                                <p class="text-base text-secondary" style="margin-bottom: var(--grid-3);">
+                                    Discreet, personalized discussion of your aviation requirements
+                                </p>
+                                <a href="tel:+1-555-ELITE-JET" class="cta-primary">+1-555-ELITE-JET</a>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <h3 class="text-lg" style="margin-bottom: var(--grid-2);">Secure Messaging</h3>
+                                <p class="text-base text-secondary" style="margin-bottom: var(--grid-3);">
+                                    Encrypted communication for sensitive inquiries
+                                </p>
+                                <a href="mailto:private@eliteaircraft.com" class="cta-secondary">private@eliteaircraft.com</a>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <h3 class="text-lg" style="margin-bottom: var(--grid-2);">In-Person Meeting</h3>
+                                <p class="text-base text-secondary" style="margin-bottom: var(--grid-3);">
+                                    Face-to-face consultation at your preferred location
+                                </p>
+                                <button class="cta-secondary">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <form class="form" aria-label="Contact form">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" id="name" name="name" class="form-input" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-input" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone (Optional)</label>
+                                <input type="tel" id="phone" name="phone" class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="interest" class="form-label">Area of Interest</label>
+                                <select id="interest" name="interest" class="form-select" required aria-required="true">
+                                    <option value="">Select an option</option>
+                                    <option value="acquisition">Aircraft Acquisition</option>
+                                    <option value="valuation">Market Valuation</option>
+                                    <option value="consultation">Strategic Consultation</option>
+                                    <option value="portfolio">Portfolio Review</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea id="message" name="message" class="form-textarea" rows="4" 
+                                         placeholder="Please share details about your aviation requirements..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="cta-primary" style="width: 100%; justify-self: start;">
+                                Send Secure Message
+                            </button>
+                            
+                            <p class="text-sm text-muted" style="margin-top: var(--grid-3);">
+                                All communications are handled with absolute confidentiality and discretion.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer with Systematic Organization -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Elite Aircraft Brokerage</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: var(--grid-4);">
+                        Extraordinary aircraft acquisitions with Swiss precision and Japanese refinement.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Aircraft Acquisition</a>
+                        <a href="#" class="footer-link">Market Valuation</a>
+                        <a href="#" class="footer-link">Private Transactions</a>
+                        <a href="#" class="footer-link">Portfolio Management</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Aircraft Types</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Ultra Long Range</a>
+                        <a href="#" class="footer-link">Heavy Jets</a>
+                        <a href="#" class="footer-link">Mid-Size Jets</a>
+                        <a href="#" class="footer-link">Light Jets</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <div class="footer-links">
+                        <a href="tel:+1-555-ELITE-JET" class="footer-link">+1-555-ELITE-JET</a>
+                        <a href="mailto:private@eliteaircraft.com" class="footer-link">private@eliteaircraft.com</a>
+                        <a href="#" class="footer-link">Schedule Consultation</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Elite Aircraft Brokerage. All rights reserved.</p>
+                <div style="display: flex; gap: var(--grid-4);">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Performance and UX Enhancement Scripts -->
+    <script>
+        // Swiss precision: Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData.loadEventEnd - perfData.loadEventStart > 3000) {
+                    console.warn('Page load exceeded 3s threshold');
+                }
+            });
+        }
+
+        // Accessibility: Enhanced keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        // Progressive enhancement: Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form enhancement: Real-time validation
+        const form = document.querySelector('.form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simple client-side validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = 'red';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+                
+                if (isValid) {
+                    // In production, this would submit to your backend
+                    alert('Thank you for your inquiry. We will contact you within 24 hours.');
+                    form.reset();
+                }
+            });
+        }
+
+        // Mobile menu functionality
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('.nav');
+        
+        if (mobileToggle && nav) {
+            mobileToggle.addEventListener('click', () => {
+                nav.classList.toggle('mobile-active');
+                mobileToggle.setAttribute('aria-expanded', 
+                    mobileToggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+                );
+            });
+        }
+
+        // Intersection Observer for progressive disclosure
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe elements for progressive disclosure
+            document.querySelectorAll('.service-card, .aircraft-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>

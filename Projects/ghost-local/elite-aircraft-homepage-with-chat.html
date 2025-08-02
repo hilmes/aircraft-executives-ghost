@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Aircraft Brokerage | Premium Private Jet Acquisitions</title>
+    <meta name="description" content="Exclusive private jet brokerage for ultra-high net worth individuals. Discreet, precise, extraordinary aircraft acquisitions with Swiss precision and Japanese refinement.">
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Swiss Design Foundation - Mathematical Grid System */
+        :root {
+            /* 8-point grid system */
+            --grid-base: 8px;
+            --grid-2: calc(var(--grid-base) * 2);
+            --grid-3: calc(var(--grid-base) * 3);
+            --grid-4: calc(var(--grid-base) * 4);
+            --grid-6: calc(var(--grid-base) * 6);
+            --grid-8: calc(var(--grid-base) * 8);
+            --grid-12: calc(var(--grid-base) * 12);
+            --grid-16: calc(var(--grid-base) * 16);
+            
+            /* Typography scale - Swiss design precision */
+            --type-scale-ratio: 1.25;
+            --type-base: 16px;
+            --type-sm: 14px;
+            --type-lg: 20px;
+            --type-xl: 25px;
+            --type-2xl: 31px;
+            --type-3xl: 39px;
+            --type-4xl: 49px;
+            --type-5xl: 61px;
+            
+            /* Color system - Swiss neutrals with Japanese restraint */
+            --color-primary: #000000;
+            --color-secondary: #1a1a1a;
+            --color-accent: #d4af37;
+            --color-accent-muted: #f5f2e8;
+            --color-text-primary: #000000;
+            --color-text-secondary: #666666;
+            --color-text-muted: #999999;
+            --color-background: #ffffff;
+            --color-background-alt: #fafafa;
+            --color-border: #e5e5e5;
+            --color-border-light: #f0f0f0;
+            
+            /* Chat colors */
+            --chat-primary: #0066cc;
+            --chat-primary-dark: #0052a3;
+            --chat-bubble-user: #f0f4f8;
+            --chat-bubble-agent: #ffffff;
+            --chat-text-light: #ffffff;
+            
+            /* Swiss precision spacing */
+            --container-max: 1440px;
+            --container-padding: clamp(24px, 5vw, 80px);
+            --section-padding: clamp(80px, 12vw, 160px);
+            
+            /* Performance-optimized transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset with accessibility focus */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: var(--type-base);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Swiss Grid Foundation */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--grid-4);
+        }
+
+        /* Typography System */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: var(--grid-3);
+        }
+
+        h1 { font-size: var(--type-4xl); }
+        h2 { font-size: var(--type-3xl); }
+        h3 { font-size: var(--type-2xl); }
+        h4 { font-size: var(--type-xl); }
+
+        p {
+            margin-bottom: var(--grid-3);
+        }
+
+        /* Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border-light);
+            z-index: 1000;
+            transition: all var(--transition-base);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--grid-3) 0;
+        }
+
+        .logo {
+            font-size: var(--type-lg);
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--grid-6);
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            font-weight: 400;
+            transition: color var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: calc(100px + var(--section-padding));
+            padding-bottom: var(--section-padding);
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            grid-column: span 8;
+        }
+
+        .hero h1 {
+            font-size: clamp(var(--type-3xl), 6vw, var(--type-5xl));
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: var(--grid-4);
+        }
+
+        .hero-subtitle {
+            font-size: var(--type-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--grid-6);
+            max-width: 600px;
+        }
+
+        /* Button System */
+        .btn {
+            display: inline-block;
+            padding: var(--grid-3) var(--grid-6);
+            font-size: var(--type-base);
+            font-weight: 500;
+            text-decoration: none;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-secondary);
+            border-color: var(--color-secondary);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: var(--grid-4);
+            right: var(--grid-4);
+            z-index: 9999;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        .chat-bubble-trigger {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--chat-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-bubble-trigger:hover {
+            background: var(--chat-primary-dark);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-bubble-trigger svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .chat-pulse {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 20px;
+            height: 20px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            height: 600px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-header {
+            background: var(--chat-primary);
+            color: white;
+            padding: var(--grid-3) var(--grid-4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: var(--grid-2);
+        }
+
+        .chat-status {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-header h4 {
+            font-size: var(--type-base);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .chat-header-subtitle {
+            font-size: var(--type-sm);
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: var(--grid-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity var(--transition-fast);
+        }
+
+        .chat-close:hover {
+            opacity: 0.8;
+        }
+
+        .chat-close svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--grid-4);
+            background: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            gap: var(--grid-3);
+        }
+
+        .chat-message {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-agent {
+            align-self: flex-start;
+            max-width: 85%;
+        }
+
+        .message-user {
+            align-self: flex-end;
+            max-width: 85%;
+        }
+
+        .message-bubble {
+            padding: var(--grid-2) var(--grid-3);
+            border-radius: 16px;
+            font-size: var(--type-sm);
+            line-height: 1.5;
+        }
+
+        .message-agent .message-bubble {
+            background: var(--chat-bubble-agent);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border-light);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-user .message-bubble {
+            background: var(--chat-primary);
+            color: var(--chat-text-light);
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+            padding: 0 var(--grid-2);
+        }
+
+        .chat-typing {
+            padding: var(--grid-2) var(--grid-3);
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-text-muted);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        .chat-quick-replies {
+            padding: var(--grid-3);
+            background: white;
+            border-top: 1px solid var(--color-border-light);
+            display: flex;
+            gap: var(--grid-2);
+            flex-wrap: wrap;
+        }
+
+        .quick-reply {
+            padding: var(--grid-1) var(--grid-3);
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            font-size: var(--type-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .quick-reply:hover {
+            background: var(--chat-primary);
+            color: white;
+            border-color: var(--chat-primary);
+        }
+
+        .chat-input {
+            padding: var(--grid-3);
+            background: white;
+            border-top: 1px solid var(--color-border-light);
+            display: flex;
+            gap: var(--grid-2);
+            align-items: center;
+        }
+
+        .chat-input-field {
+            flex: 1;
+            padding: var(--grid-2) var(--grid-3);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            font-size: var(--type-sm);
+            outline: none;
+            transition: border-color var(--transition-fast);
+        }
+
+        .chat-input-field:focus {
+            border-color: var(--chat-primary);
+        }
+
+        .chat-send {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--chat-primary);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .chat-send:hover {
+            background: var(--chat-primary-dark);
+            transform: scale(1.05);
+        }
+
+        .chat-send svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Qualification Form */
+        .qualification-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--grid-3);
+            padding: var(--grid-3);
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--color-border-light);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--grid-1);
+        }
+
+        .form-label {
+            font-size: var(--type-sm);
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        .form-input,
+        .form-select {
+            padding: var(--grid-2) var(--grid-3);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: var(--type-sm);
+            outline: none;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--chat-primary);
+        }
+
+        .form-submit {
+            padding: var(--grid-2) var(--grid-4);
+            background: var(--chat-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: var(--type-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .form-submit:hover {
+            background: var(--chat-primary-dark);
+        }
+
+        /* Trust Banner */
+        .trust-banner {
+            background: var(--color-background-alt);
+            padding: var(--grid-3) 0;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--grid-8);
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: var(--grid-2);
+            font-size: var(--type-sm);
+            color: var(--color-text-secondary);
+        }
+
+        .trust-metric {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        /* Services Section */
+        .services {
+            padding: var(--section-padding) 0;
+            background: var(--color-background-alt);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--grid-12);
+        }
+
+        .section-title {
+            font-size: var(--type-3xl);
+            font-weight: 300;
+            margin-bottom: var(--grid-3);
+        }
+
+        .section-subtitle {
+            font-size: var(--type-lg);
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--grid-6);
+        }
+
+        .service-card {
+            background: white;
+            padding: var(--grid-6);
+            border-radius: 12px;
+            border: 1px solid var(--color-border-light);
+            transition: all var(--transition-base);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-border);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent-muted);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--grid-4);
+            font-size: var(--type-xl);
+        }
+
+        .service-title {
+            font-size: var(--type-xl);
+            margin-bottom: var(--grid-2);
+        }
+
+        .service-description {
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-primary);
+            color: white;
+            padding: var(--grid-12) 0 var(--grid-6);
+            margin-top: var(--section-padding);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: var(--grid-8);
+            margin-bottom: var(--grid-8);
+        }
+
+        .footer-section h4 {
+            font-size: var(--type-lg);
+            margin-bottom: var(--grid-3);
+            font-weight: 500;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: var(--grid-6);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--type-sm);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-column: span 12;
+            }
+
+            .trust-items {
+                gap: var(--grid-4);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--grid-6);
+            }
+
+            .chat-window {
+                width: calc(100vw - var(--grid-8));
+                max-width: 380px;
+                height: calc(100vh - 120px);
+                bottom: 80px;
+                right: var(--grid-4);
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--grid-2);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-primary);
+            margin: 4px 0;
+            transition: all var(--transition-fast);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: var(--section-padding) 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: var(--type-3xl);
+            margin-bottom: var(--grid-4);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--grid-4);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: var(--grid-6);
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--chat-primary);
+            outline-offset: 2px;
+        }
+
+        /* Performance optimizations */
+        .will-change-transform {
+            will-change: transform;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Trust Banner -->
+    <div class="trust-banner">
+        <div class="container">
+            <div class="trust-items">
+                <div class="trust-item">
+                    <span class="trust-metric">$2.8B+</span>
+                    <span>Total Transactions</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-metric">IADA</span>
+                    <span>Accredited Dealer</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-metric">24/7</span>
+                    <span>Concierge Service</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">Elite Aircraft</a>
+                <div class="nav-links">
+                    <a href="/inventory" class="nav-link">Inventory</a>
+                    <a href="/services" class="nav-link">Services</a>
+                    <a href="/about" class="nav-link">About</a>
+                    <a href="/contact" class="nav-link">Contact</a>
+                    <a href="/inventory" class="btn btn-primary">View Aircraft</a>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="grid">
+                <div class="hero-content">
+                    <h1>Premium Aircraft Brokerage for Discerning Clients</h1>
+                    <p class="hero-subtitle">
+                        Experience the difference of working with aviation experts who understand 
+                        that acquiring an aircraft is more than a transaction—it's a transformation 
+                        in how you conduct business globally.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="/inventory" class="btn btn-primary">Explore Aircraft</a>
+                        <a href="#contact" class="btn btn-secondary">Schedule Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Comprehensive Aviation Services</h2>
+                <p class="section-subtitle">
+                    From acquisition to ongoing management, we provide end-to-end solutions 
+                    for your aviation needs with Swiss precision and discretion.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✈️</div>
+                    <h3 class="service-title">Aircraft Acquisition</h3>
+                    <p class="service-description">
+                        Navigate the complex acquisition process with confidence. Our experts 
+                        identify opportunities, negotiate terms, and manage every detail.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Market Intelligence</h3>
+                    <p class="service-description">
+                        Access proprietary market data and insights. Make informed decisions 
+                        based on real-time valuations and trend analysis.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3 class="service-title">Transaction Management</h3>
+                    <p class="service-description">
+                        Experience seamless transactions with our white-glove service. From 
+                        LOI to closing, we ensure every detail is perfect.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Elevate Your Aviation Experience?</h2>
+                <p class="section-subtitle">
+                    Join the elite circle of clients who trust us with their most important 
+                    aviation decisions. Your perfect aircraft awaits.
+                </p>
+                <div class="cta-buttons">
+                    <a href="/inventory" class="btn btn-primary">Browse Inventory</a>
+                    <a href="tel:+1-555-ELITE-JET" class="btn btn-secondary">Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Elite Aircraft Brokerage</h4>
+                    <p>
+                        Premium aviation services for discerning clients worldwide. 
+                        IADA accredited with over two decades of excellence in 
+                        aircraft transactions.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="/inventory">Current Inventory</a></p>
+                    <p><a href="/services">Our Services</a></p>
+                    <p><a href="/about">About Us</a></p>
+                    <p><a href="/contact">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="tel:+1-555-ELITE-JET">+1-555-ELITE-JET</a></p>
+                    <p><a href="mailto:info@eliteaircraft.com">info@eliteaircraft.com</a></p>
+                    <p>Available 24/7 for qualified clients</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Elite Aircraft Brokerage. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-bubble-trigger" onclick="toggleChat()">
+            <div class="chat-pulse"></div>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L1 23l6.71-1.97C9.02 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.41 0-2.73-.36-3.88-.99l-.28-.15-2.9.85.85-2.9-.15-.28C4.36 14.73 4 13.41 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.5-6c-.25 0-.45-.2-.5-.42-.25-1.43-1.44-2.58-2.95-2.58-1.65 0-3 1.35-3 3s1.35 3 3 3c.81 0 1.55-.33 2.09-.86.27-.27.71-.27.98 0 .27.27.27.71 0 .98-.81.81-1.89 1.26-3.07 1.26-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5c2.13 0 3.92 1.49 4.38 3.49.05.22-.08.43-.29.51-.05.02-.09.02-.14.02z"/>
+            </svg>
+        </div>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div>
+                    <div class="chat-header-info">
+                        <div class="chat-status"></div>
+                        <div>
+                            <h4>Aviation Concierge</h4>
+                            <p class="chat-header-subtitle">Typically responds in seconds</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="chat-close" onclick="toggleChat()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message message-agent">
+                    <div class="message-bubble">
+                        Welcome to Elite Aircraft. I'm here to help you find the perfect aircraft for your needs. How may I assist you today?
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+            
+            <div class="chat-quick-replies">
+                <button class="quick-reply" onclick="sendQuickReply('Browse aircraft')">Browse aircraft</button>
+                <button class="quick-reply" onclick="sendQuickReply('Sell my aircraft')">Sell my aircraft</button>
+                <button class="quick-reply" onclick="sendQuickReply('Get market analysis')">Get market analysis</button>
+                <button class="quick-reply" onclick="sendQuickReply('Schedule consultation')">Schedule consultation</button>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" class="chat-input-field" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button class="chat-send" onclick="sendMessage()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chat Widget Functionality
+        let chatOpen = false;
+        let conversationState = 'initial';
+        let leadData = {};
+
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.classList.toggle('active');
+            
+            if (chatOpen && conversationState === 'initial') {
+                // Auto-initiate after 2 seconds
+                setTimeout(() => {
+                    addAgentMessage("I notice you're exploring our premium aircraft services. Are you currently in the market for an aircraft?");
+                    conversationState = 'qualifying';
+                }, 2000);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+                processUserMessage(message);
+            }
+        }
+
+        function sendQuickReply(reply) {
+            addUserMessage(reply);
+            processUserMessage(reply);
+        }
+
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message message-user';
+            messageElement.innerHTML = `
+                <div class="message-bubble">${message}</div>
+                <div class="message-time">${getCurrentTime()}</div>
+            `;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addAgentMessage(message, showTyping = true) {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            if (showTyping) {
+                // Show typing indicator
+                const typingElement = document.createElement('div');
+                typingElement.className = 'chat-message message-agent';
+                typingElement.id = 'typing-indicator';
+                typingElement.innerHTML = `
+                    <div class="chat-typing">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                `;
+                messagesContainer.appendChild(typingElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Replace with actual message after delay
+                setTimeout(() => {
+                    typingElement.remove();
+                    const messageElement = document.createElement('div');
+                    messageElement.className = 'chat-message message-agent';
+                    messageElement.innerHTML = `
+                        <div class="message-bubble">${message}</div>
+                        <div class="message-time">${getCurrentTime()}</div>
+                    `;
+                    messagesContainer.appendChild(messageElement);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 1500);
+            } else {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'chat-message message-agent';
+                messageElement.innerHTML = `
+                    <div class="message-bubble">${message}</div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                `;
+                messagesContainer.appendChild(messageElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+
+        function addQualificationForm() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const formElement = document.createElement('div');
+            formElement.className = 'chat-message message-agent';
+            formElement.innerHTML = `
+                <div class="qualification-form">
+                    <h4 style="margin-bottom: var(--grid-3);">Let me gather some information to better assist you:</h4>
+                    <div class="form-group">
+                        <label class="form-label">What's your timeline for acquisition?</label>
+                        <select class="form-select" id="timeline">
+                            <option value="">Select timeline</option>
+                            <option value="immediate">Immediate (0-30 days)</option>
+                            <option value="short">1-3 months</option>
+                            <option value="medium">3-6 months</option>
+                            <option value="long">6-12 months</option>
+                            <option value="exploring">Just exploring</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Primary use for the aircraft?</label>
+                        <select class="form-select" id="usage">
+                            <option value="">Select primary use</option>
+                            <option value="business">Business travel</option>
+                            <option value="personal">Personal/Family</option>
+                            <option value="charter">Charter operations</option>
+                            <option value="both">Mixed use</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred aircraft category?</label>
+                        <select class="form-select" id="category">
+                            <option value="">Select category</option>
+                            <option value="light">Light Jets</option>
+                            <option value="midsize">Midsize Jets</option>
+                            <option value="super-mid">Super-Midsize Jets</option>
+                            <option value="heavy">Heavy Jets</option>
+                            <option value="ultra-long">Ultra-Long Range</option>
+                            <option value="turboprop">Turboprops</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your email (for detailed information)</label>
+                        <input type="email" class="form-input" id="email" placeholder="your@email.com">
+                    </div>
+                    <button class="form-submit" onclick="submitQualification()">Get Personalized Recommendations</button>
+                </div>
+                <div class="message-time">${getCurrentTime()}</div>
+            `;
+            messagesContainer.appendChild(formElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function submitQualification() {
+            const timeline = document.getElementById('timeline').value;
+            const usage = document.getElementById('usage').value;
+            const category = document.getElementById('category').value;
+            const email = document.getElementById('email').value;
+            
+            if (timeline && usage && category && email) {
+                leadData = { timeline, usage, category, email };
+                
+                // Hide form
+                const form = document.querySelector('.qualification-form').parentElement;
+                form.style.display = 'none';
+                
+                // Show confirmation
+                addUserMessage(`Timeline: ${timeline}, Use: ${usage}, Category: ${category}, Email: ${email}`);
+                
+                setTimeout(() => {
+                    addAgentMessage(`Perfect! Based on your requirements, I've identified 3 aircraft that match your criteria. I'm sending detailed specifications to ${email} right now.`);
+                    
+                    setTimeout(() => {
+                        addAgentMessage(`Would you like to schedule a call with one of our senior advisors to discuss these options? We have availability as early as tomorrow.`);
+                        conversationState = 'scheduling';
+                    }, 2000);
+                }, 1500);
+            }
+        }
+
+        function processUserMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (conversationState === 'qualifying') {
+                if (lowerMessage.includes('yes') || lowerMessage.includes('browse') || lowerMessage.includes('looking')) {
+                    setTimeout(() => {
+                        addAgentMessage("Excellent! I'd be happy to help you find the perfect aircraft.");
+                        setTimeout(() => {
+                            addQualificationForm();
+                        }, 1500);
+                    }, 1000);
+                } else if (lowerMessage.includes('sell')) {
+                    leadData.intent = 'seller';
+                    setTimeout(() => {
+                        addAgentMessage("I see you're interested in selling your aircraft. We have a proven track record of achieving top market value for our clients. What type of aircraft are you looking to sell?");
+                        conversationState = 'selling';
+                    }, 1000);
+                } else if (lowerMessage.includes('market') || lowerMessage.includes('analysis')) {
+                    leadData.intent = 'market-research';
+                    setTimeout(() => {
+                        addAgentMessage("Our market intelligence team tracks real-time valuations and trends. Which aircraft models are you interested in analyzing?");
+                        conversationState = 'market-analysis';
+                    }, 1000);
+                }
+            } else if (conversationState === 'scheduling') {
+                if (lowerMessage.includes('yes') || lowerMessage.includes('schedule') || lowerMessage.includes('call')) {
+                    setTimeout(() => {
+                        addAgentMessage("Wonderful! I'm checking our senior advisors' calendars now... I have availability tomorrow at 10 AM or 2 PM EST. Which works better for you?");
+                        conversationState = 'booking';
+                    }, 1000);
+                }
+            } else if (conversationState === 'initial') {
+                // Handle initial responses
+                processInitialQuery(message);
+            } else {
+                // Default intelligent response
+                setTimeout(() => {
+                    addAgentMessage("I understand. Let me connect you with a specialist who can better assist with your specific needs. May I have your phone number for a callback?");
+                }, 1000);
+            }
+        }
+
+        function processInitialQuery(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('aircraft') || lowerMessage.includes('jet') || lowerMessage.includes('plane')) {
+                setTimeout(() => {
+                    addAgentMessage("I can help you explore our current inventory. Are you looking to acquire an aircraft for business or personal use?");
+                    conversationState = 'qualifying';
+                }, 1000);
+            } else if (lowerMessage.includes('sell')) {
+                leadData.intent = 'seller';
+                setTimeout(() => {
+                    addAgentMessage("Our acquisition team helps owners achieve maximum value. What type of aircraft are you considering selling?");
+                    conversationState = 'selling';
+                }, 1000);
+            } else if (lowerMessage.includes('consultation') || lowerMessage.includes('meeting') || lowerMessage.includes('call')) {
+                setTimeout(() => {
+                    addAgentMessage("I'd be happy to arrange a consultation with one of our senior aviation advisors. What's the best email to send you some available times?");
+                    conversationState = 'scheduling';
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    addAgentMessage("I'm here to assist with aircraft acquisitions, sales, and aviation consulting. What brings you to Elite Aircraft today?");
+                    conversationState = 'qualifying';
+                }, 1000);
+            }
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+
+        // Auto-show chat widget after 30 seconds
+        setTimeout(() => {
+            const trigger = document.querySelector('.chat-bubble-trigger');
+            trigger.style.animation = 'pulse 1s ease-in-out 3';
+        }, 30000);
+
+        // Track user engagement
+        let lastActivity = Date.now();
+        document.addEventListener('mousemove', () => {
+            lastActivity = Date.now();
+        });
+
+        // Proactive engagement based on behavior
+        setInterval(() => {
+            const idleTime = Date.now() - lastActivity;
+            if (idleTime > 60000 && !chatOpen && conversationState === 'initial') {
+                // User idle for 1 minute
+                const trigger = document.querySelector('.chat-bubble-trigger');
+                trigger.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    trigger.style.transform = 'scale(1)';
+                }, 500);
+            }
+        }, 10000);
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                const perfData = window.performance.timing;
+                const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                console.log(`Page load time: ${pageLoadTime}ms`);
+            });
+        }
+    </script>
+</body>
+</html>
