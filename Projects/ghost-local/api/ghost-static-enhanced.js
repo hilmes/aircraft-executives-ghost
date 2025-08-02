@@ -380,6 +380,171 @@ function wrapInLayout(content, title, includeChat = true) {
             color: var(--color-ink);
         }
 
+        /* Luxury Quick-Access Navigation System */
+        .luxury-nav-bar {
+            position: fixed;
+            bottom: var(--safe-bottom);
+            left: var(--safe-left);
+            right: var(--safe-right);
+            background: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-top: 1px solid var(--glass-border);
+            padding: var(--space-sm) var(--space-md);
+            z-index: 1000;
+            display: none; /* Hidden by default, shown on mobile */
+        }
+
+        .nav-primary {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-quick-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: var(--touch-luxury);
+            min-height: var(--touch-luxury);
+            border-radius: 12px;
+            background: transparent;
+            border: none;
+            color: var(--color-graphite);
+            font-size: 1.5rem;
+            transition: all var(--transition-touch);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-quick-btn:hover,
+        .nav-quick-btn:focus {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--color-ink);
+            transform: translateY(-2px);
+        }
+
+        .nav-quick-btn.emergency {
+            color: var(--emergency-red);
+        }
+
+        .nav-quick-btn.emergency:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--emergency-red);
+        }
+
+        .nav-quick-label {
+            font-size: var(--type-xs);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* Enhanced Contact CTA System */
+        .instant-connect {
+            position: fixed;
+            top: calc(var(--thumb-zone) + var(--safe-top) + var(--space-md));
+            right: var(--space-md);
+            z-index: 999;
+            display: none; /* Hidden by default, shown on mobile */
+        }
+
+        .connect-now {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: var(--touch-luxury);
+            min-height: var(--touch-luxury);
+            background: var(--luxury-gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+            cursor: pointer;
+            transition: all var(--transition-touch);
+            animation: pulse-gold 2s infinite;
+        }
+
+        .connect-now:hover,
+        .connect-now:focus {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .response-time {
+            font-size: var(--type-xs);
+            margin-top: 2px;
+            opacity: 0.9;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
+        }
+
+        /* Trust Indicators for Mobile */
+        .mobile-trust-indicators {
+            position: fixed;
+            top: calc(var(--thumb-zone) + var(--safe-top) + var(--space-lg));
+            left: var(--space-md);
+            z-index: 998;
+            display: none; /* Hidden by default, shown on mobile */
+        }
+
+        .trust-indicator {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: var(--glass-blur);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 20px;
+            margin-bottom: var(--space-xs);
+            font-size: var(--type-xs);
+            color: var(--color-graphite);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .trust-indicator .icon {
+            margin-right: var(--space-xs);
+            font-size: 1rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: var(--space-xs);
+        }
+
+        .status-dot.active {
+            background: var(--success-green);
+            animation: pulse-green 1.5s infinite;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Show luxury navigation and CTAs on mobile */
+        @media (max-width: 768px) {
+            .luxury-nav-bar,
+            .instant-connect,
+            .mobile-trust-indicators {
+                display: block;
+            }
+            
+            /* Adjust main content for bottom navigation */
+            .main {
+                padding-bottom: calc(var(--touch-luxury) + var(--space-lg) + var(--safe-bottom));
+            }
+        }
+
         /* Forms - Honest inputs */
         .form-group {
             margin-bottom: var(--space-lg);
@@ -839,6 +1004,97 @@ function wrapInLayout(content, title, includeChat = true) {
     </footer>
 
     ${includeChat ? getChatWidget() : ''}
+
+    <!-- Luxury Quick-Access Navigation (Mobile Only) -->
+    <nav class="luxury-nav-bar">
+        <div class="nav-primary">
+            <a href="/inventory" class="nav-quick-btn" aria-label="Aircraft Inventory">
+                <span>✈️</span>
+                <div class="nav-quick-label">Inventory</div>
+            </a>
+            <a href="tel:+1-555-AIRCRAFT" class="nav-quick-btn" aria-label="Call Direct">
+                <span>📞</span>
+                <div class="nav-quick-label">Call</div>
+            </a>
+            <a href="/account" class="nav-quick-btn" aria-label="Client Account">
+                <span>👤</span>
+                <div class="nav-quick-label">Account</div>
+            </a>
+            <a href="tel:+1-555-URGENT" class="nav-quick-btn emergency" aria-label="Emergency Contact">
+                <span>🚨</span>
+                <div class="nav-quick-label">Urgent</div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Enhanced Contact CTA (Mobile Only) -->
+    <div class="instant-connect">
+        <button class="connect-now" onclick="initiateSpecialistCall()" aria-label="Connect with Specialist">
+            <span>📞</span>
+            <div class="response-time">< 15 min</div>
+        </button>
+    </div>
+
+    <!-- Mobile Trust Indicators -->
+    <div class="mobile-trust-indicators">
+        <div class="trust-indicator">
+            <span class="status-dot active"></span>
+            <span>Specialist Available</span>
+        </div>
+        <div class="trust-indicator">
+            <span class="icon">⚡</span>
+            <span>15-min Response</span>
+        </div>
+        <div class="trust-indicator">
+            <span class="icon">🏆</span>
+            <span>Fortune 500 Clients</span>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced mobile contact functionality
+        function initiateSpecialistCall() {
+            // Track luxury user interaction
+            console.log('Luxury user initiated specialist call');
+            
+            // Show contact options with immediate response guarantee
+            const options = [
+                { text: 'Call Now (+1-555-AIRCRAFT)', action: () => window.location.href = 'tel:+1-555-AIRCRAFT' },
+                { text: 'Text for Callback', action: () => window.location.href = 'sms:+1-555-AIRCRAFT?body=I need assistance with aircraft selection' },
+                { text: 'Schedule Video Call', action: () => window.location.href = '/contact?type=video-consultation' },
+                { text: 'WhatsApp (International)', action: () => window.open('https://wa.me/1555AIRCRAFT', '_blank') }
+            ];
+            
+            // For demonstration, just initiate call - in production this would show options
+            window.location.href = 'tel:+1-555-AIRCRAFT';
+        }
+
+        // Progressive Web App enhancements for luxury users
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(console.error);
+        }
+
+        // Voice input support detection
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            console.log('Voice input available for luxury users');
+        }
+
+        // Luxury user behavior tracking (privacy-compliant)
+        function trackLuxuryInteraction(type, data) {
+            // Track high-value user interactions for optimization
+            console.log('Luxury interaction:', type, data);
+        }
+
+        // Auto-hide trust indicators after 10 seconds to reduce clutter
+        setTimeout(() => {
+            const indicators = document.querySelector('.mobile-trust-indicators');
+            if (indicators) {
+                indicators.style.opacity = '0.7';
+                indicators.style.transition = 'opacity 1s ease';
+            }
+        }, 10000);
+    </script>
+
 </body>
 </html>`;
 }
@@ -3542,4 +3798,4 @@ module.exports = async (req, res) => {
       </html>
     `);
   }
-};module.exports = handler;
+};
