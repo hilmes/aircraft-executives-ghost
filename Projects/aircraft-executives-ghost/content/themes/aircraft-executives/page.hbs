@@ -1,0 +1,135 @@
+{{!< default}}
+
+{{#post}}
+<article class="post {{post_class}}">
+    <header class="post-header">
+        <h1 class="post-title">{{title}}</h1>
+    </header>
+
+    <section class="post-content">
+        {{content}}
+        
+        {{!-- Mobile-Optimized ROI Calculator --}}
+        {{#has slug="roi-calculator"}}
+        <div class="roi-calculator">
+            <h3>Aircraft Investment ROI Calculator</h3>
+            <form>
+                <div class="roi-form-group">
+                    <label for="purchase-price">Purchase Price ($)</label>
+                    <input type="number" name="purchase-price" id="purchase-price" placeholder="5,000,000" step="10000">
+                </div>
+                
+                <div class="roi-form-group">
+                    <label for="operating-cost">Annual Operating Cost ($)</label>
+                    <input type="number" name="operating-cost" id="operating-cost" placeholder="500,000" step="1000">
+                </div>
+                
+                <div class="roi-form-group">
+                    <label for="appreciation">Annual Appreciation Rate (%)</label>
+                    <input type="number" name="appreciation" id="appreciation" value="3" step="0.1" min="0" max="20">
+                </div>
+                
+                <div class="roi-form-group">
+                    <label for="years">Years of Ownership</label>
+                    <select name="years" id="years">
+                        <option value="3">3 years</option>
+                        <option value="5" selected>5 years</option>
+                        <option value="7">7 years</option>
+                        <option value="10">10 years</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="roi-calculate-btn">Calculate ROI</button>
+                
+                <div class="roi-results" style="display: none;">
+                    <!-- Results will be inserted here -->
+                </div>
+            </form>
+        </div>
+        {{/has}}
+        
+        {{!-- Progressive Disclosure Example for Aircraft Details --}}
+        {{#has slug="aircraft-details"}}
+        <div class="aircraft-card">
+            <div class="aircraft-card-header">
+                <h3 class="aircraft-card-title">2018 Gulfstream G650ER</h3>
+                <p class="aircraft-card-subtitle">Serial #6218 • 1,245 Total Hours</p>
+            </div>
+            
+            <div class="aircraft-card-content">
+                <p>Exceptional ultra-long-range business jet with pristine maintenance history and premium interior configuration.</p>
+                
+                {{!-- Progressive Disclosure Sections --}}
+                <div class="disclosure-section">
+                    <button class="disclosure-trigger" aria-expanded="false">
+                        <span>Aircraft Specifications</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="disclosure-content">
+                        <ul>
+                            <li><strong>Range:</strong> 7,500 nm</li>
+                            <li><strong>Max Speed:</strong> Mach 0.925</li>
+                            <li><strong>Ceiling:</strong> 51,000 ft</li>
+                            <li><strong>Passengers:</strong> Up to 19</li>
+                            <li><strong>Baggage:</strong> 195 cu ft</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="disclosure-section">
+                    <button class="disclosure-trigger" aria-expanded="false">
+                        <span>Maintenance & Inspections</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="disclosure-content">
+                        <ul>
+                            <li><strong>Annual:</strong> Current (Due: March 2025)</li>
+                            <li><strong>100-Hour:</strong> Current (Next: 1,300 hours)</li>
+                            <li><strong>Phase Inspection:</strong> Phase 1 Complete</li>
+                            <li><strong>Service Provider:</strong> Duncan Aviation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="disclosure-section">
+                    <button class="disclosure-trigger" aria-expanded="false">
+                        <span>Avionics & Equipment</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="disclosure-content">
+                        <ul>
+                            <li>Honeywell Primus Epic Flight Deck</li>
+                            <li>Enhanced Vision System (EVS)</li>
+                            <li>Synthetic Vision Technology (SVT)</li>
+                            <li>Predictive Windshear System</li>
+                            <li>Ka-band High-Speed Internet</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="disclosure-section">
+                    <button class="disclosure-trigger" aria-expanded="false">
+                        <span>Interior Configuration</span>
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="disclosure-content">
+                        <ul>
+                            <li><strong>Seating:</strong> 14 passengers, 4 living areas</li>
+                            <li><strong>Galley:</strong> Forward, fully equipped</li>
+                            <li><strong>Lavatory:</strong> Aft, with shower</li>
+                            <li><strong>Materials:</strong> Premium leather, exotic wood</li>
+                            <li><strong>Entertainment:</strong> Cabin Management System</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="aircraft-card-actions">
+                <button class="aircraft-card-btn primary">Request Information</button>
+                <button class="aircraft-card-btn secondary">Schedule Viewing</button>
+            </div>
+        </div>
+        {{/has}}
+    </section>
+</article>
+{{/post}}

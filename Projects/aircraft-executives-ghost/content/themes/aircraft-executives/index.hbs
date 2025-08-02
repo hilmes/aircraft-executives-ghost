@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+    {{!-- Document Settings --}}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {{!-- Base Meta --}}
+    <title>{{meta_title}}</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{!-- Styles --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
+
+    {{!-- This tag outputs SEO meta+structured data and other important settings --}}
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+
+    <div class="site-wrapper">
+        {{!-- Site Header --}}
+        <header class="site-header">
+            <div class="container">
+                <h1 class="site-title">
+                    <a href="{{@site.url}}">{{@site.title}}</a>
+                </h1>
+                
+                {{!-- Mobile Navigation Toggle --}}
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                
+                {{!-- Navigation Menu --}}
+                <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
+                    {{navigation}}
+                </nav>
+            </div>
+        </header>
+
+        {{!-- Main Content --}}
+        <main class="site-main">
+            {{!-- Everything else gets inserted here --}}
+            {{{body}}}
+        </main>
+
+        {{!-- Site Footer --}}
+        <footer class="site-footer">
+            <div class="container">
+                <p>&copy; {{date format="YYYY"}} {{@site.title}}</p>
+            </div>
+        </footer>
+    </div>
+
+    {{!-- Mobile Navigation JavaScript --}}
+    <script>
+        (function() {
+            'use strict';
+            
+            // Mobile navigation toggle functionality
+            const navToggle = document.getElementById('nav-toggle');
+            const siteNav = document.getElementById('site-nav');
+            
+            if (navToggle && siteNav) {
+                navToggle.addEventListener('click', function() {
+                    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    
+                    // Toggle states
+                    navToggle.setAttribute('aria-expanded', !isExpanded);
+                    navToggle.classList.toggle('active');
+                    siteNav.classList.toggle('active');
+                    
+                    // Prevent body scroll when nav is open
+                    document.body.style.overflow = isExpanded ? '' : 'hidden';
+                });
+                
+                // Close navigation when clicking on nav links
+                const navLinks = siteNav.querySelectorAll('a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        navToggle.classList.remove('active');
+                        siteNav.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+                
+                // Close navigation when pressing Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && siteNav.classList.contains('active')) {
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        navToggle.classList.remove('active');
+                        siteNav.classList.remove('active');
+                        document.body.style.overflow = '';
+                        navToggle.focus();
+                    }
+                });
+                
+                // Handle window resize - close mobile nav on desktop
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth >= 768 && siteNav.classList.contains('active')) {
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        navToggle.classList.remove('active');
+                        siteNav.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+            
+            // Progressive disclosure functionality
+            function initProgressiveDisclosure() {
+                const disclosureTriggers = document.querySelectorAll('.disclosure-trigger');
+                
+                disclosureTriggers.forEach(function(trigger) {
+                    trigger.addEventListener('click', function() {
+                        const content = trigger.nextElementSibling;
+                        const isExpanded = trigger.classList.contains('expanded');
+                        
+                        // Toggle states
+                        trigger.classList.toggle('expanded');
+                        trigger.setAttribute('aria-expanded', !isExpanded);
+                        
+                        if (content) {
+                            content.classList.toggle('expanded');
+                        }
+                    });
+                });
+            }
+            
+            // ROI Calculator functionality
+            function initROICalculator() {
+                const calculator = document.querySelector('.roi-calculator');
+                if (!calculator) return;
+                
+                const calculateBtn = calculator.querySelector('.roi-calculate-btn');
+                const resultsContainer = calculator.querySelector('.roi-results');
+                
+                if (calculateBtn) {
+                    calculateBtn.addEventListener('click', function() {
+                        // Get form values
+                        const purchasePrice = parseFloat(calculator.querySelector('input[name="purchase-price"]')?.value || 0);
+                        const annualOperatingCost = parseFloat(calculator.querySelector('input[name="operating-cost"]')?.value || 0);
+                        const annualAppreciation = parseFloat(calculator.querySelector('input[name="appreciation"]')?.value || 3);
+                        const yearsOwned = parseFloat(calculator.querySelector('input[name="years"]')?.value || 5);
+                        
+                        // Calculate ROI
+                        const totalOperatingCost = annualOperatingCost * yearsOwned;
+                        const appreciationValue = purchasePrice * (annualAppreciation / 100) * yearsOwned;
+                        const totalInvestment = purchasePrice + totalOperatingCost;
+                        const finalValue = purchasePrice + appreciationValue;
+                        const totalROI = finalValue - totalInvestment;
+                        const roiPercentage = totalInvestment > 0 ? (totalROI / totalInvestment) * 100 : 0;
+                        
+                        // Display results
+                        if (resultsContainer) {
+                            resultsContainer.innerHTML = `
+                                <div class="roi-result-item">
+                                    <span>Total Investment:</span>
+                                    <span>$${totalInvestment.toLocaleString()}</span>
+                                </div>
+                                <div class="roi-result-item">
+                                    <span>Projected Value:</span>
+                                    <span>$${finalValue.toLocaleString()}</span>
+                                </div>
+                                <div class="roi-result-item">
+                                    <span>Net ROI:</span>
+                                    <span class="${totalROI >= 0 ? 'text-success' : 'text-danger'}">
+                                        $${totalROI.toLocaleString()} (${roiPercentage.toFixed(1)}%)
+                                    </span>
+                                </div>
+                            `;
+                            resultsContainer.style.display = 'block';
+                        }
+                    });
+                }
+            }
+            
+            // Initialize all functionality when DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
+                initProgressiveDisclosure();
+                initROICalculator();
+            });
+            
+            // Add smooth scrolling for anchor links
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a[href^="#"]');
+                if (link) {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const target = document.getElementById(targetId);
+                    
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        })();
+    </script>
+
+    {{!-- Ghost outputs important scripts and data with this tag --}}
+    {{ghost_foot}}
+</body>
+</html>
