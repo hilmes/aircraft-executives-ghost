@@ -3542,4 +3542,4 @@ module.exports = async (req, res) => {
       </html>
     `);
   }
-};
+};module.exports = handler;
