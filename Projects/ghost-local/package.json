@@ -7,7 +7,7 @@
     "start": "node api/ghost-static.js",
     "dev": "node api/ghost-static.js",
     "build": "echo 'Static site - no build step required'",
-    "vercel-build": "echo 'Aircraft Executives site deployed successfully'"
+    "vercel-build": "mkdir -p public && echo 'Aircraft Executives Ghost CMS' > public/index.html && echo 'Site deployed successfully'"
   },
   "dependencies": {},
   "engines": {

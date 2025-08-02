@@ -10,57 +10,50 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* Hara Method Design System - Ma (Emptiness) as Foundation */
         :root {
-            /* Swiss Design Foundation Colors */
-            --primary-black: #000000;
-            --primary-white: #FFFFFF;
-            --gray-100: #F8F9FA;
-            --gray-200: #E9ECEF;
-            --gray-300: #DEE2E6;
-            --gray-400: #CED4DA;
-            --gray-500: #6C757D;
-            --gray-600: #495057;
-            --gray-700: #343A40;
-            --gray-800: #212529;
+            /* Material Palette - Ink on Paper */
+            --paper: #fefefe;
+            --ink: #1a1a1a;
+            --gray-100: #f5f5f5;
+            --gray-200: #e8e8e8;
+            --gray-300: #d0d0d0;
+            --gray-400: #a0a0a0;
+            --gray-500: #707070;
+            --gray-600: #505050;
             
-            /* Semantic Colors - Used sparingly */
-            --accent-blue: #0066CC;
-            --accent-gold: #D4AF37;
-            --danger-red: #DC3545;
-            --success-green: #28A745;
-            --warning-amber: #FFC107;
+            /* Single Accent - Aviation Blue */
+            --accent: #2563eb;
             
-            /* Typography Scale */
+            /* Mathematical Spacing - 8px Grid */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --space-10: 80px;
+            --space-12: 96px;
+            --space-16: 128px;
+            --space-20: 160px;
+            
+            /* Typography - Breathing Space */
             --type-xs: 0.75rem;
             --type-sm: 0.875rem;
             --type-base: 1rem;
             --type-lg: 1.125rem;
             --type-xl: 1.25rem;
             --type-2xl: 1.5rem;
-            --type-3xl: 1.875rem;
-            --type-4xl: 2.25rem;
-            
-            /* Spacing Scale */
-            --space-1: 0.25rem;
-            --space-2: 0.5rem;
-            --space-3: 0.75rem;
-            --space-4: 1rem;
-            --space-5: 1.25rem;
-            --space-6: 1.5rem;
-            --space-8: 2rem;
-            --space-10: 2.5rem;
-            --space-12: 3rem;
-            --space-16: 4rem;
-            --space-20: 5rem;
+            --type-3xl: 2rem;
+            --type-4xl: 2.5rem;
             
             /* Grid System */
             --grid-unit: 8px;
-            --max-width: 1440px;
+            --max-width: 1200px;
             
-            /* Animation Timings */
-            --transition-fast: 0.15s;
-            --transition-base: 0.25s;
-            --transition-slow: 0.35s;
+            /* Transitions - Natural Movement */
+            --transition-natural: 0.3s ease;
         }
         
         * {
@@ -70,66 +63,73 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: var(--type-base);
-            line-height: 1.5;
-            color: var(--gray-800);
-            background: var(--primary-white);
+            line-height: 1.8;
+            letter-spacing: 0.025em;
+            color: var(--ink);
+            background: var(--paper);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* Typography Hierarchy */
+        /* Typography - Minimalist Hierarchy */
         .type-display {
             font-size: var(--type-4xl);
-            font-weight: 300;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
+            font-weight: 200;
+            line-height: 1.2;
+            letter-spacing: 0.05em;
         }
         
         .type-heading-1 {
             font-size: var(--type-3xl);
-            font-weight: 500;
-            line-height: 1.2;
-            letter-spacing: -0.01em;
+            font-weight: 300;
+            line-height: 1.4;
+            letter-spacing: 0.025em;
         }
         
         .type-heading-2 {
             font-size: var(--type-2xl);
-            font-weight: 500;
-            line-height: 1.3;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.025em;
         }
         
         .type-heading-3 {
             font-size: var(--type-xl);
-            font-weight: 500;
-            line-height: 1.4;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 0.025em;
         }
         
         .type-body {
             font-size: var(--type-base);
             font-weight: 400;
-            line-height: 1.6;
+            line-height: 1.8;
+            letter-spacing: 0.025em;
         }
         
         .type-caption {
             font-size: var(--type-sm);
             font-weight: 400;
-            color: var(--gray-500);
-            line-height: 1.4;
+            color: var(--gray-600);
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
         
         .type-mono {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
             font-variant-numeric: tabular-nums;
+            letter-spacing: 0;
         }
         
-        /* Layout System */
+        /* Layout - Generous Margins */
         .container {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 var(--space-6);
+            padding: var(--space-10) var(--space-8);
         }
         
         .grid {
@@ -141,109 +141,114 @@
         .grid-3 { grid-template-columns: repeat(3, 1fr); }
         .grid-4 { grid-template-columns: repeat(4, 1fr); }
         
-        /* Header Navigation */
+        /* Header - Minimal Presence */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--gray-200);
+            background: var(--paper);
             z-index: 1000;
-            transition: transform var(--transition-base) ease;
+            transition: transform var(--transition-natural);
         }
         
         .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
-            padding: 0 var(--space-6);
+            height: var(--space-12);
+            padding: 0 var(--space-8);
+            border-bottom: 1px solid var(--gray-200);
         }
         
         .logo {
-            font-size: var(--type-xl);
-            font-weight: 600;
-            color: var(--primary-black);
+            font-size: var(--type-lg);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--ink);
             text-decoration: none;
+            text-transform: uppercase;
         }
         
         .nav-menu {
             display: flex;
-            gap: var(--space-8);
+            gap: var(--space-10);
             list-style: none;
         }
         
         .nav-link {
             color: var(--gray-600);
             text-decoration: none;
-            font-weight: 500;
-            transition: color var(--transition-base) ease;
+            font-weight: 400;
+            font-size: var(--type-sm);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color var(--transition-natural);
             position: relative;
+            padding: var(--space-1) 0;
         }
         
         .nav-link:hover,
         .nav-link.active {
-            color: var(--primary-black);
+            color: var(--ink);
         }
         
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: -24px;
+            bottom: -1px;
             left: 0;
             right: 0;
-            height: 2px;
-            background: var(--accent-blue);
+            height: 1px;
+            background: var(--ink);
         }
         
-        /* Main Content Area */
+        /* Main Content - Breathing Space */
         .main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
+            margin-top: var(--space-12);
+            min-height: calc(100vh - var(--space-12));
         }
         
-        /* Hero Section */
+        /* Hero Section - Pure Space */
         .hero {
             position: relative;
-            height: 70vh;
+            height: 60vh;
+            min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--gray-100) 0%, var(--primary-white) 100%);
+            background: var(--paper);
+            margin-bottom: var(--space-16);
         }
         
         .hero-content {
             text-align: center;
             z-index: 2;
-            max-width: 800px;
-            padding: 0 var(--space-6);
+            max-width: 600px;
+            padding: 0 var(--space-8);
         }
         
         .hero-title {
-            margin-bottom: var(--space-6);
+            margin-bottom: var(--space-4);
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.2s forwards;
+            animation: fadeIn 1s ease forwards;
         }
         
         .hero-subtitle {
+            color: var(--gray-600);
             margin-bottom: var(--space-8);
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.4s forwards;
+            animation: fadeIn 1s ease 0.2s forwards;
         }
         
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
             to {
                 opacity: 1;
-                transform: translateY(0);
             }
         }
         
-        /* WebGL Viewport */
+        /* WebGL Viewport - Subtle Presence */
         .webgl-viewport {
             position: absolute;
             top: 0;
@@ -251,6 +256,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            opacity: 0.1;
         }
         
         #aircraft-canvas {
@@ -259,98 +265,96 @@
             display: block;
         }
         
-        /* Mission Selector */
+        /* Mission Selector - Pure Structure */
         .mission-selector {
-            padding: var(--space-16) 0;
-            background: var(--primary-white);
+            padding: var(--space-20) 0;
+            background: var(--paper);
         }
         
         .mission-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-6);
-            margin-top: var(--space-12);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-16);
         }
         
         .mission-card {
             border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: var(--space-8);
-            background: var(--primary-white);
-            transition: all var(--transition-base) ease;
+            padding: var(--space-10);
+            background: var(--paper);
+            transition: border-color var(--transition-natural);
             cursor: pointer;
             position: relative;
-            overflow: hidden;
         }
         
         .mission-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+            border-color: var(--ink);
         }
         
         .mission-card.active {
-            border-color: var(--accent-blue);
-            background: var(--gray-100);
+            border-color: var(--ink);
+            background: var(--paper);
         }
         
         .mission-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: var(--space-4);
-            background: var(--accent-blue);
-            border-radius: 8px;
+            width: var(--space-6);
+            height: var(--space-6);
+            margin-bottom: var(--space-6);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-white);
-            font-size: var(--type-lg);
+            color: var(--ink);
+            font-size: var(--type-xl);
         }
         
         .mission-title {
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--space-3);
         }
         
         .mission-description {
             color: var(--gray-600);
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-6);
+            line-height: 1.8;
         }
         
         .mission-metrics {
             display: flex;
-            gap: var(--space-4);
+            flex-direction: column;
+            gap: var(--space-2);
             font-size: var(--type-sm);
-            color: var(--gray-500);
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
-        /* Aircraft Showcase */
+        /* Aircraft Showcase - Minimal Display */
         .aircraft-showcase {
             padding: var(--space-20) 0;
             background: var(--gray-100);
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
         }
         
         .aircraft-viewport {
-            height: 600px;
-            border-radius: 16px;
+            height: 500px;
             overflow: hidden;
-            margin-bottom: var(--space-12);
+            margin-bottom: var(--space-16);
             position: relative;
-            background: var(--primary-white);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            background: var(--paper);
+            border: 1px solid var(--gray-200);
         }
         
         .aircraft-controls {
             position: absolute;
-            bottom: var(--space-6);
-            left: var(--space-6);
-            right: var(--space-6);
+            bottom: var(--space-8);
+            left: var(--space-8);
+            right: var(--space-8);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: var(--space-4);
-            border-radius: 12px;
+            background: var(--paper);
+            padding: var(--space-4) var(--space-6);
+            border: 1px solid var(--gray-200);
             z-index: 10;
         }
         
@@ -360,19 +364,17 @@
         }
         
         .aircraft-thumb {
-            width: 80px;
-            height: 50px;
-            border-radius: 8px;
-            border: 2px solid transparent;
+            width: var(--space-10);
+            height: var(--space-6);
+            border: 1px solid var(--gray-200);
             cursor: pointer;
-            transition: all var(--transition-base) ease;
+            transition: border-color var(--transition-natural);
             background-size: cover;
             background-position: center;
         }
         
         .aircraft-thumb.active {
-            border-color: var(--accent-blue);
-            transform: scale(1.05);
+            border-color: var(--ink);
         }
         
         .view-controls {
@@ -382,41 +384,44 @@
         
         .control-btn {
             padding: var(--space-2) var(--space-4);
-            background: var(--primary-white);
+            background: transparent;
             border: 1px solid var(--gray-300);
-            border-radius: 6px;
             cursor: pointer;
-            transition: all var(--transition-base) ease;
+            transition: all var(--transition-natural);
             font-size: var(--type-sm);
-            font-weight: 500;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
         
         .control-btn:hover,
         .control-btn.active {
-            background: var(--accent-blue);
-            color: var(--primary-white);
-            border-color: var(--accent-blue);
+            background: var(--ink);
+            color: var(--paper);
+            border-color: var(--ink);
         }
         
-        /* Aircraft Specifications */
+        /* Aircraft Specifications - Pure Information */
         .aircraft-specs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--space-12);
-            margin-bottom: var(--space-16);
+            gap: var(--space-16);
+            margin-bottom: var(--space-20);
         }
         
         .spec-section {
-            background: var(--primary-white);
-            border-radius: 12px;
-            padding: var(--space-8);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            background: var(--paper);
+            padding: var(--space-10);
+            border: 1px solid var(--gray-200);
         }
         
         .spec-title {
-            margin-bottom: var(--space-6);
-            padding-bottom: var(--space-3);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
             border-bottom: 1px solid var(--gray-200);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: var(--type-sm);
         }
         
         .spec-grid {
@@ -427,29 +432,28 @@
         .spec-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: var(--space-3) 0;
-            border-bottom: 1px solid var(--gray-100);
-        }
-        
-        .spec-item:last-child {
-            border-bottom: none;
+            align-items: baseline;
+            padding: var(--space-4) 0;
         }
         
         .spec-label {
-            font-weight: 500;
+            font-weight: 400;
             color: var(--gray-600);
+            font-size: var(--type-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .spec-value {
-            font-weight: 600;
-            color: var(--primary-black);
+            font-weight: 300;
+            color: var(--ink);
+            font-size: var(--type-lg);
         }
         
-        /* Business Intelligence Panel */
+        /* Business Intelligence - Quiet Data */
         .business-intelligence {
             padding: var(--space-20) 0;
-            background: var(--primary-white);
+            background: var(--paper);
         }
         
         .intelligence-grid {
@@ -460,11 +464,10 @@
         }
         
         .intelligence-panel {
-            background: var(--gray-100);
-            border-radius: 16px;
-            padding: var(--space-8);
+            background: var(--paper);
+            border: 1px solid var(--gray-200);
+            padding: var(--space-10);
             position: relative;
-            overflow: hidden;
         }
         
         .panel-header {
@@ -481,19 +484,20 @@
         
         .panel-status {
             padding: var(--space-1) var(--space-3);
-            background: var(--success-green);
-            color: var(--primary-white);
-            border-radius: 20px;
+            background: transparent;
+            color: var(--gray-600);
+            border: 1px solid var(--gray-300);
             font-size: var(--type-xs);
-            font-weight: 500;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
-        /* ROI Calculator */
+        /* ROI Calculator - Functional Beauty */
         .roi-calculator {
-            background: var(--primary-white);
-            border-radius: 12px;
-            padding: var(--space-6);
-            margin-bottom: var(--space-6);
+            background: var(--paper);
+            padding: var(--space-8) 0;
+            margin-bottom: var(--space-8);
         }
         
         .calculator-input {
@@ -509,32 +513,33 @@
         
         .input-field {
             width: 100%;
-            padding: var(--space-3);
-            border: 1px solid var(--gray-300);
-            border-radius: 6px;
+            padding: var(--space-3) 0;
+            border: none;
+            border-bottom: 1px solid var(--gray-300);
+            background: transparent;
             font-size: var(--type-base);
-            transition: border-color var(--transition-base) ease;
+            transition: border-color var(--transition-natural);
         }
         
         .input-field:focus {
             outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+            border-bottom-color: var(--ink);
         }
         
         .roi-result {
-            background: var(--accent-blue);
-            color: var(--primary-white);
-            padding: var(--space-4);
-            border-radius: 8px;
+            background: transparent;
+            color: var(--ink);
+            padding: var(--space-8) 0;
             text-align: center;
-            margin-top: var(--space-4);
+            margin-top: var(--space-8);
+            border-top: 1px solid var(--gray-200);
         }
         
         .roi-value {
-            font-size: var(--type-2xl);
-            font-weight: 700;
-            margin-bottom: var(--space-1);
+            font-size: var(--type-4xl);
+            font-weight: 200;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-2);
         }
         
         /* Market Intelligence Chart */
@@ -551,18 +556,19 @@
             height: 100%;
         }
         
-        /* Route Planning */
+        /* Route Planning - Systematic Layout */
         .route-planning {
             padding: var(--space-20) 0;
             background: var(--gray-100);
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
         }
         
         .route-interface {
-            background: var(--primary-white);
-            border-radius: 16px;
+            background: var(--paper);
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-top: var(--space-12);
+            border: 1px solid var(--gray-200);
+            margin-top: var(--space-16);
         }
         
         .route-header {
@@ -608,11 +614,10 @@
             font-weight: 500;
         }
         
-        /* Consultation CTA */
+        /* Consultation - Quiet Call to Action */
         .consultation-cta {
             padding: var(--space-20) 0;
-            background: var(--primary-black);
-            color: var(--primary-white);
+            background: var(--paper);
             text-align: center;
         }
         
@@ -622,30 +627,32 @@
         }
         
         .cta-title {
-            color: var(--primary-white);
+            color: var(--ink);
             margin-bottom: var(--space-4);
         }
         
         .cta-subtitle {
-            color: var(--gray-400);
-            margin-bottom: var(--space-8);
+            color: var(--gray-600);
+            margin-bottom: var(--space-10);
+            line-height: 1.8;
         }
         
         .cta-button {
             display: inline-block;
-            padding: var(--space-4) var(--space-8);
-            background: var(--accent-blue);
-            color: var(--primary-white);
+            padding: var(--space-4) var(--space-10);
+            background: transparent;
+            color: var(--ink);
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all var(--transition-base) ease;
+            border: 1px solid var(--ink);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all var(--transition-natural);
         }
         
         .cta-button:hover {
-            background: var(--accent-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+            background: var(--ink);
+            color: var(--paper);
         }
         
         /* Responsive Design */
@@ -693,25 +700,12 @@
             }
         }
         
-        /* Loading States */
+        /* Loading States - Subtle Indication */
         .loading {
-            opacity: 0.6;
+            opacity: 0.3;
             pointer-events: none;
             position: relative;
-        }
-        
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 24px;
-            margin: -12px 0 0 -12px;
-            border: 2px solid var(--gray-300);
-            border-top-color: var(--accent-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            transition: opacity var(--transition-natural);
         }
         
         @keyframes spin {
@@ -743,10 +737,22 @@
             }
         }
         
-        /* Focus management */
+        /* Focus States - Minimal Indication */
         .focus-visible {
-            outline: 2px solid var(--accent-blue);
-            outline-offset: 2px;
+            outline: 1px solid var(--ink);
+            outline-offset: 4px;
+        }
+        
+        *:focus {
+            outline: none;
+        }
+        
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 1px solid var(--ink);
+            outline-offset: 4px;
         }
     </style>
 </head>
@@ -1174,7 +1180,7 @@
             initHeroWebGL(canvas) {
                 // Hero section Three.js setup for ambient aircraft display
                 const scene = new THREE.Scene();
-                scene.background = new THREE.Color(0xf8f9fa);
+                scene.background = new THREE.Color(0xfefefe);
                 
                 const camera = new THREE.PerspectiveCamera(
                     75,
@@ -1207,9 +1213,9 @@
                 // Aircraft geometry (simplified for performance)
                 const aircraftGeometry = this.createAircraftGeometry();
                 const aircraftMaterial = new THREE.MeshPhongMaterial({
-                    color: 0x2c3e50,
-                    shininess: 100,
-                    specular: 0x111111
+                    color: 0x1a1a1a,
+                    shininess: 20,
+                    specular: 0x333333
                 });
                 
                 const aircraft = new THREE.Mesh(aircraftGeometry, aircraftMaterial);
@@ -1283,8 +1289,8 @@
                 // Aircraft model
                 const aircraftGeometry = this.createDetailedAircraftGeometry();
                 const aircraftMaterial = new THREE.MeshPhongMaterial({
-                    color: 0x34495e,
-                    shininess: 100,
+                    color: 0x1a1a1a,
+                    shininess: 20,
                     specular: 0x333333
                 });
                 
